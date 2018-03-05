@@ -10,4 +10,4 @@ docker run \
     --name web2py \
     --tty \
     --volume web2py:/home/user \
-    rekgrpth/web2py
+    rekgrpth/web2py authbind --deep python /home/user/web2py/web2py.py
