@@ -58,6 +58,6 @@ ENV GROUP_ID 999
 
 RUN mkdir /docker-entrypoint.d
 COPY docker-entrypoint.sh /usr/local/bin/
-COPY init.sh /docker-entrypoint.d/
+#COPY init.sh /docker-entrypoint.d/
 RUN ln -s usr/local/bin/docker-entrypoint.sh / # backwards compat
 ENTRYPOINT ["docker-entrypoint.sh"]
