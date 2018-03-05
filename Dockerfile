@@ -23,7 +23,6 @@ RUN apt-get update --yes --quiet && \
         git \
         ipython \
         locales \
-        openjdk-8-jre-headless \
         python-dateutil \
         python-git \
         python-jwt \
