@@ -55,6 +55,7 @@ ENV LANG ru_RU.UTF-8
 ENV HOME /home/user
 ENV USER_ID 999
 ENV GROUP_ID 999
+ENV PASSWORD web2py
 
 WORKDIR /home/user/web2py
 
