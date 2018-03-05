@@ -1,4 +1,4 @@
-FROM debian
+FROM debian:jessie
 
 MAINTAINER RekGRpth
 
@@ -17,7 +17,7 @@ RUN set -x \
 	&& apt-get purge -y --auto-remove ca-certificates wget
 
 RUN apt-get update --yes --quiet && \
-    apt-get full-upgrade --yes --quiet && \
+    apt-get upgrade --yes --quiet && \
     apt-get install --yes --quiet --no-install-recommends \
         authbind \
         git \
