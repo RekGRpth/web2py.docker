@@ -20,6 +20,7 @@ RUN apt-get update --yes --quiet && \
     apt-get upgrade --yes --quiet && \
     apt-get install --yes --quiet --no-install-recommends \
         authbind \
+        ca-certificates \
         git \
         ipython \
         locales \
