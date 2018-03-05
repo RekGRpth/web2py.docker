@@ -56,9 +56,8 @@ ENV HOME /home/user
 ENV USER_ID 999
 ENV GROUP_ID 999
 
-WORKDIR /home/user/web2py
-
 RUN mkdir /docker-entrypoint.d
 COPY docker-entrypoint.sh /usr/local/bin/
+COPY init.sh /docker-entrypoint.d/
 RUN ln -s usr/local/bin/docker-entrypoint.sh / # backwards compat
 ENTRYPOINT ["docker-entrypoint.sh"]
