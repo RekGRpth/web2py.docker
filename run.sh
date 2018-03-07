@@ -3,6 +3,7 @@
 docker pull rekgrpth/web2py && \
 docker volume create web2py && \
 docker run \
+    --add-host $(host $(hostname) | cut -d ' ' -f 1):$(ip -4 addr show docker0 | grep -oP 'inet \K[\d.]+') \
     --detach \
     --env USER_ID=$(id -u) \
     --env GROUP_ID=$(id -g) \
