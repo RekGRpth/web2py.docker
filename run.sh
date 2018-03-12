@@ -9,7 +9,7 @@ docker run \
     --env GROUP_ID=$(id -g) \
     --hostname web2py \
     --name web2py \
-    --publish 443:4444 \
+    --publish 444:443 \
     --volume /etc/certs/t72.crt:/etc/nginx/ssl/web2py.crt:ro \
     --volume /etc/certs/t72.key:/etc/nginx/ssl/web2py.key:ro \
     --volume web2py:/home/user \

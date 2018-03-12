@@ -6,11 +6,12 @@ RUN apt-get update --yes --quiet && \
     apt-get full-upgrade --yes --quiet && \
     apt-get install --yes --quiet --no-install-recommends \
         ca-certificates \
+        curl \
         git \
         gosu \
         ipython \
         locales \
-        nginx \
+        nginx-full \
         python-dateutil \
         python-git \
         python-jwt \
@@ -28,12 +29,14 @@ RUN apt-get update --yes --quiet && \
         sshpass \
         supervisor \
         uwsgi \
+        uwsgi-core \
+        uwsgi-emperor \
         uwsgi-plugin-python \
+        wget \
         && \
     mkdir --parents /home/user && \
     groupadd --system user && \
     useradd --system --gid user --home-dir /home/user --shell /sbin/nologin user && \
-    usermod --append --groups video user && \
     ln --force --symbolic /usr/share/zoneinfo/Asia/Yekaterinburg /etc/localtime && \
     echo "Asia/Yekaterinburg" > /etc/timezone && \
     apt-get remove --quiet --auto-remove --yes && \
@@ -66,3 +69,5 @@ ADD supervisor.conf /etc/supervisor/conf.d/
 CMD ["supervisord", "-n"]
 
 #WORKDIR $HOME/web2py
+
+WORKDIR /home/user/web2py
