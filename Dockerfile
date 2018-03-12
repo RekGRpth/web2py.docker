@@ -1,28 +1,16 @@
-FROM debian:jessie
+FROM debian
 
 MAINTAINER RekGRpth
 
-# grab gosu for easy step-down from root
-ENV GOSU_VERSION 1.10
-RUN set -x \
-	&& apt-get update && apt-get install -y --no-install-recommends ca-certificates wget && rm -rf /var/lib/apt/lists/* \
-	&& wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture)" \
-	&& wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture).asc" \
-	&& export GNUPGHOME="$(mktemp -d)" \
-	&& gpg --keyserver ha.pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4 \
-	&& gpg --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu \
-	&& rm -rf "$GNUPGHOME" /usr/local/bin/gosu.asc \
-	&& chmod +x /usr/local/bin/gosu \
-	&& gosu nobody true \
-	&& apt-get purge -y --auto-remove ca-certificates wget
-
 RUN apt-get update --yes --quiet && \
-    apt-get upgrade --yes --quiet && \
+    apt-get full-upgrade --yes --quiet && \
     apt-get install --yes --quiet --no-install-recommends \
         ca-certificates \
         git \
+        gosu \
         ipython \
         locales \
+        nginx \
         python-dateutil \
         python-git \
         python-jwt \
@@ -38,6 +26,7 @@ RUN apt-get update --yes --quiet && \
         python-tk \
         python-xmltodict \
         sshpass \
+        uwsgi-plugin-python \
         && \
     mkdir --parents /home/user && \
     groupadd --system user && \

@@ -8,7 +8,6 @@ docker run \
     --env USER_ID=$(id -u) \
     --env GROUP_ID=$(id -g) \
     --hostname web2py \
-    --link postgres \
     --name web2py \
     --publish 4444:4444 \
     --volume /etc/certs/t72.crt:/etc/certs/cert.crt:ro \
