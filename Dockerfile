@@ -65,6 +65,6 @@ ADD entrypoint.sh /
 RUN chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
 
-CMD ["supervisord", "-n"]
-
 WORKDIR $HOME/web2py
+
+CMD ["/usr/bin/supervisord"]
