@@ -29,7 +29,6 @@ RUN apt-get update --yes --quiet && \
         sshpass \
         supervisor \
         uwsgi \
-        uwsgi-core \
         uwsgi-plugin-python \
         wget \
         && \
@@ -58,7 +57,8 @@ RUN mkdir -p /docker-entrypoint.d && \
 ADD gzip_static.conf /etc/nginx/conf.d/web2py/gzip_static.conf
 ADD gzip.conf /etc/nginx/conf.d/web2py/gzip.conf
 ADD web2py /etc/nginx/sites-enabled/web2py
-ADD web2py.ini /etc/uwsgi/apps-enabled/web2py.ini
+#ADD web2py.ini /etc/uwsgi/apps-enabled/web2py.ini
+ADD web2py.ini /etc/uwsgi/web2py.ini
 ADD supervisor.conf /etc/supervisor/conf.d/
 
 #COPY init.sh /docker-entrypoint.d/
