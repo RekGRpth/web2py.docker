@@ -41,32 +41,30 @@ RUN apt-get update --yes --quiet && \
     apt-get clean --quiet --yes && \
     rm --recursive --force /var/lib/apt/lists/* && \
     chown -R user:user /home/user && \
-    localedef --inputfile=ru_RU --force --charmap=UTF-8 --alias-file=/usr/share/locale/locale.alias ru_RU.UTF-8
+    localedef --inputfile=ru_RU --force --charmap=UTF-8 --alias-file=/usr/share/locale/locale.alias ru_RU.UTF-8 && \
+    mkdir --parents /etc/nginx/conf.d/web2py && \
+    mkdir --parents /etc/nginx/ssl && \
+    mkdir --parents /etc/uwsgi && \
+    mkdir --parents /var/log/uwsgi && \
+    rm --force /etc/nginx/sites-enabled/default /etc/nginx/sites-available/default && \
+    echo "daemon off;" >> /etc/nginx/nginx.conf
 
+ENV HOME /home/user
 ENV LANG ru_RU.UTF-8
-#ENV HOME /home/user
-#ENV USER_ID 999
-#ENV GROUP_ID 999
+ENV USER_ID 999
+ENV GROUP_ID 999
+ENV UWSGI_INI /etc/uwsgi/uwsgi.ini
 
-RUN mkdir -p /docker-entrypoint.d && \
-    mkdir -p /etc/nginx/conf.d/web2py && \
-    mkdir -p /etc/nginx/ssl && \
-    rm /etc/nginx/sites-enabled/default /etc/nginx/sites-available/default && \
-    sed -i "s|^user www-data;$|user user;|" "/etc/nginx/nginx.conf"
-#COPY docker-entrypoint.sh /usr/local/bin/
-ADD gzip_static.conf /etc/nginx/conf.d/web2py/gzip_static.conf
-ADD gzip.conf /etc/nginx/conf.d/web2py/gzip.conf
-ADD web2py /etc/nginx/sites-enabled/web2py
-#ADD web2py.ini /etc/uwsgi/apps-enabled/web2py.ini
-ADD web2py.ini /etc/uwsgi/web2py.ini
-ADD supervisor.conf /etc/supervisor/conf.d/
+ADD gzip.conf /etc/nginx/conf.d/web2py/
+ADD gzip_static.conf /etc/nginx/conf.d/web2py/
+ADD nginx.conf /etc/nginx/sites-enabled/
+ADD supervisord.conf /etc/supervisor/conf.d/
+ADD uwsgi.ini /etc/uwsgi/
 
-#COPY init.sh /docker-entrypoint.d/
-#RUN ln -s usr/local/bin/docker-entrypoint.sh / # backwards compat
-#ENTRYPOINT ["docker-entrypoint.sh"]
+ADD entrypoint.sh /
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
 
 CMD ["supervisord", "-n"]
 
-#WORKDIR $HOME/web2py
-
-WORKDIR /home/user/web2py
+WORKDIR $HOME/web2py
