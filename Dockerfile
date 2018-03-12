@@ -56,7 +56,7 @@ ADD gzip.conf /etc/nginx/conf.d/web2py/gzip.conf
 ADD web2py /etc/nginx/sites-enabled/web2py
 ADD web2py.ini /etc/uwsgi/apps-enabled/web2py.ini
 
-#COPY init.sh /docker-entrypoint.d/
+COPY init.sh /docker-entrypoint.d/
 RUN ln -s usr/local/bin/docker-entrypoint.sh / # backwards compat
 ENTRYPOINT ["docker-entrypoint.sh"]
 
