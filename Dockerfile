@@ -50,7 +50,7 @@ ENV LANG ru_RU.UTF-8
 RUN mkdir -p /docker-entrypoint.d && \
     mkdir -p /etc/nginx/conf.d/web2py && \
     mkdir -p /etc/nginx/ssl && \
-    rm /etc/nginx/sites-enabled/default && \
+    rm /etc/nginx/sites-enabled/default /etc/nginx/sites-available/default && \
     sed -i "s|^user www-data;$|user user;|" "/etc/nginx/nginx.conf"
 #COPY docker-entrypoint.sh /usr/local/bin/
 ADD gzip_static.conf /etc/nginx/conf.d/web2py/gzip_static.conf
@@ -65,4 +65,4 @@ ADD supervisor.conf /etc/supervisor/conf.d/
 
 CMD ["supervisord", "-n"]
 
-WORKDIR $HOME/web2py
+#WORKDIR $HOME/web2py
