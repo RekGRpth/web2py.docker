@@ -26,6 +26,7 @@ RUN apt-get update --yes --quiet && \
         python-tk \
         python-xmltodict \
         sshpass \
+        uwsgi \
         uwsgi-plugin-python \
         && \
     mkdir --parents /home/user && \
@@ -58,3 +59,5 @@ ADD web2py.ini /etc/uwsgi/apps-enabled/web2py.ini
 #COPY init.sh /docker-entrypoint.d/
 RUN ln -s usr/local/bin/docker-entrypoint.sh / # backwards compat
 ENTRYPOINT ["docker-entrypoint.sh"]
+
+WORKDIR $HOME/web2py
