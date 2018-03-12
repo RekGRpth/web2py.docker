@@ -42,22 +42,23 @@ RUN apt-get update --yes --quiet && \
     localedef --inputfile=ru_RU --force --charmap=UTF-8 --alias-file=/usr/share/locale/locale.alias ru_RU.UTF-8
 
 ENV LANG ru_RU.UTF-8
-ENV HOME /home/user
-ENV USER_ID 999
-ENV GROUP_ID 999
+#ENV HOME /home/user
+#ENV USER_ID 999
+#ENV GROUP_ID 999
 
 RUN mkdir -p /docker-entrypoint.d && \
     mkdir -p /etc/nginx/conf.d/web2py && \
     mkdir -p /etc/nginx/ssl && \
-    rm /etc/nginx/sites-enabled/default
-COPY docker-entrypoint.sh /usr/local/bin/
+    rm /etc/nginx/sites-enabled/default && \
+    sed -i "s|^user www-data;$|user user;|" "/etc/nginx/nginx.conf"
+#COPY docker-entrypoint.sh /usr/local/bin/
 ADD gzip_static.conf /etc/nginx/conf.d/web2py/gzip_static.conf
 ADD gzip.conf /etc/nginx/conf.d/web2py/gzip.conf
 ADD web2py /etc/nginx/sites-enabled/web2py
 ADD web2py.ini /etc/uwsgi/apps-enabled/web2py.ini
 
-COPY init.sh /docker-entrypoint.d/
-RUN ln -s usr/local/bin/docker-entrypoint.sh / # backwards compat
-ENTRYPOINT ["docker-entrypoint.sh"]
+#COPY init.sh /docker-entrypoint.d/
+#RUN ln -s usr/local/bin/docker-entrypoint.sh / # backwards compat
+#ENTRYPOINT ["docker-entrypoint.sh"]
 
-WORKDIR $HOME/web2py
+#WORKDIR $HOME/web2py
