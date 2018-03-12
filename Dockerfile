@@ -59,7 +59,7 @@ ADD gzip.conf /etc/nginx/conf.d/web2py/
 ADD gzip_static.conf /etc/nginx/conf.d/web2py/
 ADD nginx.conf /etc/nginx/sites-enabled/
 ADD supervisord.conf /etc/supervisor/conf.d/
-ADD uwsgi.ini /etc/uwsgi/
+ADD uwsgi.ini /etc/uwsgi/apps-enabled/
 
 ADD entrypoint.sh /
 RUN chmod +x /entrypoint.sh
