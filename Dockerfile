@@ -30,7 +30,6 @@ RUN apt-get update --yes --quiet && \
         supervisor \
         uwsgi \
         uwsgi-core \
-        uwsgi-emperor \
         uwsgi-plugin-python \
         wget \
         && \
