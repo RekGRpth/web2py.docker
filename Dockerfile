@@ -45,7 +45,7 @@ ENV HOME /home/user
 ENV LANG ru_RU.UTF-8
 ENV USER_ID 999
 ENV GROUP_ID 999
-#ENV UWSGI_INI /etc/uwsgi/uwsgi.ini
+ENV PROCESSES auto
 
 ADD gzip.conf /etc/nginx/conf.d/web2py/
 ADD gzip_static.conf /etc/nginx/conf.d/web2py/
