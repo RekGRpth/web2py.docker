@@ -9,7 +9,7 @@ docker run \
     --detach \
     --env USER_ID=$(id -u) \
     --env GROUP_ID=$(id -g) \
-    --env PROCESSES=$(nproc --all) \
+    --env PROCESSES=4 \
     --hostname web2py \
     --name web2py \
     --publish 4444:4444 \
