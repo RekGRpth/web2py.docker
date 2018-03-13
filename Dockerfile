@@ -6,9 +6,6 @@ RUN apt-get update --yes --quiet && \
     apt-get full-upgrade --yes --quiet && \
     apt-get install --yes --quiet --no-install-recommends \
         ca-certificates \
-        curl \
-        git \
-        gosu \
         ipython \
         locales \
         nginx-full \
@@ -26,11 +23,9 @@ RUN apt-get update --yes --quiet && \
         python-suds \
         python-tk \
         python-xmltodict \
-        sshpass \
         supervisor \
         uwsgi \
         uwsgi-plugin-python \
-        wget \
         && \
     mkdir --parents /home/user && \
     groupadd --system user && \
@@ -43,9 +38,6 @@ RUN apt-get update --yes --quiet && \
     chown -R user:user /home/user && \
     localedef --inputfile=ru_RU --force --charmap=UTF-8 --alias-file=/usr/share/locale/locale.alias ru_RU.UTF-8 && \
     mkdir --parents /etc/nginx/conf.d/web2py && \
-    mkdir --parents /etc/nginx/ssl && \
-    mkdir --parents /etc/uwsgi && \
-    mkdir --parents /var/log/uwsgi && \
     rm --force /etc/nginx/sites-enabled/default /etc/nginx/sites-available/default && \
     echo "daemon off;" >> /etc/nginx/nginx.conf
 
