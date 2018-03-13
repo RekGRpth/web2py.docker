@@ -1,5 +1,7 @@
 #!/bin/sh
 
+docker stop web2py && \
+docker rm web2py && \
 docker pull rekgrpth/web2py && \
 docker volume create web2py && \
 docker run \
