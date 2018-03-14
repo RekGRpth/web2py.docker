@@ -39,8 +39,8 @@ RUN apt-get update --yes --quiet && \
     mkdir --parents /etc/nginx/conf.d/web2py && \
     rm --force /etc/nginx/sites-enabled/default /etc/nginx/sites-available/default && \
     echo "daemon off;" >> /etc/nginx/nginx.conf && \
-    echo '"\e[A": history-search-backward' >> /etc/inputrc && \
-    echo '"\e[B": history-search-forward' >> /etc/inputrc
+    echo "\"\\e[A\": history-search-backward" >> /etc/inputrc && \
+    echo "\"\\e[B\": history-search-forward" >> /etc/inputrc
 
 
 ENV HOME /home/user
