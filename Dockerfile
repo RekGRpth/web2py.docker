@@ -19,9 +19,9 @@ RUN apt-get update --yes --quiet && \
         python3-psutil \
         python3-psycopg2 \
         python3-pygraphviz \
+        python3-pyldap \
         python3-sh \
         python3-suds \
-        python3-tk \
         python3-xmltodict \
         supervisor \
         uwsgi \
@@ -39,7 +39,10 @@ RUN apt-get update --yes --quiet && \
     localedef --inputfile=ru_RU --force --charmap=UTF-8 --alias-file=/usr/share/locale/locale.alias ru_RU.UTF-8 && \
     mkdir --parents /etc/nginx/conf.d/web2py && \
     rm --force /etc/nginx/sites-enabled/default /etc/nginx/sites-available/default && \
-    echo "daemon off;" >> /etc/nginx/nginx.conf
+    echo "daemon off;" >> /etc/nginx/nginx.conf && \
+    echo '"\e[A": history-search-backward' >> /etc/inputrc && \
+    echo '"\e[B": history-search-forward' >> /etc/inputrc
+
 
 ENV HOME /home/user
 ENV LANG ru_RU.UTF-8
