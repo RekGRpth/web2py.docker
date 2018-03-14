@@ -1,4 +1,4 @@
-FROM debian
+FROM python:3-slim-stretch
 
 MAINTAINER RekGRpth
 
