@@ -6,26 +6,26 @@ RUN apt-get update --yes --quiet && \
     apt-get full-upgrade --yes --quiet && \
     apt-get install --yes --quiet --no-install-recommends \
         ca-certificates \
-        ipython \
+        ipython3 \
         locales \
         nginx-full \
-        python-dateutil \
-        python-git \
-        python-jwt \
-        python-ldap \
-        python-lxml \
-        python-netaddr \
-        python-openssl \
-        python-psutil \
-        python-psycopg2 \
-        python-pygraphviz \
-        python-sh \
-        python-suds \
-        python-tk \
-        python-xmltodict \
+        python3-dateutil \
+        python3-git \
+        python3-jwt \
+        python3-ldap \
+        python3-lxml \
+        python3-netaddr \
+        python3-openssl \
+        python3-psutil \
+        python3-psycopg2 \
+        python3-pygraphviz \
+        python3-sh \
+        python3-suds \
+        python3-tk \
+        python3-xmltodict \
         supervisor \
         uwsgi \
-        uwsgi-plugin-python \
+        uwsgi-plugin-python3 \
         && \
     mkdir --parents /home/user && \
     groupadd --system user && \
