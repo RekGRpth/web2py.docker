@@ -12,7 +12,7 @@ RUN apt-get update --yes --quiet && \
         python3-dateutil \
         python3-git \
         python3-jwt \
-        python3-ldap \
+        python3-ldap3 \
         python3-lxml \
         python3-netaddr \
         python3-openssl \
