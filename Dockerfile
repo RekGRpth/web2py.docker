@@ -1,4 +1,4 @@
-FROM python:3-slim-stretch
+FROM debian:stretch-slim
 
 MAINTAINER RekGRpth
 
@@ -41,7 +41,6 @@ RUN apt-get update --yes --quiet && \
     echo "daemon off;" >> /etc/nginx/nginx.conf && \
     echo "\"\\e[A\": history-search-backward" >> /etc/inputrc && \
     echo "\"\\e[B\": history-search-forward" >> /etc/inputrc
-
 
 ENV HOME /home/user
 ENV LANG ru_RU.UTF-8

@@ -1,5 +1,7 @@
 #!/bin/sh
 
+docker build --tag rekgrpth/web2py . && \
+docker push rekgrpth/web2py && \
 docker stop web2py && \
 docker rm web2py && \
 docker pull rekgrpth/web2py && \
