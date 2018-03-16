@@ -1,9 +1,9 @@
 #!/bin/sh
 
-docker build --tag rekgrpth/web2py . && \
-docker push rekgrpth/web2py && \
-docker stop web2py && \
-docker rm web2py && \
+#docker build --tag rekgrpth/web2py . && \
+#docker push rekgrpth/web2py && \
+docker stop web2py
+docker rm web2py
 docker pull rekgrpth/web2py && \
 docker volume create web2py && \
 docker run \
@@ -11,7 +11,7 @@ docker run \
     --detach \
     --env USER_ID=$(id -u) \
     --env GROUP_ID=$(id -g) \
-    --env PROCESSES=4 \
+    --env PROCESSES=2 \
     --hostname web2py \
     --name web2py \
     --publish 4444:4444 \
