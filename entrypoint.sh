@@ -3,11 +3,17 @@
 groupmod --gid "$GROUP_ID" user
 usermod  --uid "$USER_ID" user
 chown --recursive "$USER_ID":"$GROUP_ID" "$HOME"
-sed -i "s|^user www-data;$|user user;|gi" "/etc/nginx/nginx.conf"
+
+NGINX_CONF="/etc/nginx/nginx.conf"
+UWSGI_CONF="/etc/uwsgi/apps-enabled/uwsgi.ini"
+
+sed -i "/^user/cuser user;" "$NGINX_CONF"
+
 if [ "$PROCESSES" != "auto" ]; then
-    sed -i "s|^worker_processes auto;$|worker_processes $PROCESSES;|gi" "/etc/nginx/nginx.conf"
-    sed -i "s|^processes = 4$|processes = $PROCESSES|gi" "/etc/uwsgi/apps-enabled/uwsgi.ini"
+    sed -i "/^worker_processes/cworker_processes $PROCESSES;" "$NGINX_CONF"
+    sed -i "/^processes/cprocesses = $PROCESSES" "$UWSGI_CONF"
 else
-    sed -i "s|^processes = 4$|processes = $(nproc --all)|gi" "/etc/uwsgi/apps-enabled/uwsgi.ini"
+    sed -i "/^processes/cprocesses = $(nproc --all)" "$UWSGI_CONF"
 fi
+
 exec "$@"
