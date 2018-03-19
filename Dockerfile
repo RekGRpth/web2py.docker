@@ -15,6 +15,6 @@ RUN chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
 
 VOLUME /data
-WORKDIR /data/uwsgi
+WORKDIR /data/web2py
 
 CMD [ "uwsgi", "--ini", "/data/uwsgi.ini" ]
