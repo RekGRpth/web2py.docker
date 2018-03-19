@@ -1,5 +1,7 @@
 FROM alpine
 
+MAINTAINER RekGRpth
+
 RUN apk add --no-cache \
     shadow \
     python3 \
