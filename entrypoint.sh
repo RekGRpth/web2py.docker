@@ -1,13 +1,13 @@
 #!/bin/sh
 
-GROUP="www-data"
+GROUP="uwsgi"
 if [ "$GROUP_ID" = "" ]; then GROUP_ID=$(id -g $GROUP); fi
 if [ "$GROUP_ID" != "$(id -g $GROUP)" ]; then
     find / -group $GROUP -exec chgrp "$GROUP_ID" {} \;
     groupmod --gid "$GROUP_ID" $GROUP
 fi
 
-USER="www-data"
+USER="uwsgi"
 if [ "$USER_ID" = "" ]; then USER_ID=$(id -u $USER); fi
 if [ "$USER_ID" != "$(id -u $USER)" ]; then
     find / -user $USER -exec chown "$USER_ID" {} \;
