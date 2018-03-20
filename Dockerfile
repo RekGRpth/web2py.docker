@@ -4,6 +4,7 @@ MAINTAINER RekGRpth
 
 RUN apk add --no-cache \
     shadow \
+    su-exec \
     python3 \
     py3-psycopg2 \
     py3-pyldap

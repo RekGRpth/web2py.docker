@@ -17,4 +17,4 @@ fi
 usermod --home "$HOME" $USER
 chown --recursive "$USER_ID":"$GROUP_ID" "$HOME"
 
-exec "$@"
+exec su-exec "$USER" "$@"
