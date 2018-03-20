@@ -18,13 +18,13 @@ RUN apk add --no-cache \
 
 ENV HOME /data
 ENV LANG ru_RU.UTF-8
-ENV TZ=Asia/Yekaterinburg
+ENV TZ   Asia/Yekaterinburg
 
 ADD entrypoint.sh /
 RUN chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
 
-VOLUME /data
+VOLUME  /data
 WORKDIR /data/web2py
 
 CMD [ "uwsgi", "--ini", "/data/uwsgi.ini" ]
