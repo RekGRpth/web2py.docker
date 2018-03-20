@@ -3,11 +3,11 @@ FROM alpine
 MAINTAINER RekGRpth
 
 RUN apk add --no-cache \
-    shadow \
-    su-exec \
-    python3 \
     py3-psycopg2 \
     py3-pyldap \
+    python3 \
+    shadow \
+    su-exec \
     tzdata
 
 RUN pip3 install --no-cache-dir \
