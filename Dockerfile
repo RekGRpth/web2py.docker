@@ -7,7 +7,8 @@ RUN apk add --no-cache \
     su-exec \
     python3 \
     py3-psycopg2 \
-    py3-pyldap
+    py3-pyldap \
+    tzdata
 
 RUN pip3 install --no-cache-dir \
     ipython
@@ -17,6 +18,7 @@ RUN apk add --no-cache \
 
 ENV HOME /data
 ENV LANG ru_RU.UTF-8
+ENV TZ=Asia/Yekaterinburg
 
 ADD entrypoint.sh /
 RUN chmod +x /entrypoint.sh
