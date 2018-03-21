@@ -8,13 +8,11 @@ RUN apk add --no-cache \
     python3 \
     shadow \
     su-exec \
-    tzdata
+    tzdata \
+    uwsgi-python3
 
 RUN pip3 install --no-cache-dir \
     ipython
-
-RUN apk add --no-cache \
-    uwsgi-python3
 
 ENV HOME /data
 ENV LANG ru_RU.UTF-8
