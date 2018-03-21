@@ -9,11 +9,11 @@ RUN apk add --no-cache \
         shadow \
         su-exec \
         tzdata \
-        uwsgi-python3
+        uwsgi-python3 \
     && find -name "*.pyc" -delete
 
 RUN pip3 install --no-cache-dir \
-        ipython
+        ipython \
     && find -name "*.pyc" -delete
 
 ENV HOME=/data \
