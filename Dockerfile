@@ -14,9 +14,9 @@ RUN apk add --no-cache \
 RUN pip3 install --no-cache-dir \
     ipython
 
-ENV HOME /data \
-    LANG ru_RU.UTF-8 \
-    TZ   Asia/Yekaterinburg
+ENV HOME=/data \
+    LANG=ru_RU.UTF-8 \
+    TZ=Asia/Yekaterinburg
 
 ADD entrypoint.sh /
 RUN chmod +x /entrypoint.sh
