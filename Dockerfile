@@ -18,13 +18,15 @@ RUN pip3 install --no-cache-dir \
 
 ENV HOME=/data \
     LANG=ru_RU.UTF-8 \
-    TZ=Asia/Yekaterinburg
+    TZ=Asia/Yekaterinburg \
+    USER=uwsgi \
+    GROUP=uwsgi
 
 ADD entrypoint.sh /
-RUN chmod +x /entrypoint.sh
+RUN chmod +x /entrypoint.sh && usermod --home ${HOME} ${USER}
 ENTRYPOINT ["/entrypoint.sh"]
 
-VOLUME  /data
-WORKDIR /data/web2py
+VOLUME  ${HOME}
+WORKDIR ${HOME}/web2py
 
 CMD [ "uwsgi", "--ini", "/data/uwsgi.ini" ]
