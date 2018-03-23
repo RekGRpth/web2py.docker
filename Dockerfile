@@ -20,7 +20,8 @@ ENV HOME=/data \
     LANG=ru_RU.UTF-8 \
     TZ=Asia/Yekaterinburg \
     USER=uwsgi \
-    GROUP=uwsgi
+    GROUP=uwsgi \
+    PYTHONIOENCODING=UTF-8
 
 ADD entrypoint.sh /
 RUN chmod +x /entrypoint.sh && usermod --home "${HOME}" "${USER}"
