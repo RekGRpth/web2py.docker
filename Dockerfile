@@ -3,6 +3,7 @@ FROM alpine
 MAINTAINER RekGRpth
 
 RUN apk add --no-cache \
+        py3-dateutil \
         py3-psycopg2 \
         py3-pyldap \
         python3 \
