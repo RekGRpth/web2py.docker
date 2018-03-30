@@ -24,9 +24,9 @@ ENV HOME=/data \
 
 ADD entrypoint.sh /
 RUN chmod +x /entrypoint.sh && usermod --home "${HOME}" "${USER}"
+ENTRYPOINT ["/entrypoint.sh"]
 
 VOLUME  ${HOME}
 WORKDIR ${HOME}/app
 
-ENTRYPOINT ["/entrypoint.sh"]
 CMD [ "uwsgi", "--ini", "/data/uwsgi.ini" ]
