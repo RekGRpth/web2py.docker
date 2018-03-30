@@ -11,9 +11,7 @@ RUN apk add --no-cache \
         su-exec \
         tzdata \
         uwsgi-python3 \
-    && find -name "*.pyc" -delete
-
-RUN pip3 install --no-cache-dir \
+    && pip3 install --no-cache-dir \
         ipython \
     && find -name "*.pyc" -delete
 
