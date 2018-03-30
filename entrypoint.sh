@@ -16,8 +16,8 @@ find "$HOME" ! -group "$GROUP" -exec chgrp "$GROUP_ID" {} \;
 find "$HOME" ! -user "$USER" -exec chown "$USER_ID" {} \;
 
 find applications -type d -maxdepth 1 -mindepth 1 | grep -v "__pycache__" | while read APP; do
-    su-exec "$USER" "python3 web2py.py -Q -S $APP -M -R scripts/sessions2trash.py -A -o"
-    su-exec "$USER" "python3 web2py.py -Q -S $APP -R scripts/zip_static_files.py"
+    su-exec "$USER" "python3 $HOME/app/web2py.py -Q -S $APP -M -R $HOME/app/scripts/sessions2trash.py -A -o"
+    su-exec "$USER" "python3 $HOME/app/web2py.py -Q -S $APP -R $HOME/app/scripts/zip_static_files.py"
 done
 
 exec "$@"
