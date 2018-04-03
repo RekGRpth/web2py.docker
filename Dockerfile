@@ -7,14 +7,19 @@ RUN apk add --no-cache \
 #        jpeg \
 #        jpeg-dev \
         py3-dateutil \
+        py3-decorator \
         py3-httplib2 \
         py3-olefile \
+        py3-pexpect \
         py3-pillow \
         py3-psycopg2 \
+        py3-ptyprocess \
+        py3-pygments \
         py3-pyldap \
         py3-pypdf2 \
         py3-reportlab \
         py3-six \
+        py3-wcwidth \
 #        py-setuptools \
         python3 \
 #        python3-dev \
