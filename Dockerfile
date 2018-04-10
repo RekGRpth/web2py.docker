@@ -25,6 +25,7 @@ RUN apk add --no-cache \
         python3 \
 #        python3-dev \
         shadow \
+        sshpass \
         su-exec \
         tzdata \
         uwsgi-python3 \
