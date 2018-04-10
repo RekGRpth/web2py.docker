@@ -6,6 +6,7 @@ RUN apk add --no-cache \
 #        alpine-sdk \
 #        jpeg \
 #        jpeg-dev \
+        openssh-client \
         py3-dateutil \
         py3-decorator \
         py3-httplib2 \
@@ -31,6 +32,7 @@ RUN apk add --no-cache \
 #        zlib-dev \
     && pip3 install --no-cache-dir \
         ipython \
+        sh \
         wkhtmltopdf \
         xhtml2pdf \
 #    && apk del \
