@@ -54,7 +54,7 @@ ENV HOME=/data \
 
 ADD entrypoint.sh /
 ADD font.sh /
-RUN chmod +x /entrypoint.sh && usermod --home "${HOME}" "${USER}" && chmod +x /font.sh && /font.sh && rm -f /font.sh
+RUN chmod +x /entrypoint.sh && usermod --home "${HOME}" "${USER}" && sh /font.sh && rm -f /font.sh
 ENTRYPOINT ["/entrypoint.sh"]
 
 VOLUME  ${HOME}
