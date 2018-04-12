@@ -27,6 +27,7 @@ RUN apk add --no-cache \
         shadow \
         sshpass \
         su-exec \
+        ttf-dejavu \
         tzdata \
         uwsgi-python3 \
 #        zlib \
