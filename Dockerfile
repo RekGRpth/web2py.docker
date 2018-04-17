@@ -10,6 +10,7 @@ RUN apk add --no-cache \
         py3-dateutil \
         py3-decorator \
         py3-httplib2 \
+        py3-jwt \
         py3-olefile \
         py3-pexpect \
         py3-pillow \
