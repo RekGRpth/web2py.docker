@@ -19,6 +19,7 @@ RUN apk add --no-cache \
         py3-pyldap \
         py3-pypdf2 \
         py3-reportlab \
+        py3-requests \
         py3-six \
         py3-wcwidth \
 #        py-setuptools \
