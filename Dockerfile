@@ -12,6 +12,7 @@ RUN apk add --no-cache \
         py3-httplib2 \
         py3-jwt \
         py3-olefile \
+        py3-openssl \
         py3-pexpect \
         py3-pillow \
         py3-psycopg2 \
