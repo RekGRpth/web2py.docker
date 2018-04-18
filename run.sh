@@ -6,6 +6,7 @@ docker stop web2py
 docker stop scheduler
 docker rm web2py
 docker rm scheduler
+psql -h `hostname -f` -p 5555 -d scheduler -U scheduler -c "delete from scheduler_worker;"
 docker pull rekgrpth/web2py || exit $?
 docker volume create web2py || exit $?
 docker run \
