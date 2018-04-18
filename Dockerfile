@@ -63,4 +63,4 @@ ENTRYPOINT ["/entrypoint.sh"]
 VOLUME  ${HOME}
 WORKDIR ${HOME}/app
 
-CMD [ "uwsgi", "--ini", "/data/uwsgi.ini" ]
+CMD [ "uwsgi", "--ini", "/data/web2py.ini" ]
