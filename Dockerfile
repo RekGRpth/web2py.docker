@@ -43,6 +43,7 @@ RUN apk add --no-cache \
         sh \
         xhtml2pdf \
     && find -name "*.pyc" -delete \
+    && ln -fs python3 /usr/bin/python \
     && chmod +x /entrypoint.sh \
     && usermod --home "${HOME}" "${USER}" \
     && sh /font.sh \

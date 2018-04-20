@@ -29,4 +29,4 @@ docker run \
     --hostname scheduler \
     --name scheduler \
     --volume web2py:/data \
-    rekgrpth/web2py su-exec uwsgi python3 web2py.py -K scheduler:main,scheduler:mailer/sender,scheduler:mailer/receiver,scheduler:smser/sender,scheduler:smser/stater
+    rekgrpth/web2py su-exec uwsgi python web2py.py -K scheduler:main,scheduler:mailer/sender,scheduler:mailer/receiver,scheduler:smser/sender,scheduler:smser/stater
