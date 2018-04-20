@@ -2,10 +2,17 @@ FROM alpine
 
 MAINTAINER RekGRpth
 
+ADD entrypoint.sh /
+ADD font.sh /
+
+ENV HOME=/data \
+    LANG=ru_RU.UTF-8 \
+    TZ=Asia/Yekaterinburg \
+    USER=uwsgi \
+    GROUP=uwsgi \
+    PYTHONIOENCODING=UTF-8
+
 RUN apk add --no-cache \
-#        alpine-sdk \
-#        jpeg \
-#        jpeg-dev \
         openssh-client \
         py3-dateutil \
         py3-decorator \
@@ -24,43 +31,27 @@ RUN apk add --no-cache \
         py3-requests \
         py3-six \
         py3-wcwidth \
-#        py-setuptools \
         python3 \
-#        python3-dev \
         shadow \
         sshpass \
         su-exec \
         ttf-dejavu \
         tzdata \
         uwsgi-python3 \
-#        zlib \
-#        zlib-dev \
     && pip3 install --no-cache-dir \
         ipython \
         sh \
-        wkhtmltopdf \
         xhtml2pdf \
-#    && apk del \
-#        alpine-sdk \
-#        jpeg-dev \
-#        py-setuptools \
-#        python3-dev \
-#        zlib-dev \
-    && find -name "*.pyc" -delete
-
-ENV HOME=/data \
-    LANG=ru_RU.UTF-8 \
-    TZ=Asia/Yekaterinburg \
-    USER=uwsgi \
-    GROUP=uwsgi \
-    PYTHONIOENCODING=UTF-8
-
-ADD entrypoint.sh /
-ADD font.sh /
-RUN chmod +x /entrypoint.sh && usermod --home "${HOME}" "${USER}" && sh /font.sh && rm -f /font.sh
-ENTRYPOINT ["/entrypoint.sh"]
+    && find -name "*.pyc" -delete \
+    && chmod +x /entrypoint.sh \
+    && usermod --home "${HOME}" "${USER}" \
+    && sh /font.sh \
+    && rm -f /font.sh
 
 VOLUME  ${HOME}
+
 WORKDIR ${HOME}/app
+
+ENTRYPOINT ["/entrypoint.sh"]
 
 CMD [ "uwsgi", "--ini", "/data/web2py.ini" ]
