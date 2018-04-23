@@ -6,7 +6,6 @@ docker stop web2py
 docker stop scheduler
 docker rm web2py
 docker rm scheduler
-psql -h `hostname -f` -p 5555 -d scheduler -U scheduler -c "delete from scheduler_worker;"
 docker pull rekgrpth/web2py || exit $?
 docker volume create web2py || exit $?
 docker run \
@@ -29,4 +28,4 @@ docker run \
     --hostname scheduler \
     --name scheduler \
     --volume web2py:/data \
-    rekgrpth/web2py su-exec uwsgi python web2py.py -K scheduler:main,scheduler:mailer/sender,scheduler:mailer/receiver,scheduler:smser/sender,scheduler:smser/stater
+    rekgrpth/web2py su-exec uwsgi python web2py.py -L myoptions -K scheduler
