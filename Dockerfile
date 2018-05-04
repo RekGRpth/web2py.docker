@@ -10,7 +10,8 @@ ENV HOME=/data \
     TZ=Asia/Yekaterinburg \
     USER=uwsgi \
     GROUP=uwsgi \
-    PYTHONIOENCODING=UTF-8
+    PYTHONIOENCODING=UTF-8 \
+    PYTHONPATH=/data/app
 
 RUN apk add --no-cache \
         openssh-client \
@@ -56,7 +57,5 @@ VOLUME  "${HOME}"
 WORKDIR "${HOME}/app"
 
 ENTRYPOINT ["/entrypoint.sh"]
-
-ENV PYTHONPATH="${WORKDIR}"
 
 CMD [ "uwsgi", "--ini", "/data/web2py.ini" ]
