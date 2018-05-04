@@ -38,6 +38,7 @@ RUN apk add --no-cache \
         su-exec \
         ttf-dejavu \
         tzdata \
+        unixodbc-dev \
         uwsgi-python3 \
     && pip3 install --no-cache-dir \
         ipython \
