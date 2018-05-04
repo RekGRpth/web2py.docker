@@ -57,4 +57,6 @@ WORKDIR ${HOME}/app
 
 ENTRYPOINT ["/entrypoint.sh"]
 
+ENV PYTHONPATH=${WORKDIR}
+
 CMD [ "uwsgi", "--ini", "/data/web2py.ini" ]
