@@ -51,12 +51,12 @@ RUN apk add --no-cache \
     && sh /font.sh \
     && rm -f /font.sh
 
-VOLUME  ${HOME}
+VOLUME  "${HOME}"
 
-WORKDIR ${HOME}/app
+WORKDIR "${HOME}/app"
 
 ENTRYPOINT ["/entrypoint.sh"]
 
-ENV PYTHONPATH=${WORKDIR}
+ENV PYTHONPATH="${WORKDIR}"
 
 CMD [ "uwsgi", "--ini", "/data/web2py.ini" ]
