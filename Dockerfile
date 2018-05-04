@@ -30,6 +30,7 @@ RUN apk add --no-cache \
         py3-reportlab \
         py3-requests \
         py3-six \
+        py3-tornado \
         py3-wcwidth \
         python3 \
         shadow \
