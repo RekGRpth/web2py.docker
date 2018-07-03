@@ -41,6 +41,7 @@ RUN apk add --no-cache \
         tzdata \
         unixodbc-dev \
         uwsgi-python3 \
+    && pip3 install --upgrade pip \
     && pip3 install --no-cache-dir \
         ipython \
         sh \
