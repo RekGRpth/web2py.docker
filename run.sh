@@ -13,6 +13,7 @@ docker volume create web2py || exit $?
 docker run \
     --add-host `hostname -f`:`ip -4 addr show docker0 | grep -oP 'inet \K[\d.]+'` \
     --add-host web2py-`hostname -f`:`ip -4 addr show docker0 | grep -oP 'inet \K[\d.]+'` \
+    --add-host websocket-`hostname -f`:`ip -4 addr show docker0 | grep -oP 'inet \K[\d.]+'` \
     --detach \
     --env USER_ID=$(id -u) \
     --env GROUP_ID=$(id -g) \
@@ -24,6 +25,7 @@ docker run \
 docker run \
     --add-host `hostname -f`:`ip -4 addr show docker0 | grep -oP 'inet \K[\d.]+'` \
     --add-host web2py-`hostname -f`:`ip -4 addr show docker0 | grep -oP 'inet \K[\d.]+'` \
+    --add-host websocket-`hostname -f`:`ip -4 addr show docker0 | grep -oP 'inet \K[\d.]+'` \
     --detach \
     --env USER_ID=$(id -u) \
     --env GROUP_ID=$(id -g) \
@@ -34,11 +36,13 @@ docker run \
 docker run \
     --add-host `hostname -f`:`ip -4 addr show docker0 | grep -oP 'inet \K[\d.]+'` \
     --add-host web2py-`hostname -f`:`ip -4 addr show docker0 | grep -oP 'inet \K[\d.]+'` \
+    --add-host websocket-`hostname -f`:`ip -4 addr show docker0 | grep -oP 'inet \K[\d.]+'` \
     --detach \
     --env USER_ID=$(id -u) \
     --env GROUP_ID=$(id -g) \
     --hostname websocket \
     --name websocket \
+    --publish 8888:8888 \
     --volume /etc/certs:/etc/certs:ro \
     --volume web2py:/data \
     rekgrpth/web2py su-exec uwsgi python gluon/contrib/websocket_messaging.py -k web2py -p 8888 -s /etc/certs/t72.key -c /etc/certs/t72.crt
