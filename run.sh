@@ -32,7 +32,7 @@ docker run \
     --hostname scheduler \
     --name scheduler \
     --volume web2py:/data \
-    rekgrpth/web2py su-exec uwsgi python web2py.py -L myoptions -K scheduler
+    rekgrpth/web2py su-exec uwsgi supervisord
 docker run \
     --add-host `hostname -f`:`ip -4 addr show docker0 | grep -oP 'inet \K[\d.]+'` \
     --add-host web2py-`hostname -f`:`ip -4 addr show docker0 | grep -oP 'inet \K[\d.]+'` \
