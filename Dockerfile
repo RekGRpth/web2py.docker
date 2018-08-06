@@ -65,7 +65,7 @@ RUN apk add --no-cache \
     && echo "[supervisorctl]" >> /etc/supervisord.conf \
     && echo "serverurl=unix:///tmp/supervisord.sock" >> /etc/supervisord.conf \
     && echo "[include]" >> /etc/supervisord.conf \
-    && echo "files = applications/*/supervisor/*.conf" >> /etc/supervisord.conf
+    && echo "files = ${HOME}/app/applications/*/supervisor/*.conf" >> /etc/supervisord.conf
 
 VOLUME  "${HOME}"
 
