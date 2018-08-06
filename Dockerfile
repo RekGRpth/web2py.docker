@@ -14,6 +14,7 @@ ENV HOME=/data \
     PYTHONPATH=/data/app
 
 RUN apk add --no-cache \
+        git \
         openssh-client \
         py3-dateutil \
         py3-decorator \
@@ -46,6 +47,9 @@ RUN apk add --no-cache \
         ipython \
         sh \
         xhtml2pdf \
+    && pip3 install --no-cache-dir "git+https://github.com/Supervisor/supervisor" \
+    && apk del \
+        git \
     && find -name "*.pyc" -delete \
     && ln -fs python3 /usr/bin/python \
     && chmod +x /entrypoint.sh \
