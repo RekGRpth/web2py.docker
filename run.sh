@@ -20,6 +20,7 @@ docker run \
     --hostname web2py \
     --name web2py \
     --publish 4321:4321 \
+    --restart always \
     --volume web2py:/data \
     rekgrpth/web2py
 docker run \
@@ -31,6 +32,7 @@ docker run \
     --env GROUP_ID=$(id -g) \
     --hostname scheduler \
     --name scheduler \
+    --restart always \
     --volume web2py:/data \
     rekgrpth/web2py su-exec uwsgi supervisord
 docker run \
@@ -43,6 +45,7 @@ docker run \
     --hostname websocket \
     --name websocket \
     --publish 8888:8888 \
+    --restart always \
     --volume /etc/certs:/etc/certs:ro \
     --volume web2py:/data \
     rekgrpth/web2py su-exec uwsgi python gluon/contrib/websocket_messaging.py -k web2py -p 8888 -s /etc/certs/t72.key -c /etc/certs/t72.crt
