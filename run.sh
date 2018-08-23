@@ -18,6 +18,7 @@ docker run \
     --env USER_ID=$(id -u) \
     --env GROUP_ID=$(id -g) \
     --hostname web2py \
+    --link postgres \
     --name web2py \
     --publish 4321:4321 \
     --restart always \
@@ -31,6 +32,7 @@ docker run \
     --env USER_ID=$(id -u) \
     --env GROUP_ID=$(id -g) \
     --hostname scheduler \
+    --link postgres \
     --name scheduler \
     --restart always \
     --volume web2py:/data \
@@ -43,6 +45,7 @@ docker run \
     --env USER_ID=$(id -u) \
     --env GROUP_ID=$(id -g) \
     --hostname websocket \
+    --link postgres \
     --name websocket \
     --publish 8888:8888 \
     --restart always \
