@@ -15,6 +15,7 @@ ENV HOME=/data \
 
 RUN apk add --no-cache \
         git \
+        libffi-dev \
         openssh-client \
         postgresql-dev \
 #        py3-dateutil \
@@ -70,6 +71,7 @@ RUN apk add --no-cache \
     && pip3 install --no-cache-dir "git+https://github.com/Supervisor/supervisor" \
     && apk del \
         git \
+        libffi-dev \
         postgresql-dev \
     && find -name "*.pyc" -delete \
     && find -name "*.whl" -delete \
