@@ -19,6 +19,7 @@ RUN apk add --no-cache \
         libffi-dev \
         libldap \
         libpq \
+        openjpeg-dev \
         openldap-dev \
         openssh-client \
         postgresql-dev \
@@ -81,6 +82,7 @@ RUN apk add --no-cache \
         alpine-sdk \
         git \
         libffi-dev \
+        openjpeg-dev \
         openldap-dev \
         postgresql-dev \
         python3-dev \
