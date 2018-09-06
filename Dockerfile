@@ -49,6 +49,7 @@ RUN apk add --no-cache \
         tzdata \
         unixodbc-dev \
         uwsgi-python3 \
+        zlib-dev \
     && pip3 install --upgrade pip \
     && pip3 install --no-cache-dir \
 #        decorator \
@@ -83,6 +84,7 @@ RUN apk add --no-cache \
         openldap-dev \
         postgresql-dev \
         python3-dev \
+        zlib-dev \
     && find -name "*.pyc" -delete \
     && find -name "*.whl" -delete \
     && ln -fs python3 /usr/bin/python \
