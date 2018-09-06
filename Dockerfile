@@ -56,6 +56,7 @@ RUN apk add --no-cache \
     && usermod --home "${HOME}" "${USER}" \
     && sh /font.sh \
     && rm -f /font.sh \
+    && sed -i "/^                context=self._context, check_hostname=self._check_hostname)/c                context=self._context, check_hostname=self._check_hostname, port=443, key_file=None, cert_file=None)" /usr/lib/python3.6/urllib/request.py \
     && echo "[unix_http_server]" >> /etc/supervisord.conf \
     && echo "file=/tmp/supervisord.sock" >> /etc/supervisord.conf \
     && echo "[supervisord]" >> /etc/supervisord.conf \
