@@ -38,6 +38,7 @@ RUN apk add --no-cache \
 #        py3-tornado \
 #        py3-wcwidth \
         python3 \
+        python3-dev \
         shadow \
         sshpass \
         su-exec \
@@ -75,6 +76,7 @@ RUN apk add --no-cache \
         git \
         libffi-dev \
         postgresql-dev \
+        python3-dev \
     && find -name "*.pyc" -delete \
     && find -name "*.whl" -delete \
     && ln -fs python3 /usr/bin/python \
