@@ -46,7 +46,7 @@ RUN apk add --no-cache \
         ttf-dejavu \
         tzdata \
         unixodbc-dev \
-#        uwsgi-python3 \
+        uwsgi-python3 \
     && pip3 install --upgrade pip \
     && pip3 install --no-cache-dir \
         decorator \
@@ -68,7 +68,7 @@ RUN apk add --no-cache \
         sh \
         six \
         tornado \
-        uwsgi \
+#        uwsgi \
         wcwidth \
         xhtml2pdf \
     && pip3 install --no-cache-dir "git+https://github.com/Supervisor/supervisor" \
