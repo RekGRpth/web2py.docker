@@ -17,6 +17,8 @@ RUN apk add --no-cache \
         alpine-sdk \
         git \
         libffi-dev \
+        libldap \
+        libpq \
         openldap-dev \
         openssh-client \
         postgresql-dev \
@@ -28,7 +30,7 @@ RUN apk add --no-cache \
 #        py3-openssl \
 #        py3-pexpect \
         py3-pillow \
-#        py3-psycopg2 \
+        py3-psycopg2 \
 #        py3-ptyprocess \
 #        py3-pygments \
 #        py3-pyldap \
