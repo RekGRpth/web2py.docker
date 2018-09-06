@@ -17,6 +17,7 @@ RUN apk add --no-cache \
         alpine-sdk \
         git \
         libffi-dev \
+        openldap-dev \
         openssh-client \
         postgresql-dev \
 #        py3-dateutil \
@@ -75,6 +76,7 @@ RUN apk add --no-cache \
         alpine-sdk \
         git \
         libffi-dev \
+        openldap-dev \
         postgresql-dev \
         python3-dev \
     && find -name "*.pyc" -delete \
