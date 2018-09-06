@@ -14,7 +14,7 @@ ENV HOME=/data \
     PYTHONPATH=/data/app
 
 RUN apk add --no-cache \
-        gcc \
+        alpine-sdk \
         git \
         libffi-dev \
         openssh-client \
@@ -71,7 +71,7 @@ RUN apk add --no-cache \
         xhtml2pdf \
     && pip3 install --no-cache-dir "git+https://github.com/Supervisor/supervisor" \
     && apk del \
-        gcc \
+        alpine-sdk \
         git \
         libffi-dev \
         postgresql-dev \
