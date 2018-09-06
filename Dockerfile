@@ -26,7 +26,7 @@ RUN apk add --no-cache \
 #        py3-olefile \
 #        py3-openssl \
 #        py3-pexpect \
-#        py3-pillow \
+        py3-pillow \
 #        py3-psycopg2 \
 #        py3-ptyprocess \
 #        py3-pygments \
@@ -54,7 +54,7 @@ RUN apk add --no-cache \
         jwt \
         olefile \
         pexpect \
-        pillow \
+#        pillow \
         psycopg2 \
         ptyprocess \
         pygments \
