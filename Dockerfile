@@ -22,24 +22,24 @@ RUN apk add --no-cache \
         openldap-dev \
         openssh-client \
         postgresql-dev \
-#        py3-dateutil \
-#        py3-decorator \
-#        py3-httplib2 \
-#        py3-jwt \
-#        py3-olefile \
-#        py3-openssl \
-#        py3-pexpect \
+        py3-dateutil \
+        py3-decorator \
+        py3-httplib2 \
+        py3-jwt \
+        py3-olefile \
+        py3-openssl \
+        py3-pexpect \
         py3-pillow \
         py3-psycopg2 \
-#        py3-ptyprocess \
-#        py3-pygments \
-#        py3-pyldap \
-#        py3-pypdf2 \
-#        py3-reportlab \
-#        py3-requests \
-#        py3-six \
-#        py3-tornado \
-#        py3-wcwidth \
+        py3-ptyprocess \
+        py3-pygments \
+        py3-pyldap \
+        py3-pypdf2 \
+        py3-reportlab \
+        py3-requests \
+        py3-six \
+        py3-tornado \
+        py3-wcwidth \
         python3 \
         python3-dev \
         shadow \
@@ -51,29 +51,31 @@ RUN apk add --no-cache \
         uwsgi-python3 \
     && pip3 install --upgrade pip \
     && pip3 install --no-cache-dir \
-        decorator \
-        httplib2 \
+#        decorator \
+#        httplib2 \
         ipython \
-        jwt \
-        olefile \
-        pexpect \
+#        jwt \
+#        olefile \
+#        pexpect \
 #        pillow \
-        psycopg2 \
-        ptyprocess \
-        pygments \
-        pyldap \
-        pyOpenSSL \
-        pypdf2 \
-        python-dateutil \
-        reportlab \
-        requests \
+        pipdate \
+#        psycopg2 \
+#        ptyprocess \
+#        pygments \
+#        pyldap \
+#        pyOpenSSL \
+#        pypdf2 \
+#        python-dateutil \
+#        reportlab \
+#        requests \
         sh \
-        six \
-        tornado \
+#        six \
+#        tornado \
 #        uwsgi \
-        wcwidth \
+#        wcwidth \
         xhtml2pdf \
     && pip3 install --no-cache-dir "git+https://github.com/Supervisor/supervisor" \
+    && pipdate \
     && apk del \
         alpine-sdk \
         git \
