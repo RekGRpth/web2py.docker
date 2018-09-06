@@ -16,24 +16,24 @@ ENV HOME=/data \
 RUN apk add --no-cache \
         git \
         openssh-client \
-        py3-dateutil \
-        py3-decorator \
-        py3-httplib2 \
-        py3-jwt \
-        py3-olefile \
-        py3-openssl \
-        py3-pexpect \
-        py3-pillow \
-        py3-psycopg2 \
-        py3-ptyprocess \
-        py3-pygments \
-        py3-pyldap \
-        py3-pypdf2 \
-        py3-reportlab \
-        py3-requests \
-        py3-six \
-        py3-tornado \
-        py3-wcwidth \
+#        py3-dateutil \
+#        py3-decorator \
+#        py3-httplib2 \
+#        py3-jwt \
+#        py3-olefile \
+#        py3-openssl \
+#        py3-pexpect \
+#        py3-pillow \
+#        py3-psycopg2 \
+#        py3-ptyprocess \
+#        py3-pygments \
+#        py3-pyldap \
+#        py3-pypdf2 \
+#        py3-reportlab \
+#        py3-requests \
+#        py3-six \
+#        py3-tornado \
+#        py3-wcwidth \
         python3 \
         shadow \
         sshpass \
@@ -41,16 +41,36 @@ RUN apk add --no-cache \
         ttf-dejavu \
         tzdata \
         unixodbc-dev \
-        uwsgi-python3 \
+#        uwsgi-python3 \
     && pip3 install --upgrade pip \
     && pip3 install --no-cache-dir \
+        decorator \
+        httplib2 \
         ipython \
+        jwt \
+        olefile \
+        pexpect \
+        pillow \
+        psycopg2 \
+        ptyprocess \
+        pygments \
+        pyldap \
+        pyOpenSSL \
+        pypdf2 \
+        python-dateutil \
+        reportlab \
+        requests \
         sh \
+        six \
+        tornado \
+        uwsgi \
+        wcwidth \
         xhtml2pdf \
     && pip3 install --no-cache-dir "git+https://github.com/Supervisor/supervisor" \
     && apk del \
         git \
     && find -name "*.pyc" -delete \
+    && find -name "*.whl" -delete \
     && ln -fs python3 /usr/bin/python \
     && chmod +x /entrypoint.sh \
     && usermod --home "${HOME}" "${USER}" \
