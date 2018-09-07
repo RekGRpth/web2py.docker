@@ -75,6 +75,7 @@ RUN apk add --no-cache \
 #        requests \
         sh \
 #        six \
+        suds2 \
 #        tornado \
 #        uwsgi \
 #        wcwidth \
