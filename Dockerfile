@@ -58,7 +58,7 @@ RUN apk add --no-cache \
 #        decorator \
 #        httplib2 \
 #        ipython \
-        ldap \
+#        ldap \
 #        jwt \
 #        olefile \
 #        pexpect \
@@ -83,6 +83,7 @@ RUN apk add --no-cache \
     && (pipdate || true) \
     && pip3 install --no-cache-dir \
         ipython \
+        ldap \
     && apk del \
         alpine-sdk \
         git \
