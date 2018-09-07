@@ -78,7 +78,7 @@ RUN apk add --no-cache \
 #        wcwidth \
         xhtml2pdf \
     && pip3 install --no-cache-dir "git+https://github.com/Supervisor/supervisor" \
-    && ( pipdate || true) \
+    && (pipdate || true) \
     && apk del \
         alpine-sdk \
         git \
