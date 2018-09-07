@@ -83,7 +83,8 @@ RUN apk add --no-cache \
     && (pipdate || true) \
     && pip3 install --no-cache-dir \
         ipython \
-        ldap \
+#        ldap \
+        pyldap \
     && apk del \
         alpine-sdk \
         git \
