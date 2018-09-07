@@ -32,6 +32,7 @@ RUN apk add --no-cache \
         py3-openssl \
         py3-pexpect \
         py3-pillow \
+#        py3-prompt_toolkit \
         py3-psycopg2 \
         py3-ptyprocess \
         py3-pygments \
@@ -56,7 +57,8 @@ RUN apk add --no-cache \
     && pip3 install --no-cache-dir \
 #        decorator \
 #        httplib2 \
-        ipython \
+#        ipython \
+        ldap \
 #        jwt \
 #        olefile \
 #        pexpect \
@@ -79,6 +81,8 @@ RUN apk add --no-cache \
         xhtml2pdf \
     && pip3 install --no-cache-dir "git+https://github.com/Supervisor/supervisor" \
     && (pipdate || true) \
+    && pip3 install --no-cache-dir \
+        ipython \
     && apk del \
         alpine-sdk \
         git \
