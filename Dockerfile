@@ -16,10 +16,11 @@ ENV HOME=/data \
 RUN apk add --no-cache \
         alpine-sdk \
         git \
+        jpeg-dev \
         libffi-dev \
         libldap \
         libpq \
-        openjpeg-dev \
+#        openjpeg-dev \
         openldap-dev \
         openssh-client \
         postgresql-dev \
@@ -77,12 +78,13 @@ RUN apk add --no-cache \
 #        wcwidth \
         xhtml2pdf \
     && pip3 install --no-cache-dir "git+https://github.com/Supervisor/supervisor" \
-    && pipdate \
+    && ( pipdate || true) \
     && apk del \
         alpine-sdk \
         git \
+        jpeg-dev \
         libffi-dev \
-        openjpeg-dev \
+#        openjpeg-dev \
         openldap-dev \
         postgresql-dev \
         python3-dev \
