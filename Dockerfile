@@ -36,7 +36,7 @@ RUN apk add --no-cache \
         py3-psycopg2 \
         py3-ptyprocess \
         py3-pygments \
-        py3-pyldap \
+#        py3-pyldap \
         py3-pypdf2 \
         py3-reportlab \
         py3-requests \
@@ -83,8 +83,10 @@ RUN apk add --no-cache \
     && (pipdate || true) \
     && pip3 install --no-cache-dir \
         ipython \
-        ldap \
-        pyldap \
+#        ldap \
+#        pyldap \
+    && apk add --no-cache \
+        py3-pyldap \
     && apk del \
         alpine-sdk \
         git \
