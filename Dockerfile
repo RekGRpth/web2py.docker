@@ -28,6 +28,7 @@ RUN apk add --no-cache \
         py3-decorator \
         py3-httplib2 \
         py3-jwt \
+        py3-netaddr \
         py3-olefile \
         py3-openssl \
         py3-pexpect \
@@ -75,7 +76,7 @@ RUN apk add --no-cache \
 #        requests \
         sh \
 #        six \
-        suds2 \
+#        suds2 \
 #        tornado \
 #        uwsgi \
 #        wcwidth \
