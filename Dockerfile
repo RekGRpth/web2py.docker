@@ -15,6 +15,8 @@ ENV HOME=/data \
 
 RUN apk add --no-cache \
         alpine-sdk \
+        freetype \
+        freetype-dev \
         git \
         jpeg-dev \
         libffi-dev \
@@ -92,6 +94,7 @@ RUN apk add --no-cache \
         py3-pyldap \
     && apk del \
         alpine-sdk \
+        freetype-dev \
         git \
         jpeg-dev \
         libffi-dev \
