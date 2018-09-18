@@ -23,7 +23,8 @@ docker run \
     --restart always \
     --volume /etc/certs:/etc/certs:ro \
     --volume web2py:/data \
-    rekgrpth/web2py su-exec uwsgi python gluon/contrib/websocket_messaging.py -k web2py -p 8888 -s /etc/certs/`hostname -d`.key -c /etc/certs/`hostname -d`.crt
+    rekgrpth/web2py su-exec uwsgi python gluon/contrib/websocket_messaging.py -k web2py -p 8888
+#    rekgrpth/web2py su-exec uwsgi python gluon/contrib/websocket_messaging.py -k web2py -p 8888 -s /etc/certs/`hostname -d`.key -c /etc/certs/`hostname -d`.crt
 docker run \
     --add-host `hostname -f`:`ip -4 addr show docker0 | grep -oP 'inet \K[\d.]+'` \
     --add-host web2py-`hostname -f`:`ip -4 addr show docker0 | grep -oP 'inet \K[\d.]+'` \
