@@ -24,6 +24,7 @@ RUN addgroup -S "${GROUP}" \
         su-exec \
         ttf-dejavu \
         tzdata \
+        unixodbc-dev \
     && apk add --no-cache --virtual .build-deps \
         bzip2-dev \
         coreutils \
@@ -52,7 +53,6 @@ RUN addgroup -S "${GROUP}" \
         tcl-dev \
         tk \
         tk-dev \
-        unixodbc-dev \
         util-linux-dev \
         xz-dev \
         zlib-dev \
