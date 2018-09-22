@@ -2,6 +2,8 @@ FROM alpine
 
 MAINTAINER RekGRpth
 
+COPY ldap/ /usr/local/lib/python3.8/site-packages/ldap
+ADD _ldap.cpython-38m-x86_64-linux-gnu.so /usr/local/lib/python3.8/site-packages/
 ADD entrypoint.sh /
 ADD font.sh /
 
@@ -13,104 +15,116 @@ ENV HOME=/data \
     PYTHONIOENCODING=UTF-8 \
     PYTHONPATH=/data/app
 
-RUN apk add --no-cache \
-        alpine-sdk \
-        freetype \
-        freetype-dev \
-        git \
-        jpeg-dev \
-        libffi-dev \
+RUN addgroup -S "${GROUP}" \
+    && adduser -D -S -h "${HOME}" -s /sbin/nologin -G "${GROUP}" ${USER} \
+    && apk add --no-cache \
         libldap \
-        libpq \
-#        openjpeg-dev \
-        openldap-dev \
-        openssh-client \
-        postgresql-dev \
-        py3-dateutil \
-        py3-decorator \
-        py3-httplib2 \
-        py3-jwt \
-        py3-netaddr \
-        py3-olefile \
-        py3-openssl \
-        py3-pexpect \
-        py3-pillow \
-#        py3-prompt_toolkit \
-        py3-psycopg2 \
-        py3-ptyprocess \
-        py3-pygments \
-#        py3-pyldap \
-        py3-pypdf2 \
-        py3-reportlab \
-        py3-requests \
-        py3-six \
-        py3-tornado \
-        py3-wcwidth \
-        python3 \
-        python3-dev \
         shadow \
         sshpass \
         su-exec \
         ttf-dejavu \
         tzdata \
+    && apk add --no-cache --virtual .build-deps \
+        bzip2-dev \
+        coreutils \
+        curl \
+        dpkg-dev dpkg \
+        expat-dev \
+        findutils \
+        freetype-dev \
+        gcc \
+        gdbm-dev \
+        git \
+        jpeg-dev \
+        libc-dev \
+        libffi-dev \
+        libnsl-dev \
+        libressl-dev \
+        libtirpc-dev \
+        linux-headers \
+        make \
+        ncurses-dev \
+        openldap-dev \
+        pax-utils \
+        postgresql-dev \
+        readline-dev \
+        sqlite-dev \
+        tcl-dev \
+        tk \
+        tk-dev \
         unixodbc-dev \
-        uwsgi-python3 \
+        util-linux-dev \
+        xz-dev \
         zlib-dev \
-    && pip3 install --upgrade pip \
-    && pip3 install --no-cache-dir \
+    && mkdir -p /usr/src \
+    && git clone --progress https://github.com/python/cpython.git /usr/src/python \
+    && cd /usr/src/python \
+    && ./configure \
+        --enable-loadable-sqlite-extensions \
+        --enable-shared \
+        --with-ensurepip=upgrade \
+        --with-system-expat \
+        --with-system-ffi \
+    && make -j "$(nproc)" \
+    && make install \
+    && cd /usr/local/bin \
+    && ln -s idle3 idle \
+    && ln -s pip3 pip \
+    && ln -s pydoc3 pydoc \
+    && ln -s python3 python \
+    && ln -s python3-config python-config \
+    && pip install --no-cache-dir --upgrade pip \
+    && pip install --no-cache-dir \
         captcha \
-#        decorator \
-#        httplib2 \
-#        ipython \
+        decorator \
+        httplib2 \
+        jwt \
 #        ldap \
-#        jwt \
-#        olefile \
-#        pexpect \
-#        pillow \
+#        ldap3 \
+        olefile \
+        pexpect \
+        pillow \
         pipdate \
-#        psycopg2 \
-#        ptyprocess \
-#        pygments \
+        psycopg2 \
+        ptyprocess \
+        pygments \
 #        pyldap \
-#        pyOpenSSL \
-#        pypdf2 \
-#        python-dateutil \
-#        reportlab \
-#        requests \
+        pyOpenSSL \
+        pypdf2 \
+        python-dateutil \
+        reportlab \
+        requests \
         sh \
-#        six \
-#        suds2 \
-#        tornado \
-#        uwsgi \
-#        wcwidth \
+        six \
+        suds2 \
+        tornado \
+        uwsgi \
+        wcwidth \
         xhtml2pdf \
     && pip3 install --no-cache-dir "git+https://github.com/Supervisor/supervisor" \
     && (pipdate || true) \
-    && pip3 install --no-cache-dir \
+    && pip install --no-cache-dir \
         ipython \
-#        ldap \
-#        pyldap \
-    && apk add --no-cache \
-        py3-pyldap \
-    && apk del \
-        alpine-sdk \
-        freetype-dev \
-        git \
-        jpeg-dev \
-        libffi-dev \
-#        openjpeg-dev \
-        openldap-dev \
-        postgresql-dev \
-        python3-dev \
-        zlib-dev \
-    && find -name "*.pyc" -delete \
+    && find /usr/local -type f -executable -not \( -name '*tkinter*' \) -exec scanelf --needed --nobanner --format '%n#p' '{}' ';' \
+        | tr ',' '\n' \
+        | sort -u \
+        | awk 'system("[ -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }' \
+        | xargs -rt apk add --no-cache --virtual .python-rundeps \
+    && apk del .build-deps \
+    && find /usr/local -depth \
+        \( \
+            \( -type d -a \( -name test -o -name tests \) \) \
+#            -o \
+#            \( -type f -a \( -name '*.pyc' -o -name '*.pyo' \) \) \
+        \) -exec rm -rf '{}' + \
+    && rm -rf /usr/src /usr/local/include \
+#    && find -name "*.pyc" -delete \
+#    && find -name "*.pyo" -delete \
     && find -name "*.whl" -delete \
-    && ln -fs python3 /usr/bin/python \
     && chmod +x /entrypoint.sh \
-    && usermod --home "${HOME}" "${USER}" \
+#    && usermod --home "${HOME}" "${USER}" \
     && sh /font.sh \
     && rm -f /font.sh \
-#    && sed -i "/^                context=self._context, check_hostname=self._check_hostname)/c                context=self._context, check_hostname=self._check_hostname, port=443, key_file=None, cert_file=None)" /usr/lib/python3.6/urllib/request.py \
     && echo "[unix_http_server]" >> /etc/supervisord.conf \
     && echo "file=/tmp/supervisord.sock" >> /etc/supervisord.conf \
     && echo "[supervisord]" >> /etc/supervisord.conf \
