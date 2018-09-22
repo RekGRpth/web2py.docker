@@ -117,6 +117,7 @@ RUN addgroup -S "${GROUP}" \
 #            -o \
 #            \( -type f -a \( -name '*.pyc' -o -name '*.pyo' \) \) \
         \) -exec rm -rf '{}' + \
+    && cd / \
     && rm -rf /usr/src /usr/local/include \
     && find -name "*.pyc" -delete \
     && find -name "*.pyo" -delete \
