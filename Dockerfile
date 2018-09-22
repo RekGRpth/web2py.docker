@@ -118,8 +118,8 @@ RUN addgroup -S "${GROUP}" \
 #            \( -type f -a \( -name '*.pyc' -o -name '*.pyo' \) \) \
         \) -exec rm -rf '{}' + \
     && rm -rf /usr/src /usr/local/include \
-#    && find -name "*.pyc" -delete \
-#    && find -name "*.pyo" -delete \
+    && find -name "*.pyc" -delete \
+    && find -name "*.pyo" -delete \
     && find -name "*.whl" -delete \
     && chmod +x /entrypoint.sh \
 #    && usermod --home "${HOME}" "${USER}" \
