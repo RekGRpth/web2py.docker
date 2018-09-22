@@ -102,6 +102,7 @@ RUN addgroup -S "${GROUP}" \
         wcwidth \
         xhtml2pdf \
     && pip3 install --no-cache-dir "git+https://github.com/Supervisor/supervisor" \
+    && sed -i "s|from cgi import escape|try: from html import escape\nexcept ImportError: from cgi import escape|g" /usr/local/lib/python3.8/site-packages/supervisor/medusa/util.py \
     && (pipdate || true) \
     && pip install --no-cache-dir \
         ipython \
