@@ -24,11 +24,9 @@ RUN addgroup -S "${GROUP}" \
         su-exec \
         ttf-dejavu \
         tzdata \
-#        unixodbc-dev \
     && apk add --no-cache --virtual .build-deps \
         bzip2-dev \
         coreutils \
-        curl \
         dpkg-dev dpkg \
         expat-dev \
         findutils \
@@ -79,8 +77,6 @@ RUN addgroup -S "${GROUP}" \
         decorator \
         httplib2 \
         jwt \
-#        ldap \
-#        ldap3 \
         olefile \
         pexpect \
         pillow \
@@ -88,7 +84,6 @@ RUN addgroup -S "${GROUP}" \
         psycopg2 \
         ptyprocess \
         pygments \
-#        pyldap \
         pyOpenSSL \
         pypdf2 \
         python-dateutil \
@@ -101,7 +96,7 @@ RUN addgroup -S "${GROUP}" \
         uwsgi \
         wcwidth \
         xhtml2pdf \
-    && pip3 install --no-cache-dir "git+https://github.com/Supervisor/supervisor" \
+    && pip install --no-cache-dir "git+https://github.com/Supervisor/supervisor" \
     && sed -i "s|from cgi import escape|try: from html import escape\nexcept ImportError: from cgi import escape|g" /usr/local/lib/python3.8/site-packages/supervisor/medusa/util.py \
     && (pipdate || true) \
     && pip install --no-cache-dir \
@@ -115,8 +110,6 @@ RUN addgroup -S "${GROUP}" \
     && find /usr/local -depth \
         \( \
             \( -type d -a \( -name test -o -name tests \) \) \
-#            -o \
-#            \( -type f -a \( -name '*.pyc' -o -name '*.pyo' \) \) \
         \) -exec rm -rf '{}' + \
     && cd / \
     && rm -rf /usr/src /usr/local/include \
@@ -124,7 +117,6 @@ RUN addgroup -S "${GROUP}" \
     && find -name "*.pyo" -delete \
     && find -name "*.whl" -delete \
     && chmod +x /entrypoint.sh \
-#    && usermod --home "${HOME}" "${USER}" \
     && sh /font.sh \
     && rm -f /font.sh \
     && echo "[unix_http_server]" >> /etc/supervisord.conf \
