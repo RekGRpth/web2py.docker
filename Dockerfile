@@ -55,7 +55,7 @@ RUN addgroup -S "${GROUP}" \
         xz-dev \
         zlib-dev \
     && mkdir -p /usr/src \
-    && git clone --progress https://github.com/python/cpython.git /usr/src/python \
+    && git clone --progress --recursive https://github.com/python/cpython.git /usr/src/python \
     && cd /usr/src/python \
     && ./configure \
         --enable-loadable-sqlite-extensions \
