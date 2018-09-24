@@ -76,7 +76,6 @@ RUN addgroup -S "${GROUP}" \
         captcha \
         decorator \
         httplib2 \
-        jwt \
         olefile \
         pexpect \
         pillow \
@@ -84,6 +83,7 @@ RUN addgroup -S "${GROUP}" \
         psycopg2 \
         ptyprocess \
         pygments \
+        PyJWT \
         pyOpenSSL \
         pypdf2 \
         python-dateutil \
