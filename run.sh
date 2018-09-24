@@ -21,7 +21,7 @@ docker run \
     --link postgres \
     --name websocket \
     --restart always \
-    --volume /etc/certs:/etc/certs:ro \
+    --volume /etc/certs:/etc/certs \
     --volume web2py:/data \
     rekgrpth/web2py su-exec uwsgi python gluon/contrib/websocket_messaging.py -k web2py -p 8888
 #    rekgrpth/web2py su-exec uwsgi python gluon/contrib/websocket_messaging.py -k web2py -p 8888 -s /etc/certs/`hostname -d`.key -c /etc/certs/`hostname -d`.crt
