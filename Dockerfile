@@ -78,7 +78,6 @@ RUN addgroup -S "${GROUP}" \
         wcwidth \
         xhtml2pdf \
     && pip install --no-cache-dir "git+https://github.com/RekGRpth/supervisor" \
-    && sed -i "s|from cgi import escape|try: from html import escape\nexcept ImportError: from cgi import escape|g" /usr/local/lib/python3.8/site-packages/supervisor/medusa/util.py \
     && (pipdate || true) \
     && pip install --no-cache-dir \
         ipython \
@@ -88,7 +87,6 @@ RUN addgroup -S "${GROUP}" \
         | awk 'system("[ -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }' \
         | xargs -rt apk add --no-cache --virtual .python-rundeps \
     && apk del .build-deps \
-    && cd / \
     && find -name "*.pyc" -delete \
     && find -name "*.pyo" -delete \
     && find -name "*.whl" -delete \
