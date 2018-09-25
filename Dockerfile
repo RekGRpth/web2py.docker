@@ -1,4 +1,4 @@
-FROM alpine
+FROM rekgrpth/python
 
 MAINTAINER RekGRpth
 
@@ -7,13 +7,13 @@ ADD _ldap.cpython-38m-x86_64-linux-gnu.so /usr/local/lib/python3.8/site-packages
 ADD entrypoint.sh /
 ADD font.sh /
 
-ENV HOME=/data \
+ENV GROUP=uwsgi \
+    HOME=/data \
     LANG=ru_RU.UTF-8 \
     TZ=Asia/Yekaterinburg \
-    USER=uwsgi \
-    GROUP=uwsgi \
     PYTHONIOENCODING=UTF-8 \
-    PYTHONPATH=/data/app
+    PYTHONPATH=/data/app \
+    USER=uwsgi
 
 RUN addgroup -S "${GROUP}" \
     && adduser -D -S -h "${HOME}" -s /sbin/nologin -G "${GROUP}" ${USER} \
