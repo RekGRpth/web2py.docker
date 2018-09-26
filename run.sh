@@ -11,8 +11,8 @@ docker volume create web2py || exit $?
 docker network create my
 docker run \
     --detach \
-    --env USER_ID=$(id -u) \
     --env GROUP_ID=$(id -g) \
+    --env USER_ID=$(id -u) \
     --hostname web2py \
     --link nginx:web2py-$(hostname -f) \
     --name web2py \
@@ -22,8 +22,8 @@ docker run \
     rekgrpth/web2py
 docker run \
     --detach \
-    --env USER_ID=$(id -u) \
     --env GROUP_ID=$(id -g) \
+    --env USER_ID=$(id -u) \
     --hostname scheduler \
     --link nginx:web2py-$(hostname -f) \
     --name scheduler \
