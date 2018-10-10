@@ -17,6 +17,7 @@ RUN addgroup -S "${GROUP}" \
     && adduser -D -S -h "${HOME}" -s /sbin/nologin -G "${GROUP}" ${USER} \
     && apk add --no-cache \
         libldap \
+        openssh-client \
         shadow \
         sshpass \
         su-exec \
