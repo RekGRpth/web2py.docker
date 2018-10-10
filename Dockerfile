@@ -77,8 +77,8 @@ RUN addgroup -S "${GROUP}" \
         xhtml2pdf \
     && pip install --no-cache-dir "git+https://github.com/RekGRpth/supervisor" \
     && (pipdate || true) \
-    && pip install --no-cache-dir \
-        ipython \
+#    && pip install --no-cache-dir \
+#        ipython \
     && find /usr/local -type f -executable -not \( -name '*tkinter*' \) -exec scanelf --needed --nobanner --format '%n#p' '{}' ';' \
         | tr ',' '\n' \
         | sort -u \
