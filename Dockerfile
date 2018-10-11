@@ -57,6 +57,7 @@ RUN addgroup -S "${GROUP}" \
         captcha \
         decorator \
         httplib2 \
+        netaddr \
         olefile \
         pexpect \
         pillow \
