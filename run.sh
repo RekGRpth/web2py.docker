@@ -14,7 +14,6 @@ docker run \
     --env GROUP_ID=$(id -g) \
     --env USER_ID=$(id -u) \
     --hostname web2py \
-    --link nginx:$(hostname -f) \
     --link nginx:web2py-$(hostname -f) \
     --name web2py \
     --network my \
@@ -26,7 +25,6 @@ docker run \
     --env GROUP_ID=$(id -g) \
     --env USER_ID=$(id -u) \
     --hostname scheduler \
-    --link nginx:$(hostname -f) \
     --link nginx:web2py-$(hostname -f) \
     --name scheduler \
     --network my \
