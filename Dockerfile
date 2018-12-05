@@ -17,7 +17,7 @@ RUN addgroup -S "${GROUP}" \
     && adduser -D -S -h "${HOME}" -s /sbin/nologin -G "${GROUP}" ${USER} \
     && apk update --no-cache \
     && apk upgrade --no-cache \
-    && apk add --no-cache --virtual .build-deps \
+    && apk add --no-cache --virtual .web2py-build-deps \
         bzip2-dev \
         coreutils \
         dpkg-dev dpkg \
@@ -84,7 +84,7 @@ RUN addgroup -S "${GROUP}" \
             | grep -v libtk \
             | awk 'system("[ -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }' \
     )" \
-    && apk add --no-cache --virtual .python-rundeps \
+    && apk add --no-cache --virtual .web2py-rundeps \
         $runDeps \
 #        libldap \
         openssh-client \
@@ -99,7 +99,7 @@ RUN addgroup -S "${GROUP}" \
 #        | sort -u \
 #        | awk 'system("[ -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }' \
 #        | xargs -rt apk add --no-cache --virtual .python-rundeps \
-    && apk del --no-cache .build-deps \
+    && apk del --no-cache .web2py-build-deps \
     && find -name "*.pyc" -delete \
     && find -name "*.pyo" -delete \
     && find -name "*.whl" -delete \
