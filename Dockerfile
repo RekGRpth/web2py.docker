@@ -24,10 +24,13 @@ RUN addgroup -S "${GROUP}" \
         expat-dev \
         findutils \
         freetype-dev \
+        g++ \
         gcc \
         gdbm-dev \
+        gettext-dev \
         git \
         jpeg-dev \
+        libbsd-dev \
         libc-dev \
         libffi-dev \
         libnsl-dev \
@@ -77,6 +80,8 @@ RUN addgroup -S "${GROUP}" \
         scanelf --needed --nobanner --format '%n#p' --recursive /usr/local \
             | tr ',' '\n' \
             | sort -u \
+            | grep -v libtcl \
+            | grep -v libtk \
             | awk 'system("[ -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }' \
     )" \
     && apk add --no-cache --virtual .python-rundeps \
