@@ -1,5 +1,7 @@
 FROM rekgrpth/python
 
+MAINTAINER RekGRpth
+
 #COPY ldap/ /usr/local/lib/python3.7/site-packages/ldap
 #ADD _ldap.cpython-37m-x86_64-linux-gnu.so /usr/local/lib/python3.7/site-packages/
 ADD entrypoint.sh /
