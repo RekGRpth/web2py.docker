@@ -1,7 +1,7 @@
 FROM rekgrpth/python
 
-COPY ldap/ /usr/local/lib/python3.8/site-packages/ldap
-ADD _ldap.cpython-38m-x86_64-linux-gnu.so /usr/local/lib/python3.8/site-packages/
+COPY ldap/ /usr/local/lib/python3.7/site-packages/ldap
+ADD _ldap.cpython-37m-x86_64-linux-gnu.so /usr/local/lib/python3.7/site-packages/
 ADD entrypoint.sh /
 ADD font.sh /
 
