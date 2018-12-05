@@ -15,15 +15,8 @@ ENV GROUP=uwsgi \
 
 RUN addgroup -S "${GROUP}" \
     && adduser -D -S -h "${HOME}" -s /sbin/nologin -G "${GROUP}" ${USER} \
-    && apk add --no-cache \
-        libldap \
-        openssh-client \
-        shadow \
-        sshpass \
-        su-exec \
-        ttf-dejavu \
-        tzdata \
-        uwsgi-python3 \
+    && apk update --no-cache \
+    && apk upgrade --no-cache \
     && apk add --no-cache --virtual .build-deps \
         bzip2-dev \
         coreutils \
@@ -80,14 +73,28 @@ RUN addgroup -S "${GROUP}" \
         xhtml2pdf \
     && pip install --no-cache-dir "git+https://github.com/RekGRpth/supervisor" \
     && (pipdate || true) \
-#    && pip install --no-cache-dir \
-#        ipython \
-    && find /usr/local -type f -executable -not \( -name '*tkinter*' \) -exec scanelf --needed --nobanner --format '%n#p' '{}' ';' \
-        | tr ',' '\n' \
-        | sort -u \
-        | awk 'system("[ -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }' \
-        | xargs -rt apk add --no-cache --virtual .python-rundeps \
-    && apk del .build-deps \
+    && runDeps="$( \
+        scanelf --needed --nobanner --format '%n#p' --recursive /usr/local \
+            | tr ',' '\n' \
+            | sort -u \
+            | awk 'system("[ -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }' \
+    )" \
+    && apk add --no-cache --virtual .python-rundeps \
+        $runDeps \
+#        libldap \
+        openssh-client \
+        shadow \
+        sshpass \
+        su-exec \
+        ttf-dejavu \
+        tzdata \
+#        uwsgi-python3 \
+#    && find /usr/local -type f -executable -not \( -name '*tkinter*' \) -exec scanelf --needed --nobanner --format '%n#p' '{}' ';' \
+#        | tr ',' '\n' \
+#        | sort -u \
+#        | awk 'system("[ -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }' \
+#        | xargs -rt apk add --no-cache --virtual .python-rundeps \
+    && apk del --no-cache .build-deps \
     && find -name "*.pyc" -delete \
     && find -name "*.pyo" -delete \
     && find -name "*.whl" -delete \
