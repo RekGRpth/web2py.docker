@@ -41,6 +41,7 @@ RUN addgroup -S "${GROUP}" \
         ncurses-dev \
         openldap-dev \
         pax-utils \
+        pcre-dev \
         postgresql-dev \
         readline-dev \
         sqlite-dev \
