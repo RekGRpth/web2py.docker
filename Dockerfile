@@ -87,27 +87,20 @@ RUN addgroup -S "${GROUP}" \
             | awk 'system("[ -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }' \
     )" \
     && apk add --no-cache --virtual .web2py-rundeps \
-        $runDeps \
-#        libldap \
+        "$runDeps" \
         openssh-client \
         shadow \
         sshpass \
         su-exec \
         ttf-dejavu \
         tzdata \
-#        uwsgi-python3 \
-#    && find /usr/local -type f -executable -not \( -name '*tkinter*' \) -exec scanelf --needed --nobanner --format '%n#p' '{}' ';' \
-#        | tr ',' '\n' \
-#        | sort -u \
-#        | awk 'system("[ -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }' \
-#        | xargs -rt apk add --no-cache --virtual .python-rundeps \
     && apk del --no-cache .web2py-build-deps \
     && find -name "*.pyc" -delete \
     && find -name "*.pyo" -delete \
     && find -name "*.whl" -delete \
     && chmod +x /entrypoint.sh \
     && sh /font.sh \
-    && rm -f /font.sh \
+    && rm -rf /font.sh /root/.cache \
     && echo "[unix_http_server]" >> /etc/supervisord.conf \
     && echo "file=/tmp/supervisord.sock" >> /etc/supervisord.conf \
     && echo "[supervisord]" >> /etc/supervisord.conf \
