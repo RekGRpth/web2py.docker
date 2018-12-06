@@ -2,8 +2,6 @@ FROM rekgrpth/python
 
 MAINTAINER RekGRpth
 
-#COPY ldap/ /usr/local/lib/python3.7/site-packages/ldap
-#ADD _ldap.cpython-37m-x86_64-linux-gnu.so /usr/local/lib/python3.7/site-packages/
 ADD entrypoint.sh /
 ADD font.sh /
 
@@ -16,7 +14,7 @@ ENV GROUP=uwsgi \
     USER=uwsgi
 
 RUN addgroup -S "${GROUP}" \
-    && adduser -D -S -h "${HOME}" -s /sbin/nologin -G "${GROUP}" ${USER} \
+    && adduser -D -S -h "${HOME}" -s /sbin/nologin -G "${GROUP}" "${USER}" \
     && apk update --no-cache \
     && apk upgrade --no-cache \
     && apk add --no-cache --virtual .web2py-build-deps \
