@@ -87,7 +87,7 @@ RUN addgroup -S "${GROUP}" \
             | awk 'system("[ -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }' \
     )" \
     && apk add --no-cache --virtual .web2py-rundeps \
-        "$runDeps" \
+        $runDeps \
         openssh-client \
         shadow \
         sshpass \
