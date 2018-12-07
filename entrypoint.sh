@@ -1,6 +1,6 @@
 #!/bin/sh
 
-python -m compileall /usr/local/lib -r 100
+python -m compileall /usr/lib -r 100
 
 if [ "$GROUP_ID" = "" ]; then GROUP_ID=$(id -g "$GROUP"); fi
 if [ "$GROUP_ID" != "$(id -g "$GROUP")" ]; then

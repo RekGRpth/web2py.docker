@@ -1,4 +1,4 @@
-FROM python:alpine
+FROM alpine
 
 MAINTAINER RekGRpth
 
@@ -21,39 +21,27 @@ RUN addgroup -S "${GROUP}" \
     && apk update --no-cache \
     && apk upgrade --no-cache \
     && apk add --no-cache --virtual .web2py-build-deps \
-        bzip2-dev \
-        coreutils \
-        dpkg-dev dpkg \
-        expat-dev \
-        findutils \
-        freetype-dev \
-        g++ \
         gcc \
-        gdbm-dev \
-        gettext-dev \
         git \
         jpeg-dev \
-        libbsd-dev \
-        libc-dev \
         libffi-dev \
-        libnsl-dev \
-        libressl-dev \
-        libtirpc-dev \
         linux-headers \
         make \
-        ncurses-dev \
+        musl-dev \
         openldap-dev \
-        pax-utils \
         pcre-dev \
         postgresql-dev \
-        readline-dev \
-        sqlite-dev \
-        tcl-dev \
-        tk \
-        tk-dev \
-        util-linux-dev \
-        xz-dev \
+        python3 \
+        python3-dev \
         zlib-dev \
+    && cd /usr/bin \
+    && ln -s idle3 idle \
+    && ln -s pip3 pip \
+    && ln -s pydoc3 pydoc \
+    && ln -s python3 python \
+    && ln -s python3-config python-config \
+    && cd / \
+    && pip install --no-cache-dir --upgrade pip \
     && pip install --no-cache-dir \
         captcha \
         decorator \
@@ -63,7 +51,6 @@ RUN addgroup -S "${GROUP}" \
         olefile \
         pexpect \
         pillow \
-        pipdate \
         psycopg2 \
         ptyprocess \
         pygments \
@@ -82,17 +69,12 @@ RUN addgroup -S "${GROUP}" \
         wcwidth \
         xhtml2pdf \
     && pip install --no-cache-dir "git+https://github.com/RekGRpth/supervisor" \
-    && (pipdate || true) \
-    && runDeps="$( \
-        scanelf --needed --nobanner --format '%n#p' --recursive /usr/local \
+    && apk add --no-cache --virtual .web2py-rundeps \
+        $( scanelf --needed --nobanner --format '%n#p' --recursive /usr/lib \
             | tr ',' '\n' \
             | sort -u \
-            | grep -v libtcl \
-            | grep -v libtk \
-            | awk 'system("[ -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }' \
-    )" \
-    && apk add --no-cache --virtual .web2py-rundeps \
-        $runDeps \
+            | awk 'system("[ -e /usr/lib" $1 " ]") == 0 { next } { print "so:" $1 }' \
+        ) \
         openssh-client \
         shadow \
         sshpass \
@@ -117,10 +99,10 @@ RUN addgroup -S "${GROUP}" \
     && echo "[include]" >> /etc/supervisord.conf \
     && echo "files = ${HOME}/app/applications/*/supervisor/*.conf" >> /etc/supervisord.conf
 
-VOLUME  "${HOME}"
+VOLUME "${HOME}"
 
 WORKDIR "${HOME}/app"
 
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT [ "/entrypoint.sh" ]
 
 CMD [ "uwsgi", "--ini", "/data/web2py.ini" ]
