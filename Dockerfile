@@ -1,4 +1,4 @@
-FROM rekgrpth/python
+FROM python:alpine
 
 MAINTAINER RekGRpth
 
@@ -15,6 +15,9 @@ ENV GROUP=uwsgi \
 
 RUN addgroup -S "${GROUP}" \
     && adduser -D -S -h "${HOME}" -s /sbin/nologin -G "${GROUP}" "${USER}" \
+    && echo http://dl-cdn.alpinelinux.org/alpine/edge/main >> /etc/apk/repositories \
+    && echo http://dl-cdn.alpinelinux.org/alpine/edge/community >> /etc/apk/repositories \
+    && echo http://dl-cdn.alpinelinux.org/alpine/edge/testing >> /etc/apk/repositories \
     && apk update --no-cache \
     && apk upgrade --no-cache \
     && apk add --no-cache --virtual .web2py-build-deps \
@@ -55,10 +58,12 @@ RUN addgroup -S "${GROUP}" \
         captcha \
         decorator \
         httplib2 \
+        ipython \
         netaddr \
         olefile \
         pexpect \
         pillow \
+        pipdate \
         psycopg2 \
         ptyprocess \
         pygments \
