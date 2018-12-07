@@ -75,6 +75,7 @@ RUN addgroup -S "${GROUP}" \
             | sort -u \
             | awk 'system("[ -e /usr/lib" $1 " ]") == 0 { next } { print "so:" $1 }' \
         ) \
+        ca-certificates \
         openssh-client \
         shadow \
         sshpass \
