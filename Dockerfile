@@ -20,8 +20,9 @@ RUN addgroup -S "${GROUP}" \
     && echo http://dl-cdn.alpinelinux.org/alpine/edge/testing >> /etc/apk/repositories \
     && apk update --no-cache \
     && apk upgrade --no-cache \
-    && apk add --no-cache --virtual .web2py-build-deps \
+    && apk add --no-cache --virtual .build-deps \
         gcc \
+        gettext-dev \
         git \
         jpeg-dev \
         libffi-dev \
@@ -64,7 +65,7 @@ RUN addgroup -S "${GROUP}" \
         sh \
         six \
         suds2 \
-        tornado \
+#        tornado \
         uwsgi \
         wcwidth \
         xhtml2pdf \
@@ -82,7 +83,7 @@ RUN addgroup -S "${GROUP}" \
         su-exec \
         ttf-dejavu \
         tzdata \
-    && apk del --no-cache .web2py-build-deps \
+    && apk del --no-cache .build-deps \
     && find -name "*.pyc" -delete \
     && find -name "*.pyo" -delete \
     && find -name "*.whl" -delete \
