@@ -62,6 +62,7 @@ RUN addgroup -S "${GROUP}" \
             | tr ',' '\n' \
             | sort -u \
             | grep -v libpython \
+            | grep -v libssl \
             | grep -v libtcl \
             | grep -v libtk \
             | awk 'system("[ -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }' \
