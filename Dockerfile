@@ -1,4 +1,4 @@
-FROM alpine
+FROM rekgrpth/python
 
 MAINTAINER RekGRpth
 
@@ -32,17 +32,17 @@ RUN addgroup -S "${GROUP}" \
         openldap-dev \
         pcre-dev \
         postgresql-dev \
-        python3 \
-        python3-dev \
+#        python3 \
+#        python3-dev \
         zlib-dev \
-    && cd /usr/bin \
-    && ln -s idle3 idle \
-    && ln -s pip3 pip \
-    && ln -s pydoc3 pydoc \
-    && ln -s python3 python \
-    && ln -s python3-config python-config \
-    && cd / \
-    && pip install --no-cache-dir --upgrade pip \
+#    && cd /usr/bin \
+#    && ln -s idle3 idle \
+#    && ln -s pip3 pip \
+#    && ln -s pydoc3 pydoc \
+#    && ln -s python3 python \
+#    && ln -s python3-config python-config \
+#    && cd / \
+#    && pip install --no-cache-dir --upgrade pip \
     && pip install --no-cache-dir \
         captcha \
         decorator \
@@ -70,18 +70,18 @@ RUN addgroup -S "${GROUP}" \
         xhtml2pdf \
     && pip install --no-cache-dir "git+https://github.com/RekGRpth/supervisor" \
     && apk add --no-cache --virtual .web2py-rundeps \
-        $( scanelf --needed --nobanner --format '%n#p' --recursive /usr \
+        $( scanelf --needed --nobanner --format '%n#p' --recursive /usr/local \
             | tr ',' '\n' \
             | sort -u \
-#            | grep -v libpython \
+            | grep -v libpython \
 #            | grep -v libssl \
 #            | grep -v libtcl \
 #            | grep -v libtk \
-            | awk 'system("[ -e /usr/lib" $1 " ]") == 0 { next } { print "so:" $1 }' \
+            | awk 'system("[ -e /usr/local/lib" $1 " ]") == 0 { next } { print "so:" $1 }' \
         ) \
         ca-certificates \
         openssh-client \
-        python3 \
+#        python3 \
         shadow \
         sshpass \
         su-exec \
