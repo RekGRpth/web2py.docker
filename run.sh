@@ -6,7 +6,7 @@ docker stop web2py
 docker stop scheduler
 docker rm web2py
 docker rm scheduler
-#docker pull rekgrpth/web2py || exit $?
+docker pull rekgrpth/web2py || exit $?
 docker volume create web2py || exit $?
 docker network create my
 docker run \
