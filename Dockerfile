@@ -8,9 +8,9 @@ ADD font.sh /
 ENV GROUP=uwsgi \
     HOME=/data \
     LANG=ru_RU.UTF-8 \
-    TZ=Asia/Yekaterinburg \
     PYTHONIOENCODING=UTF-8 \
     PYTHONPATH=/data/app \
+    TZ=Asia/Yekaterinburg \
     USER=uwsgi
 
 RUN addgroup -S "${GROUP}" \
