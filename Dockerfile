@@ -69,22 +69,9 @@ RUN addgroup -S "${GROUP}" \
         ttf-dejavu \
         tzdata \
     && apk del --no-cache .build-deps \
-    && find -name "*.pyc" -delete \
-    && find -name "*.pyo" -delete \
-    && find -name "*.whl" -delete \
     && chmod +x /entrypoint.sh \
     && sh /font.sh \
-    && rm -rf /font.sh /root/.cache \
-    && echo "[unix_http_server]" >> /etc/supervisord.conf \
-    && echo "file=/tmp/supervisord.sock" >> /etc/supervisord.conf \
-    && echo "[supervisord]" >> /etc/supervisord.conf \
-    && echo "nodaemon=true" >> /etc/supervisord.conf \
-    && echo "[rpcinterface:supervisor]" >> /etc/supervisord.conf \
-    && echo "supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface" >> /etc/supervisord.conf \
-    && echo "[supervisorctl]" >> /etc/supervisord.conf \
-    && echo "serverurl=unix:///tmp/supervisord.sock" >> /etc/supervisord.conf \
-    && echo "[include]" >> /etc/supervisord.conf \
-    && echo "files = ${HOME}/app/applications/*/supervisor/*.conf" >> /etc/supervisord.conf
+    && rm -rf /font.sh
 
 VOLUME "${HOME}"
 
