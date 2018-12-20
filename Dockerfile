@@ -38,6 +38,7 @@ RUN addgroup -S "${GROUP}" \
         netaddr \
         olefile \
         pexpect \
+        pg8000 \
         pillow \
         psycopg2 \
         ptyprocess \
