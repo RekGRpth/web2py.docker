@@ -35,6 +35,7 @@ RUN addgroup -S "${GROUP}" \
         decorator \
         httplib2 \
         ipython \
+        multiprocessing-utils \
         netaddr \
         olefile \
         pexpect \
