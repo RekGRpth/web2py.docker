@@ -13,7 +13,9 @@ ENV GROUP=uwsgi \
     TZ=Asia/Yekaterinburg \
     USER=uwsgi
 
-RUN addgroup -S "${GROUP}" \
+RUN apk update --no-cache \
+    && apk upgrade --no-cache \
+    && addgroup -S "${GROUP}" \
     && adduser -D -S -h "${HOME}" -s /sbin/nologin -G "${GROUP}" "${USER}" \
     && apk add --no-cache --virtual .build-deps \
         freetype-dev \
