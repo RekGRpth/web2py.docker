@@ -9,7 +9,7 @@ ENV GROUP=uwsgi \
     HOME=/data \
     LANG=ru_RU.UTF-8 \
     PYTHONIOENCODING=UTF-8 \
-    PYTHONPATH=/data/app:/data/app/gluon/packages/dal \
+    PYTHONPATH=/data/app:/data/app/site-packages:/data/app/gluon/packages/dal \
     TZ=Asia/Yekaterinburg \
     USER=uwsgi
 
