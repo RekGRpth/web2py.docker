@@ -9,7 +9,7 @@ ENV GROUP=uwsgi \
     HOME=/data \
     LANG=ru_RU.UTF-8 \
     PYTHONIOENCODING=UTF-8 \
-    PYTHONPATH=/data/app:/data/app/site-packages:/data/app/gluon/packages/dal \
+    PYTHONPATH=/data/app:/data/app/site-packages:/data/app/gluon/packages/dal:/usr/local/lib/python3.7:/usr/local/lib/python3.6/lib-dynload:/usr/local/lib/python3.7/site-packages \
     TZ=Asia/Yekaterinburg \
     USER=uwsgi
 
@@ -29,10 +29,9 @@ RUN apk update --no-cache \
         musl-dev \
         openldap-dev \
         pcre-dev \
-        postgresql-dev \
         zlib-dev \
     && pip install --no-cache-dir --upgrade pip \
-    && pip install --no-cache-dir \
+    && pip install --no-cache-dir --prefix /usr/local \
         captcha \
         decorator \
         httplib2 \
@@ -43,7 +42,6 @@ RUN apk update --no-cache \
         pexpect \
         pg8000 \
         pillow \
-        psycopg2 \
         ptyprocess \
         pygments \
         PyJWT \
@@ -67,11 +65,11 @@ RUN apk update --no-cache \
             | awk 'system("[ -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }' \
         ) \
         openssh-client \
-        shadow \
+#        shadow \
         sshpass \
-        su-exec \
-        ttf-dejavu \
-        tzdata \
+#        su-exec \
+        ttf-liberation \
+#        tzdata \
     && apk del --no-cache .build-deps \
     && chmod +x /entrypoint.sh \
     && sh /font.sh \

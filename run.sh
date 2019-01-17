@@ -30,4 +30,4 @@ docker run \
     --network my \
     --restart always \
     --volume web2py:/data \
-    rekgrpth/web2py su-exec uwsgi supervisord --configuration /data/supervisord.conf
+    rekgrpth/web2py su-exec uwsgi python -m supervisor.supervisord --configuration /data/supervisord.conf
