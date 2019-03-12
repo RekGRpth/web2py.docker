@@ -33,6 +33,7 @@ RUN apk update --no-cache \
     && pip install --no-cache-dir --upgrade pip \
     && pip install --no-cache-dir --no-use-pep517 \
         captcha \
+        cx_Oracle \
         decorator \
         httplib2 \
         ipython \
