@@ -28,6 +28,7 @@ RUN apk update --no-cache \
         make \
         musl-dev \
         openldap-dev \
+        postgresql-dev \
         pcre-dev \
         zlib-dev \
     && pip install --no-cache-dir --upgrade pip \
@@ -43,6 +44,7 @@ RUN apk update --no-cache \
         pexpect \
         pg8000 \
         pillow \
+        psycopg2 \
         ptyprocess \
         pygments \
         PyJWT \
