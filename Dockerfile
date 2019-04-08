@@ -57,10 +57,11 @@ RUN apk update --no-cache \
         sh \
         six \
         suds2 \
+        supervisor \
         uwsgi \
         wcwidth \
         xhtml2pdf \
-    && pip install --no-cache-dir "git+https://github.com/RekGRpth/supervisor" \
+#    && pip install --no-cache-dir "git+https://github.com/RekGRpth/supervisor" \
     && apk add --no-cache --virtual .web2py-rundeps \
         $( scanelf --needed --nobanner --format '%n#p' --recursive /usr/local \
             | tr ',' '\n' \
