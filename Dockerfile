@@ -32,7 +32,7 @@ RUN apk update --no-cache \
         pcre-dev \
         zlib-dev \
     && pip install --no-cache-dir --upgrade pip \
-    && pip install --no-cache-dir --no-use-pep517 \
+    && pip install --no-cache-dir \
         captcha \
         cx_Oracle \
         decorator \
