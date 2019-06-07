@@ -1,4 +1,4 @@
-FROM rekgrpth/python
+FROM rekgrpth/gost
 
 MAINTAINER RekGRpth
 
@@ -9,7 +9,7 @@ ENV GROUP=uwsgi \
     HOME=/data \
     LANG=ru_RU.UTF-8 \
     PYTHONIOENCODING=UTF-8 \
-#    PYTHONPATH=/data/app:/data/app/site-packages:/data/app/gluon/packages/dal:/usr/local/lib/python3.7:/usr/local/lib/python3.7/lib-dynload:/usr/local/lib/python3.7/site-packages \
+    PYTHONPATH=/data/app:/data/app/site-packages:/data/app/gluon/packages/dal:/usr/local/lib/python3.7:/usr/local/lib/python3.7/lib-dynload:/usr/local/lib/python3.7/site-packages \
     TZ=Asia/Yekaterinburg \
     USER=uwsgi
 
@@ -30,9 +30,13 @@ RUN apk update --no-cache \
         openldap-dev \
         postgresql-dev \
         pcre-dev \
+        python3-dev \
         zlib-dev \
+    && ln -s pip3 /usr/bin/pip \
+    && ln -s pydoc3 /usr/bin/pydoc \
+    && ln -s python3 /usr/bin/python \
     && pip install --no-cache-dir --upgrade pip \
-    && pip install --no-cache-dir \
+    && pip install --no-cache-dir --prefix /usr/local \
         captcha \
         cx_Oracle \
         decorator \
@@ -61,7 +65,6 @@ RUN apk update --no-cache \
         uwsgi \
         wcwidth \
         xhtml2pdf \
-#    && pip install --no-cache-dir "git+https://github.com/RekGRpth/supervisor" \
     && apk add --no-cache --virtual .web2py-rundeps \
         $( scanelf --needed --nobanner --format '%n#p' --recursive /usr/local \
             | tr ',' '\n' \
