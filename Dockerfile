@@ -38,7 +38,8 @@ RUN apk update --no-cache \
     && pip install --no-cache-dir --upgrade pip \
     && pip install --no-cache-dir --prefix /usr/local \
         captcha \
-        cx_Oracle \
+        client_bank_exchange_1c \
+#        cx_Oracle \
         decorator \
         httplib2 \
         ipython \
