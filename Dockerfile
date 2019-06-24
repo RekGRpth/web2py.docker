@@ -39,7 +39,6 @@ RUN apk update --no-cache \
     && pip install --no-cache-dir --prefix /usr/local \
         captcha \
         client_bank_exchange_1c \
-#        cx_Oracle \
         decorator \
         httplib2 \
         ipython \
@@ -75,6 +74,7 @@ RUN apk update --no-cache \
         openssh-client \
         sshpass \
         ttf-liberation \
+        uwsgi-python3 \
     && apk del --no-cache .build-deps \
     && chmod +x /entrypoint.sh \
     && sh /font.sh \
