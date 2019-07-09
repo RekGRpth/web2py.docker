@@ -1,18 +1,15 @@
 FROM rekgrpth/gost
-
-MAINTAINER RekGRpth
-
-ADD entrypoint.sh /
-ADD font.sh /
-
 ENV GROUP=uwsgi \
-    HOME=/data \
     LANG=ru_RU.UTF-8 \
     PYTHONIOENCODING=UTF-8 \
-    PYTHONPATH=/data/app:/data/app/site-packages:/data/app/gluon/packages/dal:/usr/local/lib/python3.7:/usr/local/lib/python3.7/lib-dynload:/usr/local/lib/python3.7/site-packages \
+    PYTHONPATH=${HOME}/app:${HOME}/app/site-packages:${HOME}/app/gluon/packages/dal:/usr/local/lib/python3.7:/usr/local/lib/python3.7/lib-dynload:/usr/local/lib/python3.7/site-packages \
     TZ=Asia/Yekaterinburg \
     USER=uwsgi
-
+WORKDIR "${HOME}/app"
+ADD font.sh /
+ADD entrypoint.sh /
+ENTRYPOINT [ "/entrypoint.sh" ]
+CMD [ "uwsgi", "--ini", "${HOME}/web2py.ini" ]
 RUN apk update --no-cache \
     && apk upgrade --no-cache \
     && addgroup -S "${GROUP}" \
@@ -66,24 +63,16 @@ RUN apk update --no-cache \
         wcwidth \
         xhtml2pdf \
     && apk add --no-cache --virtual .web2py-rundeps \
+        openssh-client \
+        sshpass \
+        ttf-liberation \
+#        uwsgi-python3 \
         $( scanelf --needed --nobanner --format '%n#p' --recursive /usr/local \
             | tr ',' '\n' \
             | sort -u \
             | awk 'system("[ -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }' \
         ) \
-        openssh-client \
-        sshpass \
-        ttf-liberation \
-        uwsgi-python3 \
     && apk del --no-cache .build-deps \
     && chmod +x /entrypoint.sh \
     && sh /font.sh \
     && rm -rf /font.sh
-
-VOLUME "${HOME}"
-
-WORKDIR "${HOME}/app"
-
-ENTRYPOINT [ "/entrypoint.sh" ]
-
-CMD [ "uwsgi", "--ini", "/data/web2py.ini" ]
