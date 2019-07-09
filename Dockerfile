@@ -1,9 +1,7 @@
 FROM rekgrpth/gost
 ENV GROUP=uwsgi \
-    LANG=ru_RU.UTF-8 \
     PYTHONIOENCODING=UTF-8 \
     PYTHONPATH=${HOME}/app:${HOME}/app/site-packages:${HOME}/app/gluon/packages/dal:/usr/local/lib/python3.7:/usr/local/lib/python3.7/lib-dynload:/usr/local/lib/python3.7/site-packages \
-    TZ=Asia/Yekaterinburg \
     USER=uwsgi
 WORKDIR "${HOME}/app"
 ADD font.sh /
