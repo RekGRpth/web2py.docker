@@ -25,8 +25,8 @@ RUN apk update --no-cache \
         make \
         musl-dev \
         openldap-dev \
-        postgresql-dev \
         pcre-dev \
+        postgresql-dev \
         python3-dev \
         zlib-dev \
     && ln -s pip3 /usr/bin/pip \
