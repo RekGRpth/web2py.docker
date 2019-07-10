@@ -7,7 +7,7 @@ WORKDIR "${HOME}/app"
 ADD font.sh /
 ADD entrypoint.sh /
 ENTRYPOINT [ "/entrypoint.sh" ]
-CMD [ "uwsgi", "--ini", "${HOME}/web2py.ini" ]
+CMD [ "uwsgi", "--ini", "/data/web2py.ini" ]
 RUN apk update --no-cache \
     && apk upgrade --no-cache \
     && addgroup -S "${GROUP}" \
