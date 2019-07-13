@@ -64,7 +64,7 @@ RUN apk update --no-cache \
         openssh-client \
         sshpass \
         ttf-liberation \
-        "$(scanelf --needed --nobanner --format '%n#p' --recursive /usr/local | tr ',' '\n' | sort -u | awk 'system("[ -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }')" \
+        $(scanelf --needed --nobanner --format '%n#p' --recursive /usr/local | tr ',' '\n' | sort -u | awk 'system("[ -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }') \
     && apk del --no-cache .build-deps \
     && chmod +x /entrypoint.sh \
     && sh /font.sh \
