@@ -19,7 +19,7 @@ docker run \
     --network my \
     --restart always \
     --volume web2py:/home \
-    rekgrpth/web2py
+    rekgrpth/web2py uwsgi --ini web2py.ini
 docker run \
     --detach \
     --env GROUP_ID=$(id -g) \
