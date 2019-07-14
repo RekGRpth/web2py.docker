@@ -18,7 +18,7 @@ docker run \
     --name web2py \
     --network my \
     --restart always \
-    --volume web2py:/data \
+    --volume web2py:/home \
     rekgrpth/web2py
 docker run \
     --detach \
@@ -29,5 +29,5 @@ docker run \
     --name scheduler \
     --network my \
     --restart always \
-    --volume web2py:/data \
-    rekgrpth/web2py su-exec uwsgi python -m supervisor.supervisord --configuration /data/supervisord.conf
+    --volume web2py:/home \
+    rekgrpth/web2py su-exec uwsgi python -m supervisor.supervisord --configuration /home/supervisord.conf
