@@ -59,6 +59,7 @@ RUN apk update --no-cache \
     && apk add --no-cache --virtual .web2py-rundeps \
         openssh-client \
         sshpass \
+        ttf-liberation \
         $(scanelf --needed --nobanner --format '%n#p' --recursive /usr/local | tr ',' '\n' | sort -u | awk 'system("[ -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }') \
     && apk del --no-cache .build-deps \
     && grep -r "Helvetica" /usr/local/lib/python3.7/site-packages/reportlab /usr/local/lib/python3.7/site-packages/xhtml2pdf | cut -d ':' -f 1 | sort -u | while read -r FILE; do sed -i "s|Helvetica|LiberationSans-Regular|g" "$FILE"; done \
