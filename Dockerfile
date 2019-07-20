@@ -67,20 +67,20 @@ RUN apk update --no-cache \
     && apk add --no-cache --virtual .web2py-rundeps \
         openssh-client \
         sshpass \
-        ttf-liberation \
-        $(scanelf --needed --nobanner --format '%n#p' --recursive /usr/local | tr ',' '\n' | sort -u | awk 'system("[ -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }') \
+#        ttf-liberation \
+#        $(scanelf --needed --nobanner --format '%n#p' --recursive /usr/local | tr ',' '\n' | sort -u | awk 'system("[ -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }') \
 #    && apk del --no-cache .build-deps \
-    && rm -rf /usr/src /usr/local/share/doc /usr/local/share/man \
-    && grep -r "Helvetica" /usr/lib/python3.7/site-packages/reportlab /usr/local/lib/python3.7/site-packages/xhtml2pdf | cut -d ':' -f 1 | sort -u | while read -r FILE; do sed -i "s|Helvetica|LiberationSans-Regular|g" "$FILE"; done \
-    && grep -r "TimesNewRoman" /usr/lib/python3.7/site-packages/reportlab /usr/local/lib/python3.7/site-packages/xhtml2pdf | cut -d ':' -f 1 | sort -u | while read -r FILE; do sed -i "s|TimesNewRoman|LiberationSerif-Regular|g" "$FILE"; done \
-    && grep -r "Times New Roman" /usr/lib/python3.7/site-packages/reportlab /usr/local/lib/python3.7/site-packages/xhtml2pdf | cut -d ':' -f 1 | sort -u | while read -r FILE; do sed -i "s|Times New Roman|LiberationSerif-Regular|g" "$FILE"; done \
-    && grep -r "Times-Roman" /usr/lib/python3.7/site-packages/reportlab /usr/local/lib/python3.7/site-packages/xhtml2pdf | cut -d ':' -f 1 | sort -u | while read -r FILE; do sed -i "s|Times-Roman|LiberationSerif-Regular|g" "$FILE"; done \
-    && grep -r "Times-" /usr/lib/python3.7/site-packages/reportlab /usr/local/lib/python3.7/site-packages/xhtml2pdf | cut -d ':' -f 1 | sort -u | while read -r FILE; do sed -i "s|Times-|LiberationSerif-|g" "$FILE"; done \
-    && grep -r "Arial" /usr/lib/python3.7/site-packages/reportlab /usr/local/lib/python3.7/site-packages/xhtml2pdf | cut -d ':' -f 1 | sort -u | while read -r FILE; do sed -i "s|Arial|LiberationSans-Regular|g" "$FILE"; done \
-    && grep -r "Courier New" /usr/lib/python3.7/site-packages/reportlab /usr/local/lib/python3.7/site-packages/xhtml2pdf | cut -d ':' -f 1 | sort -u | while read -r FILE; do sed -i "s|Courier New|LiberationMono-Regular|g" "$FILE"; done \
-    && grep -r "Courier" /usr/lib/python3.7/site-packages/reportlab /usr/local/lib/python3.7/site-packages/xhtml2pdf | cut -d ':' -f 1 | sort -u | while read -r FILE; do sed -i "s|Courier|LiberationMono-Regular|g" "$FILE"; done \
-    && grep -r "/usr/share/fonts/dejavu" /usr/lib/python3.7/site-packages/reportlab /usr/local/lib/python3.7/site-packages/xhtml2pdf | cut -d ':' -f 1 | sort -u | while read -r FILE; do sed -i "s|/usr/share/fonts/dejavu|/usr/share/fonts/ttf-liberation|g" "$FILE"; done \
-    && grep -r "DEFAULT_CSS = \"\"\"" /usr/lib/python3.7/site-packages/reportlab /usr/local/lib/python3.7/site-packages/xhtml2pdf | cut -d ':' -f 1 | sort -u | while read -r FILE; do sed -i "s|font-weight:bold;|font-weight:bold;font-family: LiberationSans-Bold;|g" "$FILE" \
-    && sed -i "s|font-weight: bold;|font-weight:bold;font-family: LiberationSans-Bold;|g" "$FILE" \
-    && sed -i "s|font-style: italic;|font-style: italic;font-family: LiberationSans-Italic;|g" "$FILE" \
-    && sed -i "/^DEFAULT_CSS/cfrom os import path, listdir\ndejavu = '/usr/share/fonts/ttf-liberation'\nfonts = {file.split('.')[0]: path.join(dejavu, file) for file in listdir(dejavu) if file.endswith('.ttf')}\nDEFAULT_CSS = '\\\n'.join(('@font-face { font-family: \"%s\"; src: \"%s\";%s%s }' % (name, file, ' font-weight: \"bold\";' if 'bold' in name.lower() else '', ' font-style: \"italic\";' if 'italic' in name.lower() or 'oblique' in name.lower() else '') for name, file in fonts.items())) + \"\"\"" "$FILE"; done
+#    && rm -rf /usr/src /usr/local/share/doc /usr/local/share/man \
+    && grep -r "Helvetica" /usr/lib/python3.7/site-packages/reportlab /usr/local/lib/python3.7/site-packages/xhtml2pdf | cut -d ':' -f 1 | sort -u | while read -r FILE; do sed -i "s|Helvetica|DejaVuSans|g" "$FILE"; done \
+    && grep -r "TimesNewRoman" /usr/lib/python3.7/site-packages/reportlab /usr/local/lib/python3.7/site-packages/xhtml2pdf | cut -d ':' -f 1 | sort -u | while read -r FILE; do sed -i "s|TimesNewRoman|DejaVuSerif|g" "$FILE"; done \
+    && grep -r "Times New Roman" /usr/lib/python3.7/site-packages/reportlab /usr/local/lib/python3.7/site-packages/xhtml2pdf | cut -d ':' -f 1 | sort -u | while read -r FILE; do sed -i "s|Times New Roman|DejaVuSerif|g" "$FILE"; done \
+    && grep -r "Times-Roman" /usr/lib/python3.7/site-packages/reportlab /usr/local/lib/python3.7/site-packages/xhtml2pdf | cut -d ':' -f 1 | sort -u | while read -r FILE; do sed -i "s|Times-Roman|DejaVuSerif|g" "$FILE"; done \
+    && grep -r "Times-" /usr/lib/python3.7/site-packages/reportlab /usr/local/lib/python3.7/site-packages/xhtml2pdf | cut -d ':' -f 1 | sort -u | while read -r FILE; do sed -i "s|Times-|DejaVuSerif-|g" "$FILE"; done \
+    && grep -r "Arial" /usr/lib/python3.7/site-packages/reportlab /usr/local/lib/python3.7/site-packages/xhtml2pdf | cut -d ':' -f 1 | sort -u | while read -r FILE; do sed -i "s|Arial|DejaVuSans|g" "$FILE"; done \
+    && grep -r "Courier New" /usr/lib/python3.7/site-packages/reportlab /usr/local/lib/python3.7/site-packages/xhtml2pdf | cut -d ':' -f 1 | sort -u | while read -r FILE; do sed -i "s|Courier New|DejaVuSansMono|g" "$FILE"; done \
+    && grep -r "Courier" /usr/lib/python3.7/site-packages/reportlab /usr/local/lib/python3.7/site-packages/xhtml2pdf | cut -d ':' -f 1 | sort -u | while read -r FILE; do sed -i "s|Courier|DejaVuSansMono|g" "$FILE"; done \
+    && grep -r "/usr/share/fonts/dejavu" /usr/lib/python3.7/site-packages/reportlab /usr/local/lib/python3.7/site-packages/xhtml2pdf | cut -d ':' -f 1 | sort -u | while read -r FILE; do sed -i "s|/usr/share/fonts/dejavu|/usr/share/fonts/ttf-dejavu|g" "$FILE"; done \
+    && grep -r "DEFAULT_CSS = \"\"\"" /usr/lib/python3.7/site-packages/reportlab /usr/local/lib/python3.7/site-packages/xhtml2pdf | cut -d ':' -f 1 | sort -u | while read -r FILE; do sed -i "s|font-weight:bold;|font-weight:bold;font-family: DejaVuSans-Bold;|g" "$FILE" \
+    && sed -i "s|font-weight: bold;|font-weight:bold;font-family: DejaVuSans-Bold;|g" "$FILE" \
+    && sed -i "s|font-style: italic;|font-style: italic;font-family: DejaVuSans-Oblique;|g" "$FILE" \
+    && sed -i "/^DEFAULT_CSS/cfrom os import path, listdir\ndejavu = '/usr/share/fonts/ttf-dejavu'\nfonts = {file.split('.')[0]: path.join(dejavu, file) for file in listdir(dejavu) if file.endswith('.ttf')}\nDEFAULT_CSS = '\\\n'.join(('@font-face { font-family: \"%s\"; src: \"%s\";%s%s }' % (name, file, ' font-weight: \"bold\";' if 'bold' in name.lower() else '', ' font-style: \"italic\";' if 'italic' in name.lower() or 'oblique' in name.lower() else '') for name, file in fonts.items())) + \"\"\"" "$FILE"; done
