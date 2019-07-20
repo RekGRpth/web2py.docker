@@ -25,10 +25,10 @@ RUN apk update --no-cache \
 #        python3-dev \
 #        swig \
 #        zlib-dev \
-    && ln -s pip3 /usr/bin/pip \
-    && ln -s pydoc3 /usr/bin/pydoc \
-    && ln -s python3 /usr/bin/python \
-    && ln -s python3-config /usr/bin/python-config \
+#    && ln -s pip3 /usr/bin/pip \
+#    && ln -s pydoc3 /usr/bin/pydoc \
+#    && ln -s python3 /usr/bin/python \
+#    && ln -s python3-config /usr/bin/python-config \
 #    && pip install --no-cache-dir --upgrade pip \
  #   && mkdir -p /usr/src \
  #   && cd /usr/src \
