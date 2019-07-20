@@ -3,74 +3,38 @@ ENV PYTHONPATH=${HOME}/app:${HOME}/app/site-packages:${HOME}/app/gluon/packages/
 VOLUME "${HOME}"
 RUN apk update --no-cache \
     && apk upgrade --no-cache \
-#    && addgroup -S "${GROUP}" \
-#    && adduser -D -S -h "${HOME}" -s /sbin/nologin -G "${GROUP}" "${USER}" \
-#    && apk add --no-cache --virtual .build-deps \
-#        freeglut-dev \
-#        freetype-dev \
-#        gcc \
-#        gettext-dev \
-#        git \
-#        harfbuzz-dev \
-#        jbig2dec-dev \
-#        jpeg-dev \
-#        libffi-dev \
-#        linux-headers \
-#        make \
-#        musl-dev \
-#        openjpeg-dev \
-#        openldap-dev \
-#        pcre-dev \
-#        postgresql-dev \
-#        python3-dev \
-#        swig \
-#        zlib-dev \
-#    && ln -s pip3 /usr/bin/pip \
-#    && ln -s pydoc3 /usr/bin/pydoc \
-#    && ln -s python3 /usr/bin/python \
-#    && ln -s python3-config /usr/bin/python-config \
-#    && pip install --no-cache-dir --upgrade pip \
- #   && mkdir -p /usr/src \
- #   && cd /usr/src \
- #   && git clone --recursive https://github.com/RekGRpth/pymupdf.git \
- #   && cd /usr/src/pymupdf \
- #   && python setup.py install --prefix /usr/local \
+    && apk add --no-cache --virtual .web2py-rundeps \
+        openssh-client \
+        py3-dateutil \
+        py3-decorator \
+        py3-html5lib \
+        py3-httplib2 \
+        py3-jwt \
+        py3-ldap3 \
+        py3-netaddr \
+        py3-olefile \
+        py3-openssl \
+        py3-pexpect \
+        py3-pillow \
+        py3-psycopg2 \
+        py3-ptyprocess \
+        py3-pygments \
+        py3-pyldap \
+        py3-pypdf2 \
+        py3-reportlab \
+        py3-requests \
+        py3-six \
+        py3-wcwidth \
+        sshpass \
     && pip install --no-cache-dir --prefix /usr/local \
         captcha \
         client_bank_exchange_1c \
-#        decorator \
-#        httplib2 \
-#        ipython \
         multiprocessing-utils \
-#        netaddr \
-#        olefile \
-#        pexpect \
         pg8000 \
-#        pillow \
-#        psycopg2 \
-#        ptyprocess \
-#        pygments \
-#        PyJWT \
-#        pyOpenSSL \
-#        pypdf2 \
-#        python-dateutil \
-#        python-ldap \
-#        reportlab \
-#        requests \
         sh \
-#        six \
         suds2 \
         supervisor \
-#        uwsgi \
-#        wcwidth \
         xhtml2pdf \
-    && apk add --no-cache --virtual .web2py-rundeps \
-        openssh-client \
-        sshpass \
-#        ttf-liberation \
-#        $(scanelf --needed --nobanner --format '%n#p' --recursive /usr/local | tr ',' '\n' | sort -u | awk 'system("[ -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }') \
-#    && apk del --no-cache .build-deps \
-#    && rm -rf /usr/src /usr/local/share/doc /usr/local/share/man \
     && grep -r "Helvetica" /usr/lib/python3.7/site-packages/reportlab /usr/local/lib/python3.7/site-packages/xhtml2pdf | cut -d ':' -f 1 | sort -u | while read -r FILE; do sed -i "s|Helvetica|DejaVuSans|g" "$FILE"; done \
     && grep -r "TimesNewRoman" /usr/lib/python3.7/site-packages/reportlab /usr/local/lib/python3.7/site-packages/xhtml2pdf | cut -d ':' -f 1 | sort -u | while read -r FILE; do sed -i "s|TimesNewRoman|DejaVuSerif|g" "$FILE"; done \
     && grep -r "Times New Roman" /usr/lib/python3.7/site-packages/reportlab /usr/local/lib/python3.7/site-packages/xhtml2pdf | cut -d ':' -f 1 | sort -u | while read -r FILE; do sed -i "s|Times New Roman|DejaVuSerif|g" "$FILE"; done \
