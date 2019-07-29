@@ -1,7 +1,8 @@
 FROM rekgrpth/uwsgi
 ENV PYTHONPATH=${HOME}/app:${HOME}/app/site-packages:${HOME}/app/gluon/packages/dal:/usr/local/lib/python3.7:/usr/local/lib/python3.7/lib-dynload:/usr/local/lib/python3.7/site-packages
 VOLUME "${HOME}"
-RUN apk update --no-cache \
+RUN set -ex \
+    && apk update --no-cache \
     && apk upgrade --no-cache \
     && apk add --no-cache --virtual .web2py-rundeps \
         openssh-client \
