@@ -4,6 +4,30 @@ VOLUME "${HOME}"
 RUN set -ex \
     && apk update --no-cache \
     && apk upgrade --no-cache \
+    && apk add --no-cache --virtual .build-deps \
+        freetype-dev \
+        gcc \
+        gettext-dev \
+        git \
+        harfbuzz-dev \
+        jbig2dec-dev \
+        jpeg-dev \
+        libffi-dev \
+        linux-headers \
+        make \
+        musl-dev \
+        openjpeg-dev \
+        openldap-dev \
+        pcre-dev \
+        postgresql-dev \
+        python3-dev \
+        swig \
+        zlib-dev \
+    && mkdir -p /usr/src \
+    && cd /usr/src \
+    && git clone --recursive https://github.com/RekGRpth/pymupdf.git \
+    && cd /usr/src/pymupdf \
+    && python setup.py install --prefix /usr/local \
     && apk add --no-cache --virtual .web2py-rundeps \
         openssh-client \
         py3-dateutil \
@@ -27,6 +51,10 @@ RUN set -ex \
         py3-six \
         py3-wcwidth \
         sshpass \
+        $(scanelf --needed --nobanner --format '%n#p' --recursive /usr/local | tr ',' '\n' | sort -u | awk 'system("[ -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }') \
+    && apk del --no-cache .build-deps \
+    && rm -rf /usr/src /usr/local/share/doc /usr/local/share/man \
+    && cd / \
     && pip install --no-cache-dir --prefix /usr/local \
         captcha \
         client_bank_exchange_1c \
