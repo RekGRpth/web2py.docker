@@ -11,9 +11,6 @@ docker volume create web2py || exit $?
 docker network create my
 docker run \
     --detach \
-    --env FZ_DEBUG_CSS=1 \
-    --env FZ_DEBUG_HTML=1 \
-    --env FZ_DEBUG_XML=1 \
     --env GROUP_ID=$(id -g) \
     --env USER_ID=$(id -u) \
     --hostname web2py \
