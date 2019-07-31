@@ -36,6 +36,7 @@ RUN set -ex \
         py3-httplib2 \
         py3-jwt \
         py3-ldap3 \
+        py3-lxml \
         py3-netaddr \
         py3-olefile \
         py3-openssl \
