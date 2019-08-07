@@ -25,8 +25,8 @@ RUN set -ex \
         zlib-dev \
     && mkdir -p /usr/src \
     && cd /usr/src \
-    && git clone --recursive https://github.com/RekGRpth/pymupdf.git \
-    && cd /usr/src/pymupdf \
+    && git clone --recursive https://github.com/RekGRpth/pyhtmldoc.git \
+    && cd /usr/src/pyhtmldoc \
     && python setup.py install --prefix /usr/local \
     && apk add --no-cache --virtual .web2py-rundeps \
         openssh-client \
