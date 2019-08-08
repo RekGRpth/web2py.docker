@@ -1,28 +1,29 @@
-FROM rekgrpth/uwsgi
-ENV PYTHONPATH=${HOME}/app:${HOME}/app/site-packages:${HOME}/app/gluon/packages/dal:/usr/local/lib/python3.7:/usr/local/lib/python3.7/lib-dynload:/usr/local/lib/python3.7/site-packages
+FROM rekgrpth/pdf
+ENV GROUP=uwsgi \
+    PYTHONIOENCODING=UTF-8 \
+    PYTHONPATH=${HOME}/app:${HOME}/app/site-packages:${HOME}/app/gluon/packages/dal:/usr/local/lib/python3.7:/usr/local/lib/python3.7/lib-dynload:/usr/local/lib/python3.7/site-packages \
+    USER=uwsgi
 VOLUME "${HOME}"
 RUN set -ex \
     && apk update --no-cache \
     && apk upgrade --no-cache \
+    && addgroup -S "${GROUP}" \
+    && adduser -D -S -h "${HOME}" -s /sbin/nologin -G "${GROUP}" "${USER}" \
+    && apk add --no-cache --virtual .uwsgi-rundeps \
+        ipython \
+        uwsgi \
+        uwsgi-python3 \
+    && ln -s pip3 /usr/bin/pip \
+    && ln -s pydoc3 /usr/bin/pydoc \
+    && ln -s python3 /usr/bin/python \
+    && ln -s python3-config /usr/bin/python-config \
     && apk add --no-cache --virtual .build-deps \
-        freetype-dev \
         gcc \
-        gettext-dev \
         git \
-        harfbuzz-dev \
-        jbig2dec-dev \
-        jpeg-dev \
-        libffi-dev \
-        linux-headers \
         make \
         musl-dev \
-        openjpeg-dev \
-        openldap-dev \
-        pcre-dev \
-        postgresql-dev \
         python3-dev \
         swig \
-        zlib-dev \
     && mkdir -p /usr/src \
     && cd /usr/src \
     && git clone --recursive https://github.com/RekGRpth/pyhtmldoc.git \
