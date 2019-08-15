@@ -1,8 +1,8 @@
 FROM rekgrpth/pdf
-ENV GROUP=uwsgi \
+ENV GROUP=web2py \
     PYTHONIOENCODING=UTF-8 \
     PYTHONPATH=${HOME}/app:${HOME}/app/site-packages:${HOME}/app/gluon/packages/dal:/usr/local/lib/python3.7:/usr/local/lib/python3.7/lib-dynload:/usr/local/lib/python3.7/site-packages \
-    USER=uwsgi
+    USER=web2py
 VOLUME "${HOME}"
 RUN set -ex \
     && apk update --no-cache \
