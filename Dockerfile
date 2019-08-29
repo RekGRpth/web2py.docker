@@ -5,8 +5,6 @@ ENV GROUP=web2py \
     USER=web2py
 VOLUME "${HOME}"
 RUN set -ex \
-    && apk update --no-cache \
-    && apk upgrade --no-cache \
     && addgroup -S "${GROUP}" \
     && adduser -D -S -h "${HOME}" -s /sbin/nologin -G "${GROUP}" "${USER}" \
     && apk add --no-cache --virtual .uwsgi-rundeps \
