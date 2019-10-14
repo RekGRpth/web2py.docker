@@ -14,8 +14,8 @@ docker run \
     --env GROUP_ID=$(id -g) \
     --env USER_ID=$(id -u) \
     --hostname web2py \
-    --link nginx:web2py-$(hostname -f) \
     --link nginx:$(hostname -f) \
+    --link nginx:web2py-$(hostname -f) \
     --name web2py \
     --network my \
     --restart always \
