@@ -15,6 +15,7 @@ docker run \
     --env USER_ID=$(id -u) \
     --hostname web2py \
     --link nginx:$(hostname -f) \
+    --link nginx:cas-$(hostname -f) \
     --link nginx:web2py-$(hostname -f) \
     --name web2py \
     --network my \
