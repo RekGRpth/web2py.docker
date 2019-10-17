@@ -26,6 +26,7 @@ RUN set -ex \
         musl-dev \
         openjpeg-dev \
         openldap-dev \
+        pcre2-dev \
         pcre-dev \
         postgresql-dev \
         python3-dev \
@@ -61,6 +62,7 @@ RUN set -ex \
         pypdf2 \
         python-dateutil \
         python-ldap \
+        python-pcre \
         reportlab \
         requests \
         sh \
