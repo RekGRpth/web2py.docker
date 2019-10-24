@@ -8,7 +8,7 @@ docker rm web2py
 docker rm scheduler
 docker pull rekgrpth/web2py || exit $?
 docker volume create web2py || exit $?
-docker network create my
+docker network create --opt com.docker.network.bridge.name=docker docker
 docker run \
     --detach \
     --env GROUP_ID=$(id -g) \
@@ -18,7 +18,7 @@ docker run \
     --link nginx:cas-$(hostname -f) \
     --link nginx:web2py-$(hostname -f) \
     --name web2py \
-    --network my \
+    --network docker \
     --restart always \
     --volume web2py:/home \
     rekgrpth/web2py uwsgi --ini web2py.ini
@@ -29,7 +29,7 @@ docker run \
 #    --hostname scheduler \
 #    --link nginx:web2py-$(hostname -f) \
 #    --name scheduler \
-#    --network my \
+#    --network docker \
 #    --restart always \
 #    --volume web2py:/home \
 #    rekgrpth/web2py su-exec web2py python -m supervisor.supervisord --configuration /home/supervisord.conf
