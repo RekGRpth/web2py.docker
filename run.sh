@@ -20,6 +20,8 @@ docker run \
     --name web2py \
     --network docker \
     --restart always \
+    --volume /etc/certs/$(hostname -d).crt:/etc/ssl/server.crt \
+    --volume /etc/certs/$(hostname -d).key:/etc/ssl/server.key \
     --volume web2py:/home \
     rekgrpth/web2py uwsgi --ini web2py.ini
 #docker run \
