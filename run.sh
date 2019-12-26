@@ -12,6 +12,8 @@ docker network create --opt com.docker.network.bridge.name=docker docker
 docker run \
     --detach \
     --env GROUP_ID=$(id -g) \
+    --env LANG=ru_RU.UTF-8 \
+    --env TZ=Asia/Yekaterinburg \
     --env USER_ID=$(id -u) \
     --hostname web2py \
     --link nginx:$(hostname -f) \
@@ -27,6 +29,8 @@ docker run \
 #docker run \
 #    --detach \
 #    --env GROUP_ID=$(id -g) \
+#    --env LANG=ru_RU.UTF-8 \
+#    --env TZ=Asia/Yekaterinburg \
 #    --env USER_ID=$(id -u) \
 #    --hostname scheduler \
 #    --link nginx:web2py-$(hostname -f) \
