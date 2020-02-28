@@ -29,6 +29,7 @@ RUN set -ex \
         pcre2-dev \
         pcre-dev \
         postgresql-dev \
+        py3-pip \
         python3-dev \
         swig \
         zlib-dev \
