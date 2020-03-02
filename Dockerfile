@@ -39,8 +39,8 @@ RUN set -ex \
     && cd /usr/src/pyhtmldoc \
     && python setup.py install --prefix /usr/local \
     && cd / \
-    && pip install --no-cache-dir --upgrade pip \
-    && pip install --no-cache-dir --prefix /usr/local \
+    && pip install --no-cache-dir --ignore-installed --upgrade pip \
+    && pip install --no-cache-dir --ignore-installed --prefix /usr/local \
         captcha \
         client_bank_exchange_1c \
         decorator \
