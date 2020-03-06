@@ -4,7 +4,7 @@
 #docker push rekgrpth/web2py || exit $?
 docker pull rekgrpth/web2py || exit $?
 docker volume create web2py || exit $?
-docker network create --attachable --driver overlay docker || echo $?
+docker network create --attachable --opt com.docker.network.bridge.name=docker docker || echo $?
 docker service create \
     --env GROUP_ID=$(id -g) \
     --env LANG=ru_RU.UTF-8 \
