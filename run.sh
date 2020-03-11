@@ -4,26 +4,34 @@
 #docker push rekgrpth/web2py || exit $?
 docker pull rekgrpth/web2py || exit $?
 docker volume create web2py || exit $?
-docker network create --attachable --driver overlay docker || echo $?
-docker service create \
+docker network create --attachable --opt com.docker.network.bridge.name=docker docker || echo $?
+docker stop web2py || echo $?
+docker stop scheduler || echo $?
+docker rm web2py || echo $?
+docker rm scheduler || echo $?
+docker run \
+    --detach \
     --env GROUP_ID=$(id -g) \
     --env LANG=ru_RU.UTF-8 \
     --env TZ=Asia/Yekaterinburg \
     --env USER_ID=$(id -u) \
     --hostname web2py \
-    --mount type=bind,source=/etc/certs,destination=/etc/certs \
-    --mount type=volume,source=web2py,destination=/home \
     --name web2py \
     --network name=docker \
+    --restart always \
+    --volume /etc/certs:/etc/certs \
+    --volume web2py:/home \
     rekgrpth/web2py uwsgi --ini web2py.ini
-#docker service create \
+#docker run \
+#    --detach \
 #    --env GROUP_ID=$(id -g) \
 #    --env LANG=ru_RU.UTF-8 \
 #    --env TZ=Asia/Yekaterinburg \
 #    --env USER_ID=$(id -u) \
 #    --hostname scheduler \
-#    --mount type=bind,source=/etc/certs,destination=/etc/certs \
-#    --mount type=volume,source=web2py,destination=/home \
 #    --name scheduler \
 #    --network name=docker \
+#    --restart always \
+#    --volume /etc/certs:/etc/certs \
+#    --volume web2py:/home \
 #    rekgrpth/web2py su-exec web2py python -m supervisor.supervisord --configuration /home/supervisord.conf
