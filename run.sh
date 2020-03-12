@@ -20,6 +20,7 @@ docker run \
     --network name=docker \
     --restart always \
     --volume /etc/certs:/etc/certs \
+    --volume /run/postgresql:/run/postgresql \
     --volume web2py:/home \
     rekgrpth/web2py uwsgi --ini web2py.ini
 #docker run \
@@ -33,5 +34,6 @@ docker run \
 #    --network name=docker \
 #    --restart always \
 #    --volume /etc/certs:/etc/certs \
+#    --volume /run/postgresql:/run/postgresql \
 #    --volume web2py:/home \
 #    rekgrpth/web2py su-exec web2py python -m supervisor.supervisord --configuration /home/supervisord.conf

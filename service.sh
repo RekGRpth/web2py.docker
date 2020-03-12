@@ -12,6 +12,7 @@ docker service create \
     --env USER_ID=$(id -u) \
     --hostname web2py \
     --mount type=bind,source=/etc/certs,destination=/etc/certs \
+    --mount type=volume,source=/run/postgresql,destination=/run/postgresql \
     --mount type=volume,source=web2py,destination=/home \
     --name web2py \
     --network name=docker \
@@ -23,6 +24,7 @@ docker service create \
 #    --env USER_ID=$(id -u) \
 #    --hostname scheduler \
 #    --mount type=bind,source=/etc/certs,destination=/etc/certs \
+#    --mount type=volume,source=/run/postgresql,destination=/run/postgresql \
 #    --mount type=volume,source=web2py,destination=/home \
 #    --name scheduler \
 #    --network name=docker \
