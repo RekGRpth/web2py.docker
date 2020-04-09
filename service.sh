@@ -11,7 +11,7 @@ docker service create \
     --env TZ=Asia/Yekaterinburg \
     --env USER_ID=$(id -u) \
     --hostname web2py \
-    --mount type=bind,source=/etc/certs,destination=/etc/certs \
+    --mount type=bind,source=/etc/certs,destination=/etc/certs,readonly \
     --mount type=bind,source=/run/postgresql,destination=/run/postgresql \
     --mount type=bind,source=/run/uwsgi,destination=/run/uwsgi \
     --mount type=volume,source=web2py,destination=/home \
@@ -24,7 +24,7 @@ docker service create \
 #    --env TZ=Asia/Yekaterinburg \
 #    --env USER_ID=$(id -u) \
 #    --hostname scheduler \
-#    --mount type=bind,source=/etc/certs,destination=/etc/certs \
+#    --mount type=bind,source=/etc/certs,destination=/etc/certs,readonly \
 #    --mount type=bind,source=/run/postgresql,destination=/run/postgresql \
 #    --mount type=bind,source=/run/uwsgi,destination=/run/uwsgi \
 #    --mount type=volume,source=web2py,destination=/home \

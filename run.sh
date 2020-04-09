@@ -16,13 +16,13 @@ docker run \
     --env TZ=Asia/Yekaterinburg \
     --env USER_ID=$(id -u) \
     --hostname web2py \
+    --mount type=bind,source=/etc/certs,destination=/etc/certs,readonly \
+    --mount type=bind,source=/run/postgresql,destination=/run/postgresql \
+    --mount type=bind,source=/run/uwsgi,destination=/run/uwsgi \
+    --mount type=volume,source=web2py,destination=/home \
     --name web2py \
     --network name=docker \
     --restart always \
-    --volume /etc/certs:/etc/certs \
-    --volume /run/postgresql:/run/postgresql \
-    --volume /run/uwsgi:/run/uwsgi \
-    --volume web2py:/home \
     rekgrpth/web2py uwsgi --ini web2py.ini
 #docker run \
 #    --detach \
@@ -31,11 +31,11 @@ docker run \
 #    --env TZ=Asia/Yekaterinburg \
 #    --env USER_ID=$(id -u) \
 #    --hostname scheduler \
+#    --mount type=bind,source=/etc/certs,destination=/etc/certs,readonly \
+#    --mount type=bind,source=/run/postgresql,destination=/run/postgresql \
+#    --mount type=bind,source=/run/uwsgi,destination=/run/uwsgi \
+#    --mount type=volume,source=web2py,destination=/home \
 #    --name scheduler \
 #    --network name=docker \
 #    --restart always \
-#    --volume /etc/certs:/etc/certs \
-#    --volume /run/postgresql:/run/postgresql \
-#    --volume /run/uwsgi:/run/uwsgi \
-#    --volume web2py:/home \
 #    rekgrpth/web2py su-exec web2py python -m supervisor.supervisord --configuration /home/supervisord.conf
