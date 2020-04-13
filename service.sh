@@ -1,4 +1,4 @@
-#!/bin/sh -ex
+#!/bin/sh -x
 
 #docker build --tag rekgrpth/web2py . || exit $?
 #docker push rekgrpth/web2py || exit $?
