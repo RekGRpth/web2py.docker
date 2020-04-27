@@ -1,9 +1,9 @@
 #!/bin/sh -ex
 
-#docker build --tag rekgrpth/web2py . || exit $?
-#docker push rekgrpth/web2py || exit $?
-docker pull rekgrpth/web2py || exit $?
-docker volume create web2py || exit $?
+#docker build --tag rekgrpth/web2py .
+#docker push rekgrpth/web2py
+docker pull rekgrpth/web2py
+docker volume create web2py
 docker network create --attachable --opt com.docker.network.bridge.name=docker docker || echo $?
 docker stop web2py || echo $?
 docker stop scheduler || echo $?

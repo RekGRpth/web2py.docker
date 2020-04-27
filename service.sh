@@ -1,9 +1,9 @@
 #!/bin/sh -ex
 
-#docker build --tag rekgrpth/web2py . || exit $?
-#docker push rekgrpth/web2py || exit $?
-docker pull rekgrpth/web2py || exit $?
-docker volume create web2py || exit $?
+#docker build --tag rekgrpth/web2py .
+#docker push rekgrpth/web2py
+docker pull rekgrpth/web2py
+docker volume create web2py
 docker network create --attachable --driver overlay docker || echo $?
 docker service create \
     --env GROUP_ID=$(id -g) \
