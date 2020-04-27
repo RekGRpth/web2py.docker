@@ -5,7 +5,7 @@ ENV GROUP=web2py \
     PYTHONPATH=${HOME}/app:${HOME}/app/site-packages:${HOME}/app/gluon/packages/dal:/usr/local/lib/python3.8:/usr/local/lib/python3.8/lib-dynload:/usr/local/lib/python3.8/site-packages \
     USER=web2py
 VOLUME "${HOME}"
-RUN set -x \
+RUN set -ex \
     && addgroup -S "${GROUP}" \
     && adduser -D -S -h "${HOME}" -s /sbin/nologin -G "${GROUP}" "${USER}" \
     && ln -s pip3 /usr/bin/pip \
