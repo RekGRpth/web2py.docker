@@ -42,9 +42,9 @@ RUN exec 2>&1 \
     && mkdir -p /usr/src \
     && cd /usr/src \
     && git clone --recursive https://github.com/RekGRpth/pyhtmldoc.git \
+    && git clone --recursive https://github.com/RekGRpth/pymustach.git \
     && cd /usr/src/pyhtmldoc \
     && python setup.py install --prefix /usr/local \
-    && git clone --recursive https://github.com/RekGRpth/pymustach.git \
     && cd /usr/src/pymustach \
     && python setup.py install --prefix /usr/local \
     && cd / \
