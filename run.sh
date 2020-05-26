@@ -19,7 +19,7 @@ docker run \
     --mount type=bind,source=/etc/certs,destination=/etc/certs,readonly \
     --mount type=bind,source=/run/postgresql,destination=/run/postgresql \
     --mount type=bind,source=/run/uwsgi,destination=/run/uwsgi \
-    --mount type=bind,source=/var/log/uwsgi/web2py,destination=/var/log/uwsgi \
+    --mount type=bind,source=/var/log/uwsgi/web2py,destination=/home/app/logs \
     --mount type=volume,source=web2py,destination=/home \
     --name web2py \
     --network name=docker \
