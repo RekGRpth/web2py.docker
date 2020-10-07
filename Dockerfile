@@ -62,6 +62,7 @@ RUN exec 2>&1 \
         pillow \
         psycopg2 \
         ptyprocess \
+        pyexcel-ods \
         pygments \
         PyJWT \
         pyldap \
