@@ -91,6 +91,7 @@ RUN exec 2>&1 \
     && apk del --no-cache .build-deps \
     && apk del --no-cache .edge-testing-build-deps \
     && rm -rf /usr/src /usr/share/doc /usr/share/man /usr/local/share/doc /usr/local/share/man \
+    && find / -name "*.pyc" -delete \
     && grep -r "Helvetica" /usr/local/lib/python3.8/site-packages/reportlab /usr/local/lib/python3.8/site-packages/xhtml2pdf | cut -d ':' -f 1 | sort -u | while read -r FILE; do sed -i "s|Helvetica|NimbusSans-Regular|g" "$FILE"; done \
     && grep -r "TimesNewRoman" /usr/local/lib/python3.8/site-packages/reportlab /usr/local/lib/python3.8/site-packages/xhtml2pdf | cut -d ':' -f 1 | sort -u | while read -r FILE; do sed -i "s|TimesNewRoman|NimbusRoman-Regular|g" "$FILE"; done \
     && grep -r "Times New Roman" /usr/local/lib/python3.8/site-packages/reportlab /usr/local/lib/python3.8/site-packages/xhtml2pdf | cut -d ':' -f 1 | sort -u | while read -r FILE; do sed -i "s|Times New Roman|NimbusRoman-Regular|g" "$FILE"; done \
