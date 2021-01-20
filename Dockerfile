@@ -46,12 +46,13 @@ RUN exec 2>&1 \
     && python setup.py install --prefix /usr/local \
     && cd / \
     && pip install --no-cache-dir --ignore-installed --prefix /usr/local \
+        git+https://github.com/ipython/ipython \
         captcha \
         client_bank_exchange_1c \
         decorator \
         html5lib \
         httplib2 \
-        ipython \
+#        ipython \
         lxml \
         multiprocessing-utils \
         netaddr \
