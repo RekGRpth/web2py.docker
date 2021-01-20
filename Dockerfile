@@ -13,8 +13,6 @@ RUN exec 2>&1 \
     && ln -s pydoc3 /usr/bin/pydoc \
     && ln -s python3 /usr/bin/python \
     && ln -s python3-config /usr/bin/python-config \
-    && apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing --virtual .edge-testing-build-deps \
-        mustach-dev \
     && apk add --no-cache --virtual .build-deps \
         freetype-dev \
         gcc \
@@ -80,16 +78,13 @@ RUN exec 2>&1 \
         uwsgi \
         wcwidth \
         xhtml2pdf \
-    && apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing --virtual .mustach-rundeps \
-        mustach-dev \
     && apk add --no-cache --virtual .web2py-rundeps \
         openssh-client \
         python3 \
         sshpass \
-        $(scanelf --needed --nobanner --format '%n#p' --recursive /usr/local | tr ',' '\n' | sort -u | grep -v 'libmustach.so' | awk 'system("[ -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }') \
+        $(scanelf --needed --nobanner --format '%n#p' --recursive /usr/local | tr ',' '\n' | sort -u | awk 'system("[ -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }') \
     && (strip /usr/local/bin/* /usr/local/lib/*.so || true) \
     && apk del --no-cache .build-deps \
-    && apk del --no-cache .edge-testing-build-deps \
     && rm -rf /usr/src /usr/share/doc /usr/share/man /usr/local/share/doc /usr/local/share/man \
     && find / -name "*.pyc" -delete \
     && grep -r "Helvetica" /usr/local/lib/python3.8/site-packages/reportlab /usr/local/lib/python3.8/site-packages/xhtml2pdf | cut -d ':' -f 1 | sort -u | grep -P '.+\.py$' | while read -r FILE; do sed -i "s|Helvetica|NimbusSans-Regular|g" "$FILE"; done \
