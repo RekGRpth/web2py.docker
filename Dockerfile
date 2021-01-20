@@ -18,6 +18,7 @@ RUN exec 2>&1 \
         gcc \
         gettext-dev \
         git \
+        grep \
         jpeg-dev \
         json-c-dev \
         libffi-dev \
