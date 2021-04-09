@@ -56,6 +56,7 @@ RUN exec 2>&1 \
         httplib2 \
         ipython \
         lxml \
+        magic \
         multiprocessing-utils \
         netaddr \
         olefile \
