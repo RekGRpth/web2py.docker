@@ -83,6 +83,7 @@ RUN exec 2>&1 \
         wcwidth \
         xhtml2pdf \
     && apk add --no-cache --virtual .web2py-rundeps \
+        libmagic \
         openssh-client \
         python3 \
         sshpass \
