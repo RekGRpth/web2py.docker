@@ -15,11 +15,14 @@ RUN exec 2>&1 \
     && ln -s python3-config /usr/bin/python-config \
     && apk add --no-cache --virtual .build-deps \
         cargo \
+        cjson-dev \
+        clang \
         freetype-dev \
         gcc \
         gettext-dev \
         git \
         grep \
+        jansson-dev \
         jpeg-dev \
         json-c-dev \
         libffi-dev \
