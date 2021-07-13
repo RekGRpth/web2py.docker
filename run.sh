@@ -6,9 +6,7 @@ docker pull rekgrpth/web2py
 docker volume create web2py
 docker network create --attachable --opt com.docker.network.bridge.name=docker docker || echo $?
 docker stop web2py || echo $?
-docker stop scheduler || echo $?
 docker rm web2py || echo $?
-docker rm scheduler || echo $?
 docker run \
     --detach \
     --env GROUP_ID=$(id -g) \
