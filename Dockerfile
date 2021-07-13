@@ -1,4 +1,6 @@
 FROM rekgrpth/pdf
+ADD service /etc/service
+CMD /etc/service/uwsgi/run
 COPY fonts /usr/local/share/fonts
 ENV GROUP=web2py \
     PYTHONIOENCODING=UTF-8 \
@@ -43,8 +45,8 @@ RUN set -eux; \
     ; \
     mkdir -p /usr/src; \
     cd /usr/src; \
-    git clone --recursive https://github.com/RekGRpth/pyhtmldoc.git; \
-    git clone --recursive https://github.com/RekGRpth/pymustach.git; \
+    git clone https://github.com/RekGRpth/pyhtmldoc.git; \
+    git clone https://github.com/RekGRpth/pymustach.git; \
     cd /usr/src/pyhtmldoc; \
     python setup.py install --prefix /usr/local; \
     cd /usr/src/pymustach; \
@@ -86,16 +88,19 @@ RUN set -eux; \
         wcwidth \
         xhtml2pdf \
     ; \
+    (strip /usr/local/bin/* /usr/local/lib/*.so || true); \
     apk add --no-cache --virtual .web2py-rundeps \
         libmagic \
         openssh-client \
         python3 \
+        runit \
         sshpass \
         $(scanelf --needed --nobanner --format '%n#p' --recursive /usr/local | tr ',' '\n' | sort -u | while read -r lib; do test ! -e "/usr/local/lib/$lib" && echo "so:$lib"; done) \
     ; \
-    (strip /usr/local/bin/* /usr/local/lib/*.so || true); \
     apk del --no-cache .build-deps; \
     rm -rf /usr/src /usr/share/doc /usr/share/man /usr/local/share/doc /usr/local/share/man; \
+    find /usr/local -name '*.a' -delete; \
+    chmod -R 0755 /etc/service; \
     find / -name "*.pyc" -delete; \
     grep -r "Helvetica" /usr/local/lib/python3.8/site-packages/reportlab /usr/local/lib/python3.8/site-packages/xhtml2pdf | cut -d ':' -f 1 | sort -u | grep -E '.+\.py$' | while read -r FILE; do sed -i "s|Helvetica|NimbusSans-Regular|g" "$FILE"; done; \
     grep -r "TimesNewRoman" /usr/local/lib/python3.8/site-packages/reportlab /usr/local/lib/python3.8/site-packages/xhtml2pdf | cut -d ':' -f 1 | sort -u | grep -E '.+\.py$' | while read -r FILE; do sed -i "s|TimesNewRoman|NimbusRoman-Regular|g" "$FILE"; done; \

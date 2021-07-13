@@ -1,0 +1,6 @@
+#!/bin/sh
+
+exec 2>&1
+chmod 755 supervise
+chown "$USER":"$GROUP" supervise/ok supervise/control supervise/status
+exec sed -u "s|^|supervisor: |"

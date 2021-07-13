@@ -1,0 +1,6 @@
+#!/bin/sh
+
+exec 2>&1
+realpath "$0"
+set -ex
+exec chpst -u "$USER":"$GROUP" supervisord --configuration web2py.conf
