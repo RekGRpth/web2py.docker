@@ -1,7 +1,7 @@
 FROM rekgrpth/pdf
-ADD service /etc/service
 CMD /etc/service/uwsgi/run
 COPY fonts /usr/local/share/fonts
+COPY service /etc/service
 ENV GROUP=web2py \
     PYTHONIOENCODING=UTF-8 \
     PYTHONPATH=${HOME}/app:${HOME}/app/site-packages:${HOME}/app/gluon/packages/dal:/usr/local/lib/python3.8:/usr/local/lib/python3.8/lib-dynload:/usr/local/lib/python3.8/site-packages \
@@ -92,7 +92,6 @@ RUN set -eux; \
         wcwidth \
         xhtml2pdf \
     ; \
-    (strip /usr/local/bin/* /usr/local/lib/*.so || true); \
     apk add --no-cache --virtual .web2py-rundeps \
         libmagic \
         openssh-client \
@@ -102,9 +101,11 @@ RUN set -eux; \
         sshpass \
         $(scanelf --needed --nobanner --format '%n#p' --recursive /usr/local | tr ',' '\n' | sort -u | while read -r lib; do test ! -e "/usr/local/lib/$lib" && echo "so:$lib"; done) \
     ; \
+    (strip /usr/local/bin/* /usr/local/lib/*.so || true); \
     apk del --no-cache .build-deps; \
     rm -rf /usr/src /usr/share/doc /usr/share/man /usr/local/share/doc /usr/local/share/man; \
-    find /usr/local -name '*.a' -delete; \
+    find / -name "*.a" -delete; \
+    find / -name "*.la" -delete; \
     chmod -R 0755 /etc/service; \
     find / -name "*.pyc" -delete; \
     grep -r "Helvetica" /usr/local/lib/python3.8/site-packages/reportlab /usr/local/lib/python3.8/site-packages/xhtml2pdf | cut -d ':' -f 1 | sort -u | grep -E '.+\.py$' | while read -r FILE; do sed -i "s|Helvetica|NimbusSans-Regular|g" "$FILE"; done; \
