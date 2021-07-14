@@ -41,12 +41,16 @@ RUN set -eux; \
         python3-dev \
         rust \
         swig \
+        talloc-dev \
         zlib-dev \
     ; \
     mkdir -p /usr/src; \
     cd /usr/src; \
+    git clone https://github.com/RekGRpth/pyhandlebars.git; \
     git clone https://github.com/RekGRpth/pyhtmldoc.git; \
     git clone https://github.com/RekGRpth/pymustach.git; \
+    cd /usr/src/pyhandlebars; \
+    python setup.py install --prefix /usr/local; \
     cd /usr/src/pyhtmldoc; \
     python setup.py install --prefix /usr/local; \
     cd /usr/src/pymustach; \
