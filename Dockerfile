@@ -1,7 +1,5 @@
 FROM rekgrpth/pdf
 CMD /etc/service/uwsgi/run
-COPY fonts /usr/local/share/fonts
-COPY service /etc/service
 ENV GROUP=web2py \
     PYTHONIOENCODING=UTF-8 \
     PYTHONPATH=${HOME}/app:${HOME}/app/site-packages:${HOME}/app/gluon/packages/dal:/usr/local/lib/python3.8:/usr/local/lib/python3.8/lib-dynload:/usr/local/lib/python3.8/site-packages \
@@ -46,9 +44,15 @@ RUN set -eux; \
     ; \
     mkdir -p /usr/src; \
     cd /usr/src; \
+    git clone https://bitbucket.org/RekGRpth/web2py.git; \
     git clone https://github.com/RekGRpth/pyhandlebars.git; \
     git clone https://github.com/RekGRpth/pyhtmldoc.git; \
     git clone https://github.com/RekGRpth/pymustach.git; \
+    cd /usr/src/web2py; \
+    mkdir -p /usr/local/share/fonts; \
+    cp -rf fonts/* /usr/local/share/fonts; \
+    mkdir -p /etc/service; \
+    cp -rf service/* /etc/service; \
     cd /usr/src/pyhandlebars; \
     python setup.py install --prefix /usr/local; \
     cd /usr/src/pyhtmldoc; \
@@ -101,7 +105,7 @@ RUN set -eux; \
         sshpass \
         $(scanelf --needed --nobanner --format '%n#p' --recursive /usr/local | tr ',' '\n' | sort -u | while read -r lib; do test ! -e "/usr/local/lib/$lib" && echo "so:$lib"; done) \
     ; \
-    (strip /usr/local/bin/* /usr/local/lib/*.so || true); \
+    find /usr/local/bin /usr/local/lib -type f -exec strip '{}' \;; \
     apk del --no-cache .build-deps; \
     rm -rf /usr/src /usr/share/doc /usr/share/man /usr/local/share/doc /usr/local/share/man; \
     find / -name "*.a" -delete; \
