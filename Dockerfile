@@ -1,4 +1,6 @@
 FROM rekgrpth/pdf
+ADD fonts /usr/local/share/fonts
+ADD service /etc/service
 ARG PYTHON_VERSION=3.8
 CMD /etc/service/uwsgi/run
 ENV GROUP=web2py \
@@ -44,22 +46,16 @@ RUN set -eux; \
         talloc-dev \
         zlib-dev \
     ; \
-    mkdir -p "${HOME}"; \
-    cd "${HOME}"; \
-    git clone https://bitbucket.org/RekGRpth/web2py.git; \
+    mkdir -p "${HOME}/src"; \
+    cd "${HOME}/src"; \
     git clone https://github.com/RekGRpth/pyhandlebars.git; \
     git clone https://github.com/RekGRpth/pyhtmldoc.git; \
     git clone https://github.com/RekGRpth/pymustach.git; \
-    cd "${HOME}/web2py"; \
-    mkdir -p /usr/local/share/fonts; \
-    cp -rf fonts/* /usr/local/share/fonts; \
-    mkdir -p /etc/service; \
-    cp -rf service/* /etc/service; \
-    cd "${HOME}/pyhandlebars"; \
+    cd "${HOME}/src/pyhandlebars"; \
     python setup.py install --prefix /usr/local; \
-    cd "${HOME}/pyhtmldoc"; \
+    cd "${HOME}/src/pyhtmldoc"; \
     python setup.py install --prefix /usr/local; \
-    cd "${HOME}/pymustach"; \
+    cd "${HOME}/src/pymustach"; \
     python setup.py install --prefix /usr/local; \
     cd "${HOME}"; \
     pip install --no-cache-dir --ignore-installed --prefix /usr/local \
