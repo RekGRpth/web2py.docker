@@ -103,7 +103,8 @@ RUN set -eux; \
         sshpass \
         $(scanelf --needed --nobanner --format '%n#p' --recursive /usr/local | tr ',' '\n' | sort -u | while read -r lib; do test ! -e "/usr/local/lib/$lib" && echo "so:$lib"; done) \
     ; \
-    find /usr/local/bin /usr/local/lib -type f -exec strip '{}' \;; \
+    find /usr/local/bin -type f -exec strip '{}' \;; \
+    find /usr/local/lib -type f -name "*.so" -exec strip '{}' \;; \
     apk del --no-cache .build-deps; \
     find / -type f -name "*.pyc" -delete; \
     find / -type f -name "*.a" -delete; \
