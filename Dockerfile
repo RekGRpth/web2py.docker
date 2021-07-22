@@ -1,7 +1,7 @@
 FROM rekgrpth/pdf
 ADD fonts /usr/local/share/fonts
 ADD service /etc/service
-ARG PYTHON_VERSION=3.8
+ARG PYTHON_VERSION=3.9
 CMD /etc/service/uwsgi/run
 ENV GROUP=web2py \
     PYTHONIOENCODING=UTF-8 \
