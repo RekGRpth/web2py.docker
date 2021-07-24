@@ -15,6 +15,8 @@ RUN set -eux; \
     ln -s pydoc3 /usr/bin/pydoc; \
     ln -s python3 /usr/bin/python; \
     ln -s python3-config /usr/bin/python-config; \
+    apk update --no-cache; \
+    apk upgrade --no-cache; \
     apk add --no-cache --virtual .build-deps \
         cargo \
         cjson-dev \
