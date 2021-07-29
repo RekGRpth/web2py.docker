@@ -7,7 +7,6 @@ ENV GROUP=web2py \
     PYTHONIOENCODING=UTF-8 \
     PYTHONPATH="${HOME}/app:${HOME}/app/site-packages:${HOME}/app/gluon/packages/dal:/usr/local/lib/python${PYTHON_VERSION}:/usr/local/lib/python${PYTHON_VERSION}/lib-dynload:/usr/local/lib/python${PYTHON_VERSION}/site-packages" \
     USER=web2py
-VOLUME "${HOME}"
 RUN set -eux; \
     addgroup -S "${GROUP}"; \
     adduser -D -S -h "${HOME}" -s /sbin/nologin -G "${GROUP}" "${USER}"; \
@@ -96,6 +95,7 @@ RUN set -eux; \
         wcwidth \
         xhtml2pdf \
     ; \
+    cd /; \
     apk add --no-cache --virtual .web2py-rundeps \
         libmagic \
         openssh-client \
@@ -108,9 +108,9 @@ RUN set -eux; \
     find /usr/local/bin -type f -exec strip '{}' \;; \
     find /usr/local/lib -type f -name "*.so" -exec strip '{}' \;; \
     apk del --no-cache .build-deps; \
-    find / -type f -name "*.pyc" -delete; \
-    find / -type f -name "*.a" -delete; \
-    find / -type f -name "*.la" -delete; \
+    find /usr -type f -name "*.pyc" -delete; \
+    find /usr -type f -name "*.a" -delete; \
+    find /usr -type f -name "*.la" -delete; \
     rm -rf "${HOME}" /usr/share/doc /usr/share/man /usr/local/share/doc /usr/local/share/man; \
     chmod -R 0755 /etc/service; \
     grep -r "DEFAULT_CSS = \"\"\"" "/usr/local/lib/python${PYTHON_VERSION}/site-packages/reportlab" "/usr/local/lib/python${PYTHON_VERSION}/site-packages/xhtml2pdf" | cut -d ':' -f 1 | sort -u | grep -E '.+\.py$' | while read -r FILE; do \
