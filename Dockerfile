@@ -1,4 +1,4 @@
-FROM rekgrpth/pdf
+FROM ghcr.io/rekgrpth/pdf.docker
 ADD fonts /usr/local/share/fonts
 ADD service /etc/service
 ARG PYTHON_VERSION=3.9

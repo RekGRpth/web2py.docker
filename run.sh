@@ -1,8 +1,6 @@
-#!/bin/sh -ex
+#!/bin/sh -eux
 
-#docker build --tag rekgrpth/web2py .
-#docker push rekgrpth/web2py
-docker pull rekgrpth/web2py
+docker pull ghcr.io/rekgrpth/web2py.docker
 docker volume create web2py
 docker network create --attachable --opt com.docker.network.bridge.name=docker docker || echo $?
 docker stop web2py || echo $?
@@ -22,4 +20,4 @@ docker run \
     --name web2py \
     --network name=docker \
     --restart always \
-    rekgrpth/web2py runsvdir /etc/service
+    ghcr.io/rekgrpth/web2py.docker runsvdir /etc/service
