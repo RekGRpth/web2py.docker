@@ -1,20 +1,16 @@
 name: Docker
-
 on:
   push:
     branches:
-      - 'latest'
-  workflow_dispatch:
+      - latest
   repository_dispatch:
     types:
-      - webhook
-
-env:
-  REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
-
+      - latest
 jobs:
   build:
+    env:
+      REGISTRY: ghcr.io
+      IMAGE_NAME: ${{ github.repository }}
     concurrency:
       group: ${{ github.ref }}
       cancel-in-progress: true
@@ -25,21 +21,17 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-
       - name: Log into registry ${{ env.REGISTRY }}
-        if: github.event_name != 'pull_request'
         uses: docker/login-action@v1
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Extract Docker metadata
         id: meta
         uses: docker/metadata-action@v3
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
         with:
@@ -47,3 +39,17 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+  dispatch:
+    needs: build
+    strategy:
+      matrix:
+        repo:
+          - RekGRpth/web2py.docker
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repository Dispatch
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.PUBLIC_REPO_ACCESS_TOKEN }}
+          repository: ${{ matrix.repo }}
+          event-type: oracle
