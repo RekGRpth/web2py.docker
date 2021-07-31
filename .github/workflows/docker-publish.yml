@@ -40,7 +40,7 @@ jobs:
     steps:
       - uses: peter-evans/repository-dispatch@v1
         with:
-          event-type: latest
+          event-type: oracle
           repository: ${{ matrix.repo }}
           token: ${{ secrets.PUBLIC_REPO_ACCESS_TOKEN }}
     strategy:
