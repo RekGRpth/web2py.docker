@@ -58,6 +58,7 @@ jobs:
         uses: docker/metadata-action@v3
         with:
           images: ${{ env.REGISTRY }}/${{ github.repository }}
+          tags: type=raw,value=oracle
       - uses: docker/build-push-action@v2
         with:
           context: .
