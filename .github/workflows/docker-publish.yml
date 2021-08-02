@@ -14,7 +14,7 @@ jobs:
       group: ${{ github.ref }}
     env:
       REGISTRY: ghcr.io
-    name: ${{ github.event.client_payload.repository }} ${{ github.event_name }} ${{ github.event.repository.name }}
+    name: ${{ github.event.client_payload.repository }} ${{ github.event_name }} ${{ github.event.branch }}
     permissions:
       contents: read
       packages: write
