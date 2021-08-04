@@ -19,8 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: rekgrpth/git-clone-action@v1
-      - uses: rekgrpth/docker-login-action@v1
-      - uses: rekgrpth/docker-build-push-action@v1
+      - uses: rekgrpth/docker-login-build-push-action@v1
   oracle:
     needs: build
     permissions:
@@ -31,7 +30,6 @@ jobs:
       - uses: rekgrpth/git-clone-action@v1
         with:
           branch: oracle
-      - uses: rekgrpth/docker-login-action@v1
-      - uses: rekgrpth/docker-build-push-action@v1
+      - uses: rekgrpth/docker-login-build-push-action@v1
         with:
           tag: oracle
