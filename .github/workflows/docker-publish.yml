@@ -12,6 +12,8 @@ jobs:
     concurrency:
       cancel-in-progress: true
       group: ${{ github.ref }}
+    env:
+      GITHUB_TOKEN: ${{ github.token }}
     name: ${{ github.event.client_payload.repository }} ${{ github.event_name }} ${{ github.event.branch }}
     permissions:
       contents: read
