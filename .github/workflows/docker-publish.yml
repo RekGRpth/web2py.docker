@@ -24,14 +24,16 @@ jobs:
       - uses: rekgrpth/docker-login-build-push-action@v1
   oracle:
     needs: build
+    env:
+      GITHUB_TOKEN: ${{ github.token }}
     permissions:
       contents: read
       packages: write
     runs-on: ubuntu-latest
     steps:
-      - uses: rekgrpth/git-clone-action@v1
-        with:
-          branch: oracle
-      - uses: rekgrpth/docker-login-build-push-action@v1
-        with:
-          tag: oracle
+      - env:
+          INPUTS_BRANCH: oracle
+        uses: rekgrpth/git-clone-action@v1
+      - env:
+          INPUTS_TAG: oracle
+        uses: rekgrpth/docker-login-build-push-action@v1
