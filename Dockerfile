@@ -94,6 +94,7 @@ RUN set -eux; \
         uwsgi \
         wcwidth \
         xhtml2pdf \
+        xmltodict \
     ; \
     cd /; \
     apk add --no-cache --virtual .web2py-rundeps \
