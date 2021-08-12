@@ -1,8 +1,6 @@
-#!/bin/sh
+#!/bin/sh -eux
 
-exec 2>&1
 realpath "$0"
-set -ex
 cd "$(dirname "$0")"
 chmod 755 supervise
 chown "$USER":"$GROUP" supervise/ok supervise/control supervise/status
