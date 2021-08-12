@@ -19,6 +19,7 @@ jobs:
     steps:
       - uses: rekgrpth/git-clone-shell-action@v1
       - uses: rekgrpth/docker-login-build-push-shell-action@v1
+      - uses: rekgrpth/github-publish-action-shell-action@v1
   oracle:
     needs: build
     env:
@@ -31,3 +32,6 @@ jobs:
       - env:
           INPUTS_TAG: oracle
         uses: rekgrpth/docker-login-build-push-shell-action@v1
+      - env:
+          INPUTS_TAG: oracle
+        uses: rekgrpth/github-publish-action-shell-action@v1
