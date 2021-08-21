@@ -35,3 +35,31 @@ jobs:
       - env:
           INPUTS_TAG: oracle
         uses: rekgrpth/github-publish-action-shell-action@v1
+  ubuntu:
+    concurrency:
+      cancel-in-progress: true
+      group: ${{ github.ref }}/ubuntu
+    env:
+      GITHUB_TOKEN: ${{ github.token }}
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          INPUTS_BRANCH: ubuntu
+        uses: rekgrpth/git-clone-shell-action@v1
+      - env:
+          INPUTS_TAG: ubuntu
+        uses: rekgrpth/docker-login-build-push-shell-action@v1
+  debian:
+    concurrency:
+      cancel-in-progress: true
+      group: ${{ github.ref }}/debian
+    env:
+      GITHUB_TOKEN: ${{ github.token }}
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          INPUTS_BRANCH: debian
+        uses: rekgrpth/git-clone-shell-action@v1
+      - env:
+          INPUTS_TAG: debian
+        uses: rekgrpth/docker-login-build-push-shell-action@v1
