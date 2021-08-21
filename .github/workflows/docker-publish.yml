@@ -5,7 +5,9 @@ on:
       - latest
   repository_dispatch:
     types:
+      - debian
       - latest
+      - ubuntu
   workflow_dispatch:
 jobs:
   build:
