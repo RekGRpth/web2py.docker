@@ -5,12 +5,10 @@ on:
       - latest
   repository_dispatch:
     types:
-      - debian
       - latest
-      - ubuntu
   workflow_dispatch:
 jobs:
-  build:
+  latest:
     concurrency:
       cancel-in-progress: true
       group: ${{ github.ref }}
@@ -23,7 +21,7 @@ jobs:
       - uses: rekgrpth/docker-login-build-push-shell-action@v1
       - uses: rekgrpth/github-publish-action-shell-action@v1
   oracle:
-    needs: build
+    needs: latest
     env:
       GITHUB_TOKEN: ${{ github.token }}
     runs-on: ubuntu-latest
@@ -64,4 +62,18 @@ jobs:
         uses: rekgrpth/git-clone-shell-action@v1
       - env:
           INPUTS_TAG: debian
+        uses: rekgrpth/docker-login-build-push-shell-action@v1
+  edge:
+    concurrency:
+      cancel-in-progress: true
+      group: ${{ github.ref }}/edge
+    env:
+      GITHUB_TOKEN: ${{ github.token }}
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          INPUTS_BRANCH: edge
+        uses: rekgrpth/git-clone-shell-action@v1
+      - env:
+          INPUTS_TAG: edge
         uses: rekgrpth/docker-login-build-push-shell-action@v1
