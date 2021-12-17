@@ -28,6 +28,7 @@ RUN set -eux; \
         linux-headers \
         make \
         musl-dev \
+        openldap-dev \
         pcre2-dev \
         pcre-dev \
         py3-dateutil \
