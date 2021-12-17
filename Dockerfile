@@ -34,6 +34,7 @@ RUN set -eux; \
         py3-dateutil \
         py3-decorator \
         py3-defusedxml \
+        py3-future \
         py3-html5lib \
         py3-httplib2 \
         py3-jwt \
@@ -95,6 +96,7 @@ RUN set -eux; \
         py3-dateutil \
         py3-decorator \
         py3-defusedxml \
+        py3-future \
         py3-html5lib \
         py3-httplib2 \
         py3-jwt \
