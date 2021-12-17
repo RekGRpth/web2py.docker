@@ -33,6 +33,7 @@ RUN set -eux; \
         pcre-dev \
         py3-dateutil \
         py3-decorator \
+        py3-defusedxml \
         py3-html5lib \
         py3-httplib2 \
         py3-jwt \
@@ -53,6 +54,7 @@ RUN set -eux; \
         py3-requests \
         py3-setuptools \
         py3-six \
+        py3-tz \
         py3-wcwidth \
         py3-wheel \
         py3-xmltodict \
@@ -92,6 +94,7 @@ RUN set -eux; \
         openssh-client \
         py3-dateutil \
         py3-decorator \
+        py3-defusedxml \
         py3-html5lib \
         py3-httplib2 \
         py3-jwt \
@@ -110,6 +113,7 @@ RUN set -eux; \
         py3-reportlab \
         py3-requests \
         py3-six \
+        py3-tz \
         py3-wcwidth \
         py3-xmltodict \
         python3 \
