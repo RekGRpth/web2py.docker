@@ -19,32 +19,43 @@ RUN set -eux; \
     apk update --no-cache; \
     apk upgrade --no-cache; \
     apk add --no-cache --virtual .build-deps \
-        cargo \
-        cjson-dev \
-        clang \
-        freetype-dev \
         gcc \
-        gettext-dev \
         git \
         grep \
         jansson-dev \
-        jpeg-dev \
         json-c-dev \
         libffi-dev \
-        libxml2-dev \
-        libxslt-dev \
         linux-headers \
         make \
         musl-dev \
-        openjpeg-dev \
-        openldap-dev \
         pcre2-dev \
         pcre-dev \
-        postgresql-dev \
+        py3-dateutil \
+        py3-decorator \
+        py3-html5lib \
+        py3-httplib2 \
+        py3-jwt \
+        py3-lxml \
+        py3-magic \
+        py3-netaddr \
+        py3-olefile \
+        py3-openssl \
+        py3-pexpect \
+        py3-pillow \
         py3-pip \
+        py3-psycopg2 \
+        py3-ptyprocess \
+        py3-pygments \
+        py3-pyldap \
+        py3-pypdf2 \
+        py3-reportlab \
+        py3-requests \
+        py3-setuptools \
+        py3-six \
+        py3-wcwidth \
         py3-wheel \
+        py3-xmltodict \
         python3-dev \
-        rust \
         swig \
         talloc-dev \
         zlib-dev \
@@ -61,51 +72,51 @@ RUN set -eux; \
     cd "${HOME}/src/pymustach"; \
     python setup.py install --prefix /usr/local; \
     cd "${HOME}"; \
-    pip install --no-cache-dir --ignore-installed --prefix /usr/local \
+    pip install --no-cache-dir --prefix /usr/local \
         captcha \
         client_bank_exchange_1c \
-        decorator \
-        html5lib \
-        httplib2 \
-        ipython \
-        lxml \
         multiprocessing-utils \
-        netaddr \
-        olefile \
-        pexpect \
         pg8000 \
-        pillow \
-        psycopg2 \
-        ptyprocess \
         pyexcel-ods \
-        pygments \
-        PyJWT \
-        pyldap \
-        pyOpenSSL \
-        pypdf2 \
-        python-dateutil \
         python-ldap \
-        python-magic \
         python-pcre \
-        reportlab \
-        requests \
         sh \
-        six \
         suds2 \
-        supervisor \
-        uwsgi \
-        wcwidth \
         xhtml2pdf \
-        xmltodict \
     ; \
     cd /; \
     apk add --no-cache --virtual .web2py-rundeps \
+        ipython \
         libmagic \
         openssh-client \
+        py3-dateutil \
+        py3-decorator \
+        py3-html5lib \
+        py3-httplib2 \
+        py3-jwt \
+        py3-lxml \
+        py3-magic \
+        py3-netaddr \
+        py3-olefile \
+        py3-openssl \
+        py3-pexpect \
+        py3-pillow \
+        py3-psycopg2 \
+        py3-ptyprocess \
+        py3-pygments \
+        py3-pyldap \
+        py3-pypdf2 \
+        py3-reportlab \
+        py3-requests \
+        py3-six \
+        py3-wcwidth \
+        py3-xmltodict \
         python3 \
         runit \
         sed \
         sshpass \
+        supervisor \
+        uwsgi-python3 \
         $(scanelf --needed --nobanner --format '%n#p' --recursive /usr/local | tr ',' '\n' | sort -u | while read -r lib; do test ! -e "/usr/local/lib/$lib" && echo "so:$lib"; done) \
     ; \
     find /usr/local/bin -type f -exec strip '{}' \;; \
@@ -116,7 +127,7 @@ RUN set -eux; \
     find /usr -type f -name "*.la" -delete; \
     rm -rf "${HOME}" /usr/share/doc /usr/share/man /usr/local/share/doc /usr/local/share/man; \
     chmod -R 0755 /etc/service; \
-    grep -r "DEFAULT_CSS = \"\"\"" "/usr/local/lib/python${PYTHON_VERSION}/site-packages/reportlab" "/usr/local/lib/python${PYTHON_VERSION}/site-packages/xhtml2pdf" | cut -d ':' -f 1 | sort -u | grep -E '.+\.py$' | while read -r FILE; do \
+    grep -r "DEFAULT_CSS = \"\"\"" "/usr/lib/python${PYTHON_VERSION}/site-packages/reportlab" "/usr/lib/python${PYTHON_VERSION}/site-packages/xhtml2pdf" | cut -d ':' -f 1 | sort -u | grep -E '.+\.py$' | while read -r FILE; do \
         sed -i "/^DEFAULT_CSS/cfrom os import path, listdir\ndejavu = '/usr/local/share/fonts'\nfonts = {file.split('.')[0]: path.join(dejavu, file) for file in listdir(dejavu) if file.endswith('.ttf')}\nDEFAULT_CSS = '\\\n'.join(('@font-face { font-family: \"%s\"; src: \"%s\";%s%s }' % (name, file, ' font-weight: \"bold\";' if 'bold' in name.lower() else '', ' font-style: \"italic\";' if 'italic' in name.lower() or 'oblique' in name.lower() else '') for name, file in fonts.items())) + \"\"\"" "$FILE"; \
     done; \
     echo done
