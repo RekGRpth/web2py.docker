@@ -70,10 +70,13 @@ RUN set -eux; \
     git clone https://github.com/RekGRpth/pyhtmldoc.git; \
     git clone https://github.com/RekGRpth/pymustach.git; \
     cd "${HOME}/src/pyhandlebars"; \
+    python setup.py build; \
     python setup.py install --prefix /usr/local; \
     cd "${HOME}/src/pyhtmldoc"; \
+    python setup.py build; \
     python setup.py install --prefix /usr/local; \
     cd "${HOME}/src/pymustach"; \
+    python setup.py build; \
     python setup.py install --prefix /usr/local; \
     cd "${HOME}"; \
     pip install --no-cache-dir --prefix /usr/local \
