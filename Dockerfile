@@ -2,7 +2,7 @@ FROM ghcr.io/rekgrpth/pdf.docker
 ADD fonts /usr/local/share/fonts
 ADD service /etc/service
 ARG PYTHON_VERSION=3.9
-CMD /etc/service/uwsgi/run
+CMD [ "/etc/service/uwsgi/run" ]
 ENV GROUP=web2py \
     PYTHONIOENCODING=UTF-8 \
     PYTHONPATH="${HOME}/app:${HOME}/app/site-packages:${HOME}/app/gluon/packages/dal:/usr/local/lib/python${PYTHON_VERSION}:/usr/local/lib/python${PYTHON_VERSION}/lib-dynload:/usr/local/lib/python${PYTHON_VERSION}/site-packages" \
