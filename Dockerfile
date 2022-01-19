@@ -24,7 +24,6 @@ RUN set -eux; \
         git \
         grep \
         jansson-dev \
-        jansson-dev \
         json-c-dev \
         libffi-dev \
         linux-headers \
