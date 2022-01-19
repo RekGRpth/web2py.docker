@@ -11,7 +11,7 @@ jobs:
   latest:
     concurrency:
       cancel-in-progress: true
-      group: ${{ github.ref }}
+      group: ${{ github.ref }}/latest
     env:
       GITHUB_TOKEN: ${{ github.token }}
     name: ${{ github.event.client_payload.repository }} ${{ github.event_name }} ${{ github.event.branch }}
@@ -20,60 +20,61 @@ jobs:
       - uses: rekgrpth/git-clone-shell-action@v1
       - uses: rekgrpth/docker-login-build-push-shell-action@v1
       - uses: rekgrpth/github-publish-action-shell-action@v1
-  oracle:
-    needs: latest
-    env:
-      GITHUB_TOKEN: ${{ github.token }}
-    runs-on: ubuntu-latest
-    steps:
-      - env:
-          INPUTS_BRANCH: oracle
-        uses: rekgrpth/git-clone-shell-action@v1
-      - env:
-          INPUTS_TAG: oracle
-        uses: rekgrpth/docker-login-build-push-shell-action@v1
-      - env:
-          INPUTS_TAG: oracle
-        uses: rekgrpth/github-publish-action-shell-action@v1
-  ubuntu:
-    concurrency:
-      cancel-in-progress: true
-      group: ${{ github.ref }}/ubuntu
-    env:
-      GITHUB_TOKEN: ${{ github.token }}
-    runs-on: ubuntu-latest
-    steps:
-      - env:
-          INPUTS_BRANCH: ubuntu
-        uses: rekgrpth/git-clone-shell-action@v1
-      - env:
-          INPUTS_TAG: ubuntu
-        uses: rekgrpth/docker-login-build-push-shell-action@v1
-  debian:
-    concurrency:
-      cancel-in-progress: true
-      group: ${{ github.ref }}/debian
-    env:
-      GITHUB_TOKEN: ${{ github.token }}
-    runs-on: ubuntu-latest
-    steps:
-      - env:
-          INPUTS_BRANCH: debian
-        uses: rekgrpth/git-clone-shell-action@v1
-      - env:
-          INPUTS_TAG: debian
-        uses: rekgrpth/docker-login-build-push-shell-action@v1
+    timeout-minutes: 20
   edge:
     concurrency:
       cancel-in-progress: true
       group: ${{ github.ref }}/edge
     env:
+      DOCKER_FROM: lib.docker:edge
       GITHUB_TOKEN: ${{ github.token }}
+      INPUTS_TAG: edge
     runs-on: ubuntu-latest
     steps:
-      - env:
-          INPUTS_BRANCH: edge
-        uses: rekgrpth/git-clone-shell-action@v1
-      - env:
-          INPUTS_TAG: edge
-        uses: rekgrpth/docker-login-build-push-shell-action@v1
+      - uses: rekgrpth/git-clone-shell-action@v1
+      - uses: rekgrpth/docker-login-build-push-shell-action@v1
+      - uses: rekgrpth/github-publish-action-shell-action@v1
+    timeout-minutes: 20
+  debian:
+    concurrency:
+      cancel-in-progress: true
+      group: ${{ github.ref }}/debian
+    env:
+      DOCKER_FROM: lib.docker:debian
+      GITHUB_TOKEN: ${{ github.token }}
+      INPUTS_TAG: debian
+    runs-on: ubuntu-latest
+    steps:
+      - uses: rekgrpth/git-clone-shell-action@v1
+      - uses: rekgrpth/docker-login-build-push-shell-action@v1
+      - uses: rekgrpth/github-publish-action-shell-action@v1
+    timeout-minutes: 20
+  ubuntu:
+    concurrency:
+      cancel-in-progress: true
+      group: ${{ github.ref }}/ubuntu
+    env:
+      DOCKER_FROM: lib.docker:ubuntu
+      GITHUB_TOKEN: ${{ github.token }}
+      INPUTS_TAG: ubuntu
+    runs-on: ubuntu-latest
+    steps:
+      - uses: rekgrpth/git-clone-shell-action@v1
+      - uses: rekgrpth/docker-login-build-push-shell-action@v1
+      - uses: rekgrpth/github-publish-action-shell-action@v1
+    timeout-minutes: 20
+  oracle:
+    concurrency:
+      cancel-in-progress: true
+      group: ${{ github.ref }}/oracle
+    needs: latest
+    env:
+      GITHUB_TOKEN: ${{ github.token }}
+      INPUTS_BRANCH: oracle
+      INPUTS_TAG: oracle
+    runs-on: ubuntu-latest
+    steps:
+      - uses: rekgrpth/git-clone-shell-action@v1
+      - uses: rekgrpth/docker-login-build-push-shell-action@v1
+      - uses: rekgrpth/github-publish-action-shell-action@v1
+    timeout-minutes: 20

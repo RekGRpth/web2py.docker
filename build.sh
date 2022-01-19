@@ -1,3 +1,3 @@
 #!/bin/sh -eux
 
-DOCKER_BUILDKIT=1 docker build --progress=plain --tag ghcr.io/rekgrpth/web2py.docker . 2>&1 | tee build.log
+docker build --progress=plain --tag "ghcr.io/rekgrpth/web2py.docker:${INPUTS_BRANCH:-latest}" $(env | grep -E '^DOCKER_' | grep -v ' ' | sort -u | sed 's@^@--build-arg @g' | paste -s -d ' ') . 2>&1 | tee build.log
