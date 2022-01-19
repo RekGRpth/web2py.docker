@@ -27,6 +27,7 @@ jobs:
       group: ${{ github.ref }}/edge
     env:
       DOCKER_FROM: lib.docker:edge
+      DOCKER_PYTHON_VERSION: '3.10'
       GITHUB_TOKEN: ${{ github.token }}
       INPUTS_TAG: edge
     runs-on: ubuntu-latest
