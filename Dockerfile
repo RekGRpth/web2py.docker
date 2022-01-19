@@ -19,9 +19,11 @@ RUN set -eux; \
     apk update --no-cache; \
     apk upgrade --no-cache; \
     apk add --no-cache --virtual .build-deps \
+        cjson-dev \
         gcc \
         git \
         grep \
+        jansson-dev \
         jansson-dev \
         json-c-dev \
         libffi-dev \
