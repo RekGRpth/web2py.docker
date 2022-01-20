@@ -1,6 +1,6 @@
 #!/bin/sh -eux
 
-docker pull ghcr.io/rekgrpth/web2py.docker
+docker pull ghcr.io/rekgrpth/web2py.docker:oracle
 docker volume create web2py
 docker network create --attachable --opt com.docker.network.bridge.name=docker docker || echo $?
 docker stop web2py || echo $?
@@ -20,4 +20,4 @@ docker run \
     --name web2py \
     --network name=docker \
     --restart always \
-    ghcr.io/rekgrpth/web2py.docker runsvdir /etc/service
+    ghcr.io/rekgrpth/web2py.docker:oracle runsvdir /etc/service
