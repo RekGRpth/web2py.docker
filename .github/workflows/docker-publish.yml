@@ -73,7 +73,7 @@ jobs:
     needs: latest
     env:
       GITHUB_TOKEN: ${{ github.token }}
-      INPUTS_BRANCH: oracle
+      INPUTS_DOCKERFILE: Dockerfile.oracle
       INPUTS_TAG: oracle
     runs-on: ubuntu-latest
     steps:

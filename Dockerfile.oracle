@@ -1,0 +1,27 @@
+ARG DOCKER_FROM=web2py.docker:latest
+FROM "ghcr.io/rekgrpth/$DOCKER_FROM"
+ADD fakeglibc.c "$HOME/src/"
+ENV LD_PRELOAD=/usr/local/lib/fakeglibc.so
+RUN set -eux; \
+    apk update --no-cache; \
+    apk upgrade --no-cache; \
+    apk add --no-cache --virtual .build \
+        gcc \
+        musl-dev \
+        py3-pip \
+        python3-dev \
+    ; \
+    docker_oracle.sh; \
+    cd /; \
+    apk add --no-cache --virtual .oracle \
+        libaio \
+        libc6-compat \
+        libnsl \
+    ; \
+    apk del --no-cache .build; \
+    rm -rf "$HOME" /usr/share/doc /usr/share/man /usr/local/share/doc /usr/local/share/man; \
+    find /usr -type f -name "*.la" -delete; \
+    find /usr -type f -name "*.pyc" -delete; \
+    mkdir -p "$HOME"; \
+    chown -R "$USER":"$GROUP" "$HOME"; \
+    echo done
