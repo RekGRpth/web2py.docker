@@ -11,13 +11,3 @@ jobs:
     steps:
       - uses: rekgrpth/git-clone-shell-action@v1
       - uses: rekgrpth/update-license-year-shell-action@v1
-  oracle:
-    needs: license
-    env:
-      GITHUB_TOKEN: ${{ secrets.PUBLIC_REPO_ACCESS_TOKEN }}
-    runs-on: ubuntu-latest
-    steps:
-      - env:
-          INPUTS_BRANCH: oracle
-        uses: rekgrpth/git-clone-shell-action@v1
-      - uses: rekgrpth/update-license-year-shell-action@v1

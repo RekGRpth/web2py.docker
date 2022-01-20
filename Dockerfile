@@ -3,7 +3,6 @@ FROM "ghcr.io/rekgrpth/$DOCKER_FROM"
 ADD bin /usr/local/bin
 ADD fonts /usr/local/share/fonts
 ADD service /etc/service
-ARG DOCKER_BUILD=build
 ARG DOCKER_PYTHON_VERSION=3.9
 CMD [ "/etc/service/uwsgi/run" ]
 ENV GROUP=web2py \
@@ -11,18 +10,102 @@ ENV GROUP=web2py \
     PYTHONPATH="$HOME/app:$HOME/app/site-packages:$HOME/app/gluon/packages/dal:/usr/local/lib/python$DOCKER_PYTHON_VERSION:/usr/local/lib/python$DOCKER_PYTHON_VERSION/lib-dynload:/usr/local/lib/python$DOCKER_PYTHON_VERSION/site-packages" \
     USER=web2py
 RUN set -eux; \
-    export DOCKER_BUILD="$DOCKER_BUILD"; \
     export DOCKER_TYPE="$(cat /etc/os-release | grep -E '^ID=' | cut -f2 -d '=')"; \
-    if [ $DOCKER_TYPE != "alpine" ]; then \
-        export DEBIAN_FRONTEND=noninteractive; \
-        export savedAptMark="$(apt-mark showmanual)"; \
-    fi; \
     chmod +x /usr/local/bin/*.sh; \
-    test "$DOCKER_BUILD" = "build" && "docker_add_group_and_user_$DOCKER_TYPE.sh"; \
-    "docker_${DOCKER_BUILD}_$DOCKER_TYPE.sh"; \
+    apk update --no-cache; \
+    apk upgrade --no-cache; \
+    addgroup -S "$GROUP"; \
+    adduser -S -D -G "$GROUP" -H -h "$HOME" -s /sbin/nologin "$USER"; \
+    apk add --no-cache --virtual .build \
+        cjson-dev \
+        gcc \
+        git \
+        grep \
+        jansson-dev \
+        json-c-dev \
+        libffi-dev \
+        linux-headers \
+        make \
+        musl-dev \
+        openldap-dev \
+        pcre2-dev \
+        pcre-dev \
+        py3-dateutil \
+        py3-decorator \
+        py3-defusedxml \
+        py3-future \
+        py3-html5lib \
+        py3-httplib2 \
+        py3-jwt \
+        py3-lxml \
+        py3-magic \
+        py3-netaddr \
+        py3-olefile \
+        py3-openssl \
+        py3-pexpect \
+        py3-pillow \
+        py3-pip \
+        py3-psycopg2 \
+        py3-ptyprocess \
+        py3-pygments \
+        py3-pyldap \
+        py3-pypdf2 \
+        py3-reportlab \
+        py3-requests \
+        py3-setuptools \
+        py3-six \
+        py3-tz \
+        py3-wcwidth \
+        py3-wheel \
+        py3-xmltodict \
+        python3-dev \
+        swig \
+        talloc-dev \
+        zlib-dev \
+    ; \
     docker_clone.sh; \
-    "docker_$DOCKER_BUILD.sh"; \
-    "docker_clean_$DOCKER_TYPE.sh"; \
+    docker_build.sh; \
+    cd /; \
+    apk add --no-cache --virtual .web2py \
+        ipython \
+        libmagic \
+        openssh-client \
+        py3-dateutil \
+        py3-decorator \
+        py3-defusedxml \
+        py3-future \
+        py3-html5lib \
+        py3-httplib2 \
+        py3-jwt \
+        py3-lxml \
+        py3-magic \
+        py3-netaddr \
+        py3-olefile \
+        py3-openssl \
+        py3-pexpect \
+        py3-pillow \
+        py3-psycopg2 \
+        py3-ptyprocess \
+        py3-pygments \
+        py3-pyldap \
+        py3-pypdf2 \
+        py3-reportlab \
+        py3-requests \
+        py3-six \
+        py3-tz \
+        py3-wcwidth \
+        py3-xmltodict \
+        python3 \
+        runit \
+        sed \
+        sshpass \
+        supervisor \
+        uwsgi-python3 \
+        $(scanelf --needed --nobanner --format '%n#p' --recursive /usr/local | tr ',' '\n' | grep -v "^$" | sort -u | while read -r lib; do test -z "$(find /usr/local/lib -name "$lib")" && echo "so:$lib"; done) \
+    ; \
+    find /usr/local/bin -type f -exec strip '{}' \;; \
+    find /usr/local/lib -type f -name "*.so" -exec strip '{}' \;; \
+    apk del --no-cache .build; \
     rm -rf "$HOME" /usr/share/doc /usr/share/man /usr/local/share/doc /usr/local/share/man; \
     find /usr -type f -name "*.la" -delete; \
     find /usr -type f -name "*.pyc" -delete; \

@@ -43,6 +43,7 @@ jobs:
     env:
       DOCKER_FROM: lib.docker:debian
       GITHUB_TOKEN: ${{ github.token }}
+      INPUTS_DOCKERFILE: Dockerfile.debian
       INPUTS_TAG: debian
     runs-on: ubuntu-latest
     steps:
@@ -57,6 +58,7 @@ jobs:
     env:
       DOCKER_FROM: lib.docker:ubuntu
       GITHUB_TOKEN: ${{ github.token }}
+      INPUTS_DOCKERFILE: Dockerfile.debian
       INPUTS_TAG: ubuntu
     runs-on: ubuntu-latest
     steps:
