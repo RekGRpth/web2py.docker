@@ -8,13 +8,14 @@ on:
       - latest
   workflow_dispatch:
 env:
+  DOCKER_FROM: lib.docker:${{ github.job }}
   GITHUB_TOKEN: ${{ github.token }}
+  INPUTS_TAG: ${{ github.job }}
 concurrency:
   cancel-in-progress: true
   group: ${{ github.repository }}/${{ github.job }}
 jobs:
   latest:
-    name: ${{ github.job }} ${{ github.event.client_payload.repository }} ${{ github.event_name }} ${{ github.event.branch }}
     runs-on: ubuntu-latest
     steps:
       - uses: rekgrpth/git-clone-shell-action@v1
@@ -23,9 +24,7 @@ jobs:
     timeout-minutes: 20
   edge:
     env:
-      DOCKER_FROM: lib.docker:edge
       DOCKER_PYTHON_VERSION: '3.10'
-      INPUTS_TAG: edge
     runs-on: ubuntu-latest
     steps:
       - uses: rekgrpth/git-clone-shell-action@v1
@@ -34,9 +33,7 @@ jobs:
     timeout-minutes: 20
   debian:
     env:
-      DOCKER_FROM: lib.docker:debian
       INPUTS_DOCKERFILE: Dockerfile.debian
-      INPUTS_TAG: debian
     runs-on: ubuntu-latest
     steps:
       - uses: rekgrpth/git-clone-shell-action@v1
@@ -45,9 +42,7 @@ jobs:
     timeout-minutes: 20
   ubuntu:
     env:
-      DOCKER_FROM: lib.docker:ubuntu
       INPUTS_DOCKERFILE: Dockerfile.debian
-      INPUTS_TAG: ubuntu
     runs-on: ubuntu-latest
     steps:
       - uses: rekgrpth/git-clone-shell-action@v1
@@ -57,8 +52,8 @@ jobs:
   oracle:
     needs: latest
     env:
+      DOCKER_FROM: web2py.docker:latest
       INPUTS_DOCKERFILE: Dockerfile.oracle
-      INPUTS_TAG: oracle
     runs-on: ubuntu-latest
     steps:
       - uses: rekgrpth/git-clone-shell-action@v1
