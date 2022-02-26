@@ -1,6 +1,4 @@
-ARG DOCKER_FROM=lib.docker:latest
-FROM "ghcr.io/rekgrpth/$DOCKER_FROM"
-ADD bin /usr/local/bin
+FROM ghcr.io/rekgrpth/lib.docker:latest
 ADD fonts /usr/local/share/fonts
 ADD service /etc/service
 ARG DOCKER_PYTHON_VERSION=3.9
@@ -10,7 +8,6 @@ ENV GROUP=web2py \
     PYTHONPATH="$HOME/app:$HOME/app/site-packages:$HOME/app/gluon/packages/dal:/usr/local/lib/python$DOCKER_PYTHON_VERSION:/usr/local/lib/python$DOCKER_PYTHON_VERSION/lib-dynload:/usr/local/lib/python$DOCKER_PYTHON_VERSION/site-packages" \
     USER=web2py
 RUN set -eux; \
-    chmod +x /usr/local/bin/*.sh; \
     apk update --no-cache; \
     apk upgrade --no-cache; \
     addgroup -S "$GROUP"; \
@@ -62,8 +59,33 @@ RUN set -eux; \
         talloc-dev \
         zlib-dev \
     ; \
-    docker_clone.sh; \
-    docker_build.sh; \
+    mkdir -p "$HOME/src"; \
+    cd "$HOME/src"; \
+    git clone -b master https://github.com/RekGRpth/pyhandlebars.git; \
+    git clone -b master https://github.com/RekGRpth/pyhtmldoc.git; \
+    git clone -b master https://github.com/RekGRpth/pymustach.git; \
+    cd "$HOME/src/pyhandlebars"; \
+    python3 setup.py build; \
+    python3 setup.py install --prefix /usr/local; \
+    cd "$HOME/src/pyhtmldoc"; \
+    python3 setup.py build; \
+    python3 setup.py install --prefix /usr/local; \
+    cd "$HOME/src/pymustach"; \
+    python3 setup.py build; \
+    python3 setup.py install --prefix /usr/local; \
+    cd "$HOME"; \
+    pip install --no-cache-dir --prefix /usr/local \
+        captcha \
+        client_bank_exchange_1c \
+        multiprocessing-utils \
+        pg8000 \
+        pyexcel-ods \
+        python-ldap \
+        python-pcre \
+        sh \
+        suds2 \
+        xhtml2pdf \
+    ; \
     cd /; \
     apk add --no-cache --virtual .web2py \
         ipython \

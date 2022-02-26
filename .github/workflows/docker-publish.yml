@@ -8,55 +8,41 @@ on:
       - latest
   workflow_dispatch:
 env:
-  DOCKER_FROM: lib.docker:${{ github.job }}
   GITHUB_TOKEN: ${{ github.token }}
+  INPUTS_DOCKERFILE: Dockerfile.${{ github.job }}
   INPUTS_TAG: ${{ github.job }}
 concurrency:
   cancel-in-progress: true
   group: ${{ github.repository }}/${{ github.job }}
 jobs:
-  latest:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: rekgrpth/git-clone-shell-action@v1
-      - uses: rekgrpth/docker-login-build-push-shell-action@v1
-      - uses: rekgrpth/github-publish-action-shell-action@v1
-    timeout-minutes: 20
-  edge:
+  alpine:
     env:
-      DOCKER_PYTHON_VERSION: '3.10'
+      INPUTS_TAG: latest
     runs-on: ubuntu-latest
     steps:
       - uses: rekgrpth/git-clone-shell-action@v1
       - uses: rekgrpth/docker-login-build-push-shell-action@v1
       - uses: rekgrpth/github-publish-action-shell-action@v1
-    timeout-minutes: 20
+    timeout-minutes: 30
   debian:
-    env:
-      INPUTS_DOCKERFILE: Dockerfile.debian
     runs-on: ubuntu-latest
     steps:
       - uses: rekgrpth/git-clone-shell-action@v1
       - uses: rekgrpth/docker-login-build-push-shell-action@v1
       - uses: rekgrpth/github-publish-action-shell-action@v1
-    timeout-minutes: 20
+    timeout-minutes: 30
   ubuntu:
-    env:
-      INPUTS_DOCKERFILE: Dockerfile.debian
     runs-on: ubuntu-latest
     steps:
       - uses: rekgrpth/git-clone-shell-action@v1
       - uses: rekgrpth/docker-login-build-push-shell-action@v1
       - uses: rekgrpth/github-publish-action-shell-action@v1
-    timeout-minutes: 20
+    timeout-minutes: 30
   oracle:
-    needs: latest
-    env:
-      DOCKER_FROM: web2py.docker:latest
-      INPUTS_DOCKERFILE: Dockerfile.oracle
+    needs: alpine
     runs-on: ubuntu-latest
     steps:
       - uses: rekgrpth/git-clone-shell-action@v1
       - uses: rekgrpth/docker-login-build-push-shell-action@v1
       - uses: rekgrpth/github-publish-action-shell-action@v1
-    timeout-minutes: 20
+    timeout-minutes: 30
