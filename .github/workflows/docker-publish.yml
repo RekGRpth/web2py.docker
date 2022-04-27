@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 env:
   GITHUB_TOKEN: ${{ github.token }}
-  INPUTS_DOCKERFILE: Dockerfile.${{ github.job }}
+  INPUTS_DOCKERFILE: ${{ github.job }}.Dockerfile
   INPUTS_TAG: ${{ github.job }}
 concurrency:
   cancel-in-progress: true
