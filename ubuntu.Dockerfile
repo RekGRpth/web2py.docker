@@ -60,6 +60,7 @@ RUN set -eux; \
         python3-requests \
         python3-setuptools \
         python3-six \
+        python3-suds \
         python3-wcwidth \
         python3-willow \
         python3-xmltodict \
@@ -84,7 +85,6 @@ RUN set -eux; \
         python-ldap \
         python-pcre \
         sh \
-        suds2 \
         xhtml2pdf \
     ; \
     cd /; \
