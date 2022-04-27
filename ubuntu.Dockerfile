@@ -1,7 +1,7 @@
 FROM ghcr.io/rekgrpth/lib.docker:ubuntu
 ADD fonts /usr/local/share/fonts
 ADD service /etc/service
-ARG DOCKER_PYTHON_VERSION=3.9
+ARG DOCKER_PYTHON_VERSION=3.10
 CMD [ "/etc/service/uwsgi/run" ]
 ENV GROUP=web2py \
     PYTHONIOENCODING=UTF-8 \
