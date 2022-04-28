@@ -19,7 +19,7 @@ RUN set -eux; \
         file \
         gcc \
         git \
-        gnutls-dev \
+#        gnutls-dev \
         libc-dev \
         libcjson-dev \
         libffi-dev \
