@@ -50,6 +50,7 @@ RUN set -eux; \
         py3-requests \
         py3-setuptools \
         py3-six \
+        py3-suds-jurko \
         py3-tz \
         py3-wcwidth \
         py3-wheel \
@@ -77,7 +78,7 @@ RUN set -eux; \
         python-ldap \
         python-pcre \
         sh \
-        suds2 \
+#        suds2 \
         xhtml2pdf \
     ; \
     cd /; \
