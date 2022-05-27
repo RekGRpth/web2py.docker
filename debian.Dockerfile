@@ -1,7 +1,7 @@
 FROM ghcr.io/rekgrpth/lib.docker:debian
 ADD fonts /usr/local/share/fonts
 ADD service /etc/service
-ARG DOCKER_PYTHON_VERSION=3.9
+ARG DOCKER_PYTHON_VERSION=3.10
 CMD [ "/etc/service/uwsgi/run" ]
 ENV GROUP=web2py \
     PYTHONIOENCODING=UTF-8 \
@@ -60,6 +60,7 @@ RUN set -eux; \
         python3-requests \
         python3-setuptools \
         python3-six \
+        python3-suds \
         python3-wcwidth \
         python3-willow \
         python3-xmltodict \
@@ -84,7 +85,6 @@ RUN set -eux; \
         python-ldap \
         python-pcre \
         sh \
-        suds2 \
         xhtml2pdf \
     ; \
     cd /; \
