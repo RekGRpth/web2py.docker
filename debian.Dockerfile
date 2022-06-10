@@ -84,6 +84,7 @@ RUN set -eux; \
         pyexcel-ods \
         python-ldap \
         python-pcre \
+        requests-pkcs12 \
         sh \
         xhtml2pdf \
     ; \
