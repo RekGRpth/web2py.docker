@@ -65,9 +65,9 @@ RUN set -eux; \
 #    git clone -b master https://github.com/RekGRpth/pyhandlebars.git; \
     git clone -b master https://github.com/RekGRpth/pyhtmldoc.git; \
     git clone -b master https://github.com/RekGRpth/pymustach.git; \
-#    cd "$HOME/src/pyhandlebars" && python3 setup.py build && python3 setup.py install --prefix /usr/local; \
-    cd "$HOME/src/pyhtmldoc" && python3 setup.py build && python3 setup.py install --prefix /usr/local; \
-    cd "$HOME/src/pymustach" && python3 setup.py build && python3 setup.py install --prefix /usr/local; \
+#    cd "$HOME/src/pyhandlebars" && pip3 install --no-cache-dir --prefix /usr/local .; \
+    cd "$HOME/src/pyhtmldoc" && pip3 install --no-cache-dir --prefix /usr/local .; \
+    cd "$HOME/src/pymustach" && pip3 install --no-cache-dir --prefix /usr/local .; \
     cd "$HOME"; \
     pip install --no-cache-dir --prefix /usr/local \
         captcha \
