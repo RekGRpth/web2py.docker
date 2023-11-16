@@ -37,6 +37,7 @@ RUN set -eux; \
         libxml2-dev \
         libxslt-dev \
         make \
+        python3-cairo \
         python3-dateutil \
         python3-decorator \
         python3-dev \

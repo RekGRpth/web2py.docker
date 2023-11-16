@@ -26,6 +26,7 @@ RUN set -eux; \
         openldap-dev \
         pcre2-dev \
         pcre-dev \
+        py3-cairo \
         py3-dateutil \
         py3-decorator \
         py3-defusedxml \
