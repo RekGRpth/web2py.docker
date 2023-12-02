@@ -25,6 +25,7 @@ RUN set -eux; \
         autoconf \
         automake \
         bison \
+        ca-certificates \
         check \
         clang \
         file \
