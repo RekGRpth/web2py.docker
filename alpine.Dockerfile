@@ -45,7 +45,6 @@ RUN set -eux; \
         lmdb-dev \
         make \
         musl-dev \
-        mustach-dev \
         openldap-dev \
         pcre2-dev \
         pcre-dev \
@@ -89,6 +88,7 @@ RUN set -eux; \
     mkdir -p "$HOME/src"; \
     cd "$HOME/src"; \
     git clone -b master https://github.com/RekGRpth/htmldoc.git; \
+    git clone -b master https://github.com/RekGRpth/mustach.git; \
 #    git clone -b master https://github.com/RekGRpth/pyhandlebars.git; \
     git clone -b master https://github.com/RekGRpth/pyhtmldoc.git; \
     git clone -b master https://github.com/RekGRpth/pymustach.git; \
@@ -102,6 +102,8 @@ RUN set -eux; \
     make -j"$(nproc)" install; \
     cd "$HOME/src/htmldoc/htmldoc"; \
     make -j"$(nproc)" install; \
+    cd "$HOME/src/mustach"; \
+    make -j"$(nproc)" libs=single install; \
 #    cd "$HOME/src/pyhandlebars" && pip3 install --no-cache-dir --prefix /usr/local .; \
     cd "$HOME/src/pyhtmldoc"; \
     pip3 install --no-cache-dir --prefix /usr/local .; \
