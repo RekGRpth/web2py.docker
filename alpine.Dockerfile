@@ -1,4 +1,9 @@
-FROM ghcr.io/rekgrpth/lib.docker:latest
+FROM alpine:latest
+ADD bin /usr/local/bin
+ENTRYPOINT [ "docker_entrypoint.sh" ]
+ENV HOME=/home
+MAINTAINER RekGRpth
+WORKDIR "$HOME"
 ADD fonts /usr/local/share/fonts
 ADD service /etc/service
 ARG DOCKER_PYTHON_VERSION=3.11
@@ -8,19 +13,36 @@ ENV GROUP=web2py \
     PYTHONPATH="$HOME/app:$HOME/app/site-packages:$HOME/app/gluon/packages/dal:/usr/local/lib/python$DOCKER_PYTHON_VERSION:/usr/local/lib/python$DOCKER_PYTHON_VERSION/lib-dynload:/usr/local/lib/python$DOCKER_PYTHON_VERSION/site-packages" \
     USER=web2py
 RUN set -eux; \
+    ln -fs su-exec /sbin/gosu; \
+    chmod +x /usr/local/bin/*.sh; \
     apk update --no-cache; \
     apk upgrade --no-cache; \
     addgroup -S "$GROUP"; \
     adduser -S -D -G "$GROUP" -H -h "$HOME" -s /sbin/nologin "$USER"; \
     apk add --no-cache --virtual .build \
+        autoconf \
+        automake \
+        bison \
+        check-dev \
         cjson-dev \
+        clang \
+        cups-dev \
+        file \
+        flex \
+        fltk-dev \
+        g++ \
         gcc \
         git \
         grep \
         jansson-dev \
+        jpeg-dev \
         json-c-dev \
         libffi-dev \
+        libgcrypt-dev \
+        libpng-dev \
+        libtool \
         linux-headers \
+        lmdb-dev \
         make \
         musl-dev \
         openldap-dev \
@@ -57,18 +79,33 @@ RUN set -eux; \
         py3-wheel \
         py3-xmltodict \
         python3-dev \
+        subunit-dev \
         swig \
-        talloc-dev \
+#        talloc-dev \
+        yaml-dev \
         zlib-dev \
     ; \
     mkdir -p "$HOME/src"; \
     cd "$HOME/src"; \
+    git clone -b master https://github.com/RekGRpth/htmldoc.git; \
 #    git clone -b master https://github.com/RekGRpth/pyhandlebars.git; \
     git clone -b master https://github.com/RekGRpth/pyhtmldoc.git; \
     git clone -b master https://github.com/RekGRpth/pymustach.git; \
+    ln -fs libldap.a /usr/lib/libldap_r.a; \
+    ln -fs libldap.so /usr/lib/libldap_r.so; \
+    cd "$HOME/src/htmldoc"; \
+    ./configure --without-gui; \
+    cd "$HOME/src/htmldoc/data"; \
+    make -j"$(nproc)" install; \
+    cd "$HOME/src/htmldoc/fonts"; \
+    make -j"$(nproc)" install; \
+    cd "$HOME/src/htmldoc/htmldoc"; \
+    make -j"$(nproc)" install; \
 #    cd "$HOME/src/pyhandlebars" && pip3 install --no-cache-dir --prefix /usr/local .; \
-    cd "$HOME/src/pyhtmldoc" && pip3 install --no-cache-dir --prefix /usr/local .; \
-    cd "$HOME/src/pymustach" && pip3 install --no-cache-dir --prefix /usr/local .; \
+    cd "$HOME/src/pyhtmldoc"; \
+    pip3 install --no-cache-dir --prefix /usr/local .; \
+    cd "$HOME/src/pymustach"; \
+    pip3 install --no-cache-dir --prefix /usr/local .; \
     cd "$HOME"; \
     pip install --no-cache-dir --prefix /usr/local \
         captcha \
@@ -85,8 +122,12 @@ RUN set -eux; \
     ; \
     cd /; \
     apk add --no-cache --virtual .web2py \
+        busybox-extras \
+        busybox-suid \
+        ca-certificates \
         ipython \
         libmagic \
+        musl-locales \
         openssh-client \
         py3-dateutil \
         py3-decorator \
@@ -116,8 +157,11 @@ RUN set -eux; \
         python3 \
         runit \
         sed \
+        shadow \
         sshpass \
+        su-exec \
         supervisor \
+        tzdata \
         uwsgi-python3 \
         $(scanelf --needed --nobanner --format '%n#p' --recursive /usr/local | tr ',' '\n' | grep -v "^$" | grep -v -e libcrypto | sort -u | while read -r lib; do test -z "$(find /usr/local/lib -name "$lib")" && echo "so:$lib"; done) \
     ; \
