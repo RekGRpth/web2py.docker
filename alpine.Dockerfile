@@ -45,6 +45,7 @@ RUN set -eux; \
         lmdb-dev \
         make \
         musl-dev \
+        mustach-dev \
         openldap-dev \
         pcre2-dev \
         pcre-dev \
