@@ -17,7 +17,6 @@ RUN set -eux; \
     chmod +x /usr/local/bin/*.sh; \
     apt-get update; \
     apt-get full-upgrade -y --no-install-recommends; \
-    export savedAptMark="$(apt-mark showmanual)"; \
     addgroup --system "$GROUP"; \
     adduser --system --disabled-password --home "$HOME" --shell /sbin/nologin --ingroup "$GROUP" "$USER"; \
     apt-get install -y --no-install-recommends \
@@ -128,7 +127,6 @@ RUN set -eux; \
     ; \
     cd /; \
     apt-mark auto '.*' > /dev/null; \
-    apt-mark manual $savedAptMark; \
     find /usr/local -type f -executable -exec ldd '{}' ';' | grep -v 'not found' | awk '/=>/ { print $(NF-1) }' | sort -u | xargs -r dpkg-query --search | cut -d: -f1 | sort -u | xargs -r apt-mark manual; \
     find /usr/local -type f -executable -exec ldd '{}' ';' | grep -v 'not found' | awk '/=>/ { print $(NF-1) }' | sort -u | xargs -r -i echo "/usr{}" | xargs -r dpkg-query --search | cut -d: -f1 | sort -u  | xargs -r apt-mark manual; \
     apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
