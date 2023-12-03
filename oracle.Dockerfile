@@ -1,4 +1,4 @@
-FROM ghcr.io/rekgrpth/web2py.docker:latest
+FROM ghcr.io/rekgrpth/web2py.docker:gost
 ADD fakeglibc.c "$HOME/src/"
 ENV LD_PRELOAD=/usr/local/lib/fakeglibc.so
 RUN set -eux; \

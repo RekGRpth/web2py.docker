@@ -1,4 +1,4 @@
-FROM ghcr.io/rekgrpth/web2py.docker:oracle
+FROM ghcr.io/rekgrpth/web2py.docker:latest
 RUN set -eux; \
     apk update --no-cache; \
     apk upgrade --no-cache; \
