@@ -113,7 +113,7 @@ RUN set -eux; \
     cd "$HOME/src/pyhtmldoc" && pip3 install --no-cache-dir --prefix /usr/local .; \
     cd "$HOME/src/pymustach" && pip3 install --no-cache-dir --prefix /usr/local .; \
     cd "$HOME"; \
-    pip install --no-cache-dir --prefix /usr/local \
+    pip install --no-cache-dir --ignore-installed --prefix /usr/local \
         captcha \
         client_bank_exchange_1c \
         multiprocessing-utils \
