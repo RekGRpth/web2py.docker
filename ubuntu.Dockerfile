@@ -167,12 +167,15 @@ RUN set -eux; \
         python3-wcwidth \
         python3-willow \
         python3-xmltodict \
-        runit \
+#        runit \
         sed \
         sshpass \
         supervisor \
         tzdata \
         uwsgi-plugin-python3 \
+    ; \
+    apt-get install -y --no-install-recommends \
+        runit \
     ; \
     localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8; \
     localedef -i ru_RU -c -f UTF-8 -A /usr/share/locale/locale.alias ru_RU.UTF-8; \
