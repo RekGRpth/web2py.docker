@@ -6,7 +6,7 @@ MAINTAINER RekGRpth
 WORKDIR "$HOME"
 ADD fonts /usr/local/share/fonts
 ADD service /etc/service
-ARG DOCKER_PYTHON_VERSION=3.11
+ARG DOCKER_PYTHON_VERSION=3.12
 CMD [ "/etc/service/uwsgi/run" ]
 ENV GROUP=web2py \
     PYTHONIOENCODING=UTF-8 \
@@ -17,8 +17,8 @@ RUN set -eux; \
     chmod +x /usr/local/bin/*.sh; \
     apt-get update; \
     apt-get full-upgrade -y --no-install-recommends; \
-    addgroup --system "$GROUP"; \
-    adduser --system --disabled-password --home "$HOME" --shell /sbin/nologin --ingroup "$GROUP" "$USER"; \
+    groupadd --system "$GROUP"; \
+    useradd --system --home "$HOME" --shell /sbin/nologin --gid "$GROUP" "$USER"; \
     apt-get install -y --no-install-recommends \
         apt-utils \
         autoconf \
@@ -47,7 +47,6 @@ RUN set -eux; \
         liblmdb-dev \
         libopenjp2-7-dev \
         libpcre2-dev \
-        libpcre3-dev \
         libpng-dev \
         libsasl2-dev \
         libssl-dev \
@@ -113,7 +112,7 @@ RUN set -eux; \
     cd "$HOME/src/pyhtmldoc" && pip3 install --no-cache-dir --prefix /usr/local .; \
     cd "$HOME/src/pymustach" && pip3 install --no-cache-dir --prefix /usr/local .; \
     cd "$HOME"; \
-    pip install --no-cache-dir --prefix /usr/local \
+    pip install --no-cache-dir --ignore-installed --prefix /usr/local \
         captcha \
         client_bank_exchange_1c \
         multiprocessing-utils \
@@ -136,7 +135,6 @@ RUN set -eux; \
         ! grep -q '/usr/share/locale' /etc/dpkg/dpkg.cfg.d/docker; \
     fi; \
     apt-get install -y --no-install-recommends \
-        adduser \
         ca-certificates \
         gosu \
         libmagic1 \
