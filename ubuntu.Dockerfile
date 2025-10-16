@@ -27,12 +27,14 @@ RUN set -eux; \
         ca-certificates \
         check \
         clang \
+        cmake \
         file \
         flex \
         g++ \
         gcc \
         git \
 #        gnutls-dev \
+        libcairo2-dev \
         libc-dev \
         libcjson-dev \
         libcups2-dev \
