@@ -49,7 +49,7 @@ RUN set -eux; \
         liblmdb-dev \
         libopenjp2-7-dev \
         libpcre2-dev \
-        libpcre3-dev \
+#        libpcre3-dev \
         libpng-dev \
         libsasl2-dev \
         libssl-dev \
