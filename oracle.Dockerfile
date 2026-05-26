@@ -9,6 +9,7 @@ RUN set -eux; \
         musl-dev \
         py3-pip \
         python3-dev \
+        python3-setuptools \
     ; \
     mkdir -p "$HOME/src"; \
     cd "$HOME/src"; \
