@@ -74,6 +74,7 @@ RUN set -eux; \
         python3-netaddr \
         python3-olefile \
         python3-openssl \
+        python3-pcre2 \
         python3-pexpect \
         python3-pip \
         python3-psycopg2 \
@@ -122,7 +123,7 @@ RUN set -eux; \
         pg8000 \
         pyexcel-ods \
         python-ldap \
-        python-pcre \
+#        python-pcre \
         requests-pkcs12 \
         sh \
         xhtml2pdf \
@@ -155,6 +156,7 @@ RUN set -eux; \
         python3-netaddr \
         python3-olefile \
         python3-openssl \
+        python3-pcre2 \
         python3-pexpect \
         python3-pip \
         python3-psycopg2 \
