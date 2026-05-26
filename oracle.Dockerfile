@@ -8,8 +8,8 @@ RUN set -eux; \
         gcc \
         musl-dev \
         py3-pip \
+        py3-setuptools \
         python3-dev \
-        python3-setuptools \
     ; \
     mkdir -p "$HOME/src"; \
     cd "$HOME/src"; \
