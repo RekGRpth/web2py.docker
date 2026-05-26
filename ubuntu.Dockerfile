@@ -80,7 +80,7 @@ RUN set -eux; \
         python3-ptyprocess \
         python3-pygments \
         python3-pyldap \
-        python3-pypdf2 \
+#        python3-pypdf2 \
         python3-reportlab \
         python3-requests \
         python3-setuptools \
@@ -161,7 +161,7 @@ RUN set -eux; \
         python3-ptyprocess \
         python3-pygments \
         python3-pyldap \
-        python3-pypdf2 \
+#        python3-pypdf2 \
         python3-reportlab \
         python3-requests \
         python3-setuptools \
