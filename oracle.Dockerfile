@@ -24,7 +24,7 @@ RUN set -eux; \
     ln -s /lib/libc.so.6 /usr/lib/libresolv.so.2; \
     ln -s /lib64/ld-linux-x86-64.so.2 /usr/lib/ld-linux-x86-64.so.2; \
     pip install --no-cache-dir --ignore-installed --prefix /usr/local \
-        "setuptools<79" \
+        "setuptools<78" \
     ; \
     pip install --no-cache-dir --ignore-installed --prefix /usr/local \
         cx_Oracle \
