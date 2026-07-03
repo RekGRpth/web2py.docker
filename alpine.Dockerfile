@@ -1,4 +1,4 @@
-FROM alpine:3.23
+FROM alpine:latest
 ADD bin /usr/local/bin
 ENTRYPOINT [ "docker_entrypoint.sh" ]
 ENV HOME=/home
@@ -6,7 +6,7 @@ MAINTAINER RekGRpth
 WORKDIR "$HOME"
 ADD fonts /usr/local/share/fonts
 ADD service /etc/service
-ARG DOCKER_PYTHON_VERSION=3.12
+ARG DOCKER_PYTHON_VERSION=3.14
 CMD [ "/etc/service/uwsgi/run" ]
 ENV GROUP=web2py \
     PYTHONIOENCODING=UTF-8 \
@@ -52,7 +52,7 @@ RUN set -eux; \
         py3-dateutil \
         py3-decorator \
         py3-defusedxml \
-        py3-future \
+#        py3-future \
         py3-html5lib \
         py3-httplib2 \
         py3-jwt \
@@ -73,7 +73,7 @@ RUN set -eux; \
         py3-requests \
         py3-setuptools \
         py3-six \
-        py3-suds-jurko \
+#        py3-suds-jurko \
         py3-tz \
         py3-wcwidth \
         py3-wheel \
@@ -135,7 +135,7 @@ RUN set -eux; \
         py3-dateutil \
         py3-decorator \
         py3-defusedxml \
-        py3-future \
+#        py3-future \
         py3-html5lib \
         py3-httplib2 \
         py3-jwt \

@@ -8,7 +8,7 @@ RUN set -eux; \
         gcc \
         musl-dev \
         py3-pip \
-        py3-setuptools \
+#        py3-setuptools \
         python3-dev \
     ; \
     mkdir -p "$HOME/src"; \
@@ -23,9 +23,9 @@ RUN set -eux; \
     ln -s /usr/lib/libnsl.so.2 /usr/lib/libnsl.so.1; \
     ln -s /lib/libc.so.6 /usr/lib/libresolv.so.2; \
     ln -s /lib64/ld-linux-x86-64.so.2 /usr/lib/ld-linux-x86-64.so.2; \
-#    pip install --no-cache-dir --ignore-installed --prefix /usr/local \
-#        setuptools==81.0.0 \
-#    ; \
+    pip install --no-cache-dir --ignore-installed --prefix /usr/local \
+        setuptools==81.0.0 \
+    ; \
     pip install --no-cache-dir --ignore-installed --prefix /usr/local \
         cx_Oracle \
     ; \
