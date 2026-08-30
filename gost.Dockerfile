@@ -19,7 +19,7 @@ RUN set -eux; \
     cd "$HOME/src"; \
     git clone --branch master --recurse-submodules https://github.com/RekGRpth/engine.git; \
     cd "$HOME/src/engine"; \
-    cmake -DCMAKE_INSTALL_PREFIX=/usr .; \
+    cmake -DOPENSSL_ROOT_DIR=/usr -DOPENSSL_ENGINES_DIR=/usr/lib/x86_64-linux-gnu/engines-3 -DCMAKE_INSTALL_PREFIX=/usr .; \
     make -j"$(nproc)" install; \
     apk add --no-cache --virtual .gost \
         $(scanelf --needed --nobanner --format '%n#p' --recursive /usr/local | tr ',' '\n' | grep -v "^$" | grep -v libcrypto | grep -v 'libc\.so' | sort -u | while read -r lib; do test -z "$(find /usr/local/lib -name "$lib")" && echo "so:$lib"; done) \
