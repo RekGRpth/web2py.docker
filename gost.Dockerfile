@@ -26,7 +26,6 @@ RUN set -eux; \
     ; \
     find /usr/local/bin -type f -exec strip '{}' \;; \
     find /usr/local/lib -type f -name "*.so" -exec strip '{}' \;; \
-    strip /usr/lib/engines*/gost.so*; \
     apk del --no-cache .build; \
     sed -i '/\[openssl_init\]/ a engines = engine_section' /etc/ssl/openssl.cnf; \
     sed -i '6i openssl_conf=openssl_def' /etc/ssl/openssl.cnf; \
